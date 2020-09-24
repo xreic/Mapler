@@ -9,7 +9,7 @@ import {
 } from '@reach/router';
 
 // Components
-import { Home } from './Home';
+import { Home } from './components/Home';
 
 // Reach Router
 let source = createMemorySource('/');

@@ -14,7 +14,7 @@ if (require('electron-squirrel-startup')) {
 fs.readdir(app.getPath('userData'), (err, files) => {
   const store = new Store();
   if (files.indexOf('config.json') === -1) {
-    console.log("Need to create a new settings files, if it doesn't exist");
+    store.set({ characters: [] });
   }
 });
 
@@ -30,7 +30,6 @@ const createWindow = () => {
       nodeIntegration: true,
     },
     show: false,
-    // frame: false,
   });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
