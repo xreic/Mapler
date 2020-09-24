@@ -1,5 +1,12 @@
 import React from 'react';
 
 export const Home = () => {
-  return <div>Something here</div>;
+  return (
+    <div>
+      <div>
+        <p>Bosses</p>
+        <p>Quests</p>
+      </div>
+    </div>
+  );
 };
