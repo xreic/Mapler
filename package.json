@@ -93,6 +93,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.13.0",
+    "styled-components": "^5.2.0",
     "tailwindcss": "^1.8.10"
   }
 }
