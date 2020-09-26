@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Components
-import { BossSelector } from './BossSelector';
+import { QuestSelector } from './QuestSelector';
 
 // Component
-export const BossView = ({ children }) => (
+export const QuestView = ({ children }) => (
   <>
-    <BossSelector />
+    <QuestSelector />
     <div className="p-4">{children}</div>
   </>
 );

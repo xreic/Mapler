@@ -25,14 +25,12 @@ const WEEKLY_BOSSES = [
 ];
 
 // Component
-export const WeeklyBosses = () => {
-  return (
-    <div className="grid grid-cols-3 items-stretch">
-      {WEEKLY_BOSSES.map((boss) => (
-        <p key={boss} className="text-center">
-          {boss}
-        </p>
-      ))}
-    </div>
-  );
-};
+export const WeeklyBosses = () => (
+  <div className="grid grid-cols-3 items-stretch">
+    {WEEKLY_BOSSES.map((boss) => (
+      <p key={boss} className="text-center">
+        {boss}
+      </p>
+    ))}
+  </div>
+);

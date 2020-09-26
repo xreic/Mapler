@@ -1,30 +1,23 @@
 // Core
 import React from 'react';
+import { Link } from '@reach/router';
 
 // Component
-export const QuestSelector = () => {
-  return (
-    <div>
-      <div className="grid grid-cols-2 items-stretch">
-        <p
-          // TODO: Implement tooling for CSS-in-JS for TailwindCSS
-          className="inline-block text-center border border-red-500"
-          onClick={() => {
-            console.log('Clicked Maple World');
-          }}
-        >
-          Maple World
-        </p>
-        <p
-          // TODO: Implement tooling for CSS-in-JS for TailwindCSS
-          className="inline-block text-center border border-red-500"
-          onClick={() => {
-            console.log('Clicked Arcane River');
-          }}
-        >
-          Arcane River
-        </p>
-      </div>
-    </div>
-  );
-};
+export const QuestSelector = () => (
+  <nav className="grid grid-cols-2 items-stretch">
+    <Link
+      // TODO: Implement tooling for CSS-in-JS for TailwindCSS
+      to="/quests/maple"
+      className="inline-block text-center border border-red-500"
+    >
+      Maple World
+    </Link>
+    <Link
+      // TODO: Implement tooling for CSS-in-JS for TailwindCSS
+      to="/quests/arcane"
+      className="inline-block text-center border border-red-500"
+    >
+      Arcane River
+    </Link>
+  </nav>
+);

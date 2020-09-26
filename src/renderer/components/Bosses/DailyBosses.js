@@ -23,14 +23,12 @@ const DAILY_BOSSES = [
 ];
 
 // Component
-export const DailyBosses = () => {
-  return (
-    <div className="grid grid-cols-3 items-stretch">
-      {DAILY_BOSSES.map((boss) => (
-        <p key={boss} className="text-center">
-          {boss}
-        </p>
-      ))}
-    </div>
-  );
-};
+export const DailyBosses = () => (
+  <div className="grid grid-cols-3 items-stretch">
+    {DAILY_BOSSES.map((boss) => (
+      <p key={boss} className="text-center">
+        {boss}
+      </p>
+    ))}
+  </div>
+);

@@ -10,8 +10,12 @@ import {
 
 // Components
 import { MainSelector } from './components/MainSelector';
-import { QuestSelector } from './components/Quests/QuestSelector';
 import { BossView } from './components/Bosses/BossView';
+import { DailyBosses } from './components/Bosses/DailyBosses';
+import { WeeklyBosses } from './components/Bosses/WeeklyBosses';
+import { QuestView } from './components/Quests/QuestView';
+import { MapleWorldQuests } from './components/Quests/MapleWorldQuests';
+import { ArcaneRiverQuests } from './components/Quests/ArcaneRiverQuests';
 
 // Reach Router
 let source = createMemorySource('/');
@@ -35,8 +39,14 @@ const App = () => (
       Home will display tracker app that reads and writes
       information in app state store
       */}
-      <BossView path="bosses" default />
-      <QuestSelector path="/quests" />
+      <BossView path="/">
+        <DailyBosses path="/daily" default />
+        <WeeklyBosses path="/weekly" />
+      </BossView>
+      <QuestView path="/quests">
+        <MapleWorldQuests path="/maple" default />
+        <ArcaneRiverQuests path="/arcane" />
+      </QuestView>
     </Router>
   </LocationProvider>
 );
