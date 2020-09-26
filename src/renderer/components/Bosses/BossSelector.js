@@ -1,29 +1,27 @@
 // Core
 import React from 'react';
+import { Link } from '@reach/router';
 
+// Component
 export const BossSelector = () => {
   return (
     <div>
-      <div className="grid grid-cols-2 items-stretch">
-        <p
+      <nav className="grid grid-cols-2 items-stretch">
+        <Link
           // TODO: Implement tooling for CSS-in-JS for TailwindCSS
+          to="/daily"
           className="inline-block text-center border border-red-500"
-          onClick={() => {
-            console.log('Clicked Daily');
-          }}
         >
           Daily
-        </p>
-        <p
+        </Link>
+        <Link
           // TODO: Implement tooling for CSS-in-JS for TailwindCSS
+          to="/weekly"
           className="inline-block text-center border border-red-500"
-          onClick={() => {
-            console.log('Clicked Weekly');
-          }}
         >
           Weekly
-        </p>
-      </div>
+        </Link>
+      </nav>
     </div>
   );
 };

@@ -10,8 +10,8 @@ import {
 
 // Components
 import { MainSelector } from './components/MainSelector';
-import { BossSelector } from './components/Bosses/BossSelector';
 import { QuestSelector } from './components/Quests/QuestSelector';
+import { BossView } from './components/Bosses/BossView';
 
 // Reach Router
 let source = createMemorySource('/');
@@ -35,7 +35,7 @@ const App = () => (
       Home will display tracker app that reads and writes
       information in app state store
       */}
-      <BossSelector path="/bosses" />
+      <BossView path="bosses" default />
       <QuestSelector path="/quests" />
     </Router>
   </LocationProvider>
