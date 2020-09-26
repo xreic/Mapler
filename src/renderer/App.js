@@ -1,4 +1,4 @@
-// Dependencies
+// Core
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import {
@@ -9,14 +9,18 @@ import {
 } from '@reach/router';
 
 // Components
-import { Home } from './components/Home';
+import { MainSelector } from './components/MainSelector';
+import { BossSelector } from './components/Bosses/BossSelector';
+import { QuestSelector } from './components/Quests/QuestSelector';
 
 // Reach Router
 let source = createMemorySource('/');
 let history = createHistory(source);
 
+// Component
 const App = () => (
   <LocationProvider history={history}>
+    <MainSelector />
     <Router>
       {/*
       Need character selection view that reports
@@ -31,7 +35,8 @@ const App = () => (
       Home will display tracker app that reads and writes
       information in app state store
       */}
-      <Home path="/" />
+      <BossSelector path="/bosses" />
+      <QuestSelector path="/quests" />
     </Router>
   </LocationProvider>
 );

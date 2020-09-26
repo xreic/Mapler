@@ -1,6 +1,7 @@
+// Core
 import React from 'react';
 
-export const Home = () => {
+export const BossSelector = () => {
   return (
     <div>
       <div className="grid grid-cols-2 items-stretch">
@@ -8,19 +9,19 @@ export const Home = () => {
           // TODO: Implement tooling for CSS-in-JS for TailwindCSS
           className="inline-block text-center border border-red-500"
           onClick={() => {
-            console.log('Clicked Bosses');
+            console.log('Clicked Daily');
           }}
         >
-          Bosses
+          Daily
         </p>
         <p
           // TODO: Implement tooling for CSS-in-JS for TailwindCSS
           className="inline-block text-center border border-red-500"
           onClick={() => {
-            console.log('Clicked Quests');
+            console.log('Clicked Weekly');
           }}
         >
-          Quests
+          Weekly
         </p>
       </div>
     </div>
