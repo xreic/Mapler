@@ -1,10 +1,16 @@
+// Core
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+// CSS
 import '../../public/index.css';
 
+// Electron verification message
 console.log(
   '👋 This message is being logged by "renderer.js", included via webpack',
 );
+
+// Components
+import App from './components/App';
 
 ReactDOM.render(<App />, document.getElementById('root'));

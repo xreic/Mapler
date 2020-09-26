@@ -9,13 +9,17 @@ import {
 } from '@reach/router';
 
 // Components
-import { MainSelector } from './components/MainSelector';
-import { BossView } from './components/Bosses/BossView';
-import { DailyBosses } from './components/Bosses/DailyBosses';
-import { WeeklyBosses } from './components/Bosses/WeeklyBosses';
-import { QuestView } from './components/Quests/QuestView';
-import { MapleWorldQuests } from './components/Quests/MapleWorldQuests';
-import { ArcaneRiverQuests } from './components/Quests/ArcaneRiverQuests';
+import { MainSelector } from './MainSelector';
+import { View } from './View';
+import { List } from './utils/List';
+
+// Helpers
+import {
+  DAILY_BOSSES,
+  WEEKLY_BOSSES,
+  MAPLE_WORLD_QUESTS,
+  ARCANE_RIVER_QUESTS,
+} from './utils/variables';
 
 // Reach Router
 let source = createMemorySource('/');
@@ -39,14 +43,14 @@ const App = () => (
       Home will display tracker app that reads and writes
       information in app state store
       */}
-      <BossView path="/">
-        <DailyBosses path="/daily" default />
-        <WeeklyBosses path="/weekly" />
-      </BossView>
-      <QuestView path="/quests">
-        <MapleWorldQuests path="/maple" default />
-        <ArcaneRiverQuests path="/arcane" />
-      </QuestView>
+      <View option="bosses" path="/">
+        <List list={DAILY_BOSSES} path="/daily" default />
+        <List list={WEEKLY_BOSSES} path="/weekly" />
+      </View>
+      <View option="quests" path="/quests">
+        <List list={MAPLE_WORLD_QUESTS} path="/maple" default />
+        <List list={ARCANE_RIVER_QUESTS} path="/arcane" />
+      </View>
     </Router>
   </LocationProvider>
 );

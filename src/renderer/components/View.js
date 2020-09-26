@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Components
-import { QuestSelector } from './QuestSelector';
+import { Subnav } from './Subnav';
 
 // Component
-export const QuestView = ({ children }) => (
+export const View = ({ option, children }) => (
   <>
-    <QuestSelector />
+    <Subnav option={option} />
     <div className="p-4">{children}</div>
   </>
 );
