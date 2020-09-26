@@ -9,7 +9,7 @@ import {
 } from '@reach/router';
 
 // Components
-import { MainSelector } from './MainSelector';
+import { MainNav } from './navs/MainNav';
 import { View } from './View';
 import { List } from './utils/List';
 
@@ -28,7 +28,7 @@ let history = createHistory(source);
 // Component
 const App = () => (
   <LocationProvider history={history}>
-    <MainSelector />
+    <MainNav />
     <Router>
       {/*
       Need character selection view that reports

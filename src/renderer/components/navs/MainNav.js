@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 // Component
-export const MainSelector = () => (
+export const MainNav = () => (
   <nav className="grid grid-cols-2 items-stretch">
     <Link
       // TODO: Implement tooling for CSS-in-JS for TailwindCSS

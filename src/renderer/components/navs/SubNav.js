@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 // Component
-export const Subnav = ({ option }) => {
+export const SubNav = ({ option }) => {
   const ifBosses = option === 'bosses';
 
   return (
