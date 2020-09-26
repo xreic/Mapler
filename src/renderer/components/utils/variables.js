@@ -65,3 +65,10 @@ exports.ARCANE_RIVER_QUESTS = [
   'Morass',
   'Esfera',
 ];
+
+exports.BOSSES = 'bosses';
+exports.QUESTS = 'quests';
+exports.DAILY = 'daily';
+exports.WEEKLY = 'weekly';
+exports.MAPLE = 'maple';
+exports.ARCANE = 'arcane';

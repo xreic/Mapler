@@ -13,12 +13,18 @@ import { MainNav } from './navs/MainNav';
 import { View } from './View';
 import { List } from './utils/List';
 
-// Helpers
+// Helpers/Declarations/Variables/Etc
 import {
   DAILY_BOSSES,
   WEEKLY_BOSSES,
   MAPLE_WORLD_QUESTS,
   ARCANE_RIVER_QUESTS,
+  BOSSES,
+  QUESTS,
+  DAILY,
+  WEEKLY,
+  MAPLE,
+  ARCANE,
 } from './utils/variables';
 
 // Reach Router
@@ -43,13 +49,13 @@ const App = () => (
       Home will display tracker app that reads and writes
       information in app state store
       */}
-      <View option="bosses" path="/">
-        <List list={DAILY_BOSSES} path="/daily" default />
-        <List list={WEEKLY_BOSSES} path="/weekly" />
+      <View option={BOSSES} path="/">
+        <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
+        <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
       </View>
-      <View option="quests" path="/quests">
-        <List list={MAPLE_WORLD_QUESTS} path="/maple" default />
-        <List list={ARCANE_RIVER_QUESTS} path="/arcane" />
+      <View option={`${QUESTS}`} path={`/${QUESTS}`}>
+        <List list={MAPLE_WORLD_QUESTS} path={`/${MAPLE}`} default />
+        <List list={ARCANE_RIVER_QUESTS} path={`/${ARCANE}`} />
       </View>
     </Router>
   </LocationProvider>
