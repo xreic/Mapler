@@ -68,7 +68,6 @@ exports.ARCANE_RIVER_QUESTS = [
 
 exports.BOSSES = 'bosses';
 exports.QUESTS = 'quests';
-exports.CHARACTERS = 'characters';
 exports.DAILY = 'daily';
 exports.WEEKLY = 'weekly';
 exports.MAPLE = 'maple';

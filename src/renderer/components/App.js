@@ -50,9 +50,9 @@ const App = () => (
       Home will display tracker app that reads and writes
       information in app state store
     */}
-      // TODO: Solve overflow issues within views
+      {/* TODO: Solve overflow issues within views */}
       <CharacterView path="/" />
-      <View option={BOSSES} path="/bosses">
+      <View option={BOSSES} path={`/${BOSSES}`}>
         <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
         <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
       </View>

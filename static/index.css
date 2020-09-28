@@ -8,3 +8,8 @@ body {
   margin: auto;
   /* padding: 1rem; */
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}

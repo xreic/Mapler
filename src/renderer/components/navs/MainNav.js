@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 // Helpers/Declarations/Variables/Etc
-import { BOSSES, QUESTS, CHARACTERS } from '../utils/variables';
+import { BOSSES, QUESTS } from '../utils/variables';
 
 // Component
 export const MainNav = () => (
