@@ -4,15 +4,26 @@ import React from 'react';
 // Helpers/Declarations/Variables/Etc
 import { DUMMY_CHARS } from './utils/variables';
 
+/**
+ * NOTE
+ * Will be using Electron store to retrieve
+ * character names and character codes to render
+ */
+
 // Components
 export const CharacterView = () => (
-  <div className="overflow-y-scroll justify-items-center grid grid-cols-3 items-stretch">
-    {DUMMY_CHARS.map((char) => (
-      <img
-        key={char}
-        src={`http://msavatar1.nexon.net/Character/${char}.png`}
-        className="object-scale-down inline-block py-2 border border-red-500"
-      />
+  <div className="overflow-y-scroll justify-items-center grid grid-cols-3 gap-4 px-2 py-2 h-64">
+    {DUMMY_CHARS.map((char, index) => (
+      <>
+        <label className="text-center text-xs">
+          <img
+            key={`${char}${index}`}
+            src={`http://msavatar1.nexon.net/Character/${char}.png`}
+            className="object-scale-down inline-block border border-red-500"
+          />
+          Name Here
+        </label>
+      </>
     ))}
   </div>
 );

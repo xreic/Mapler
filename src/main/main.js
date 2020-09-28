@@ -20,7 +20,7 @@ fs.readdir(app.getPath('userData'), (err, files) => {
 
 const createWindow = () => {
   const width = 325;
-  const height = 375;
+  const height = 341;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
