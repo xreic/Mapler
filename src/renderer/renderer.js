@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // CSS
-import '../../public/index.css';
+import '../../static/index.css';
 
 // Electron verification message
 console.log(

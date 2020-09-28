@@ -9,6 +9,7 @@ import {
 } from '@reach/router';
 
 // Components
+import { CharacterView } from './CharacterView';
 import { MainNav } from './navs/MainNav';
 import { View } from './View';
 import { List } from './utils/List';
@@ -48,8 +49,10 @@ const App = () => (
       {/*
       Home will display tracker app that reads and writes
       information in app state store
-      */}
-      <View option={BOSSES} path="/">
+    */}
+      // TODO: Solve overflow issues within views
+      <CharacterView path="/" />
+      <View option={BOSSES} path="/bosses">
         <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
         <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
       </View>
