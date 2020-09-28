@@ -36,26 +36,35 @@ let history = createHistory(source);
 const App = () => (
   <LocationProvider history={history}>
     <MainNav />
-    <Router>
+
+    {/*
+    Currently using "primary" prop to "reset"
+      scroll back to the top upon switching
+      TODO: Bugged with nested routes
+    */}
+    <Router primary={false}>
       {/*
       Need character selection view that reports
-      the current character to the entire app
-      need to store app state
+        the current character to the entire app
+        need to store app state
 
-      1. Redux
+      More likely a combination of 2 + 3
+
+      1. Redux (Least likely)
       2. Hooks
       3. Subscription to Electron store
       */}
+
       {/*
-      Home will display tracker app that reads and writes
-      information in app state store
-    */}
-      {/* TODO: Solve overflow issues within views */}
+      TODO: Solve overflow issues within views
+      */}
       <CharacterView path="/" />
+
       <View option={BOSSES} path={`/${BOSSES}`}>
         <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
         <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
       </View>
+
       <View option={`${QUESTS}`} path={`/${QUESTS}`}>
         <List list={MAPLE_WORLD_QUESTS} path={`/${MAPLE}`} default />
         <List list={ARCANE_RIVER_QUESTS} path={`/${ARCANE}`} />

@@ -6,8 +6,8 @@ import { SubNav } from './navs/SubNav';
 
 // Component
 export const View = ({ option, children }) => (
-  <div className="overflow-y-hidden">
+  <>
     <SubNav option={option} />
-    <div className="overflow-y-scroll p-4">{children}</div>
-  </div>
+    <div className="overflow-y-scroll px-2 py-2 h-56">{children}</div>
+  </>
 );
