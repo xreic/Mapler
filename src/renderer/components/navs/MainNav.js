@@ -30,6 +30,9 @@ export const MainNav = () => (
       Characters
     </Link>
     <div className="inline-block text-center border border-red-500 w-26 min-w-26">
+      Totem
+    </div>
+    <div className="inline-block text-center border border-red-500 w-26 min-w-26">
       S
     </div>
   </nav>

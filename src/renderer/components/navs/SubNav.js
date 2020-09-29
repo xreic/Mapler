@@ -25,9 +25,6 @@ export const SubNav = ({ option }) => {
       >
         {ifBosses ? 'Weekly' : 'Arcane River'}
       </Link>
-      <div className="inline-block text-center border border-red-500 w-26 min-w-26">
-        T
-      </div>
     </nav>
   );
 };
