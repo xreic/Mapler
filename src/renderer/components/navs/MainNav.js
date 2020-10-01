@@ -29,9 +29,21 @@ export const MainNav = () => (
     >
       Characters
     </Link>
-    <div className="inline-block text-center border border-red-500 w-26 min-w-26">
+    {/*
+    Future feature
+    Change to image of a totem
+
+    <Link
+      // TODO: Implement tooling for CSS-in-JS for TailwindCSS
+      to={`/totem`}
+      className="inline-block text-center border border-red-500 w-26 min-w-26"
+    >
       Totem
-    </div>
+    </Link>
+    */}
+    {/*
+    Change to an image of a cog wheel or something
+    */}
     <div className="inline-block text-center border border-red-500 w-26 min-w-26">
       S
     </div>

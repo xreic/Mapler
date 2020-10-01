@@ -9,10 +9,11 @@ import {
 } from '@reach/router';
 
 // Components
-import { CharacterView } from './CharacterView';
-import { MainNav } from './navs/MainNav';
-import { View } from './View';
-import { List } from './utils/List';
+import { CharacterView } from './components/CharacterView';
+import { Totem } from './components/Totem';
+import { MainNav } from './components/navs/MainNav';
+import { View } from './components/View';
+import { List } from './components/utils/List';
 
 // Helpers/Declarations/Variables/Etc
 import {
@@ -26,7 +27,7 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-} from './utils/variables';
+} from './components/utils/variables';
 
 // Reach Router
 let source = createMemorySource('/');
@@ -59,6 +60,8 @@ const App = () => (
       TODO: Solve overflow issues within views
       */}
       <CharacterView path="/" />
+
+      <Totem path="/totem" />
 
       <View option={BOSSES} path={`/${BOSSES}`}>
         <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
