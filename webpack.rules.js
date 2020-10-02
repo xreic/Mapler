@@ -5,6 +5,10 @@ module.exports = [
     use: 'node-loader',
   },
   {
+    test: /\.(jpg|png|svg|gif|webp)$/,
+    loader: 'file-loader',
+  },
+  {
     test: /\.(m?jsx?|node)$/,
     exclude: /(.webpack|node_modules)/,
     parser: { amd: false },

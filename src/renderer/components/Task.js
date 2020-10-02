@@ -32,12 +32,15 @@ export const Task = ({ name }) => {
 
   if (!loading && !!importedImage.current) {
     return (
-      <img
-        src={importedImage.current}
-        className="object-scale-down rounded-full h-53px w-57px"
-      />
+      <>
+        <img
+          src={importedImage.current}
+          className="object-scale-down rounded-full"
+        />
+        <p className="text-sm text-center">{name}</p>
+      </>
     );
   }
 
-  return <p className="text-center h-57px w-86px">{name}</p>;
+  return <p className="text-center">{name}</p>;
 };
