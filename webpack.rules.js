@@ -5,13 +5,6 @@ module.exports = [
     use: 'node-loader',
   },
   {
-    test: /\.(jpg|png|svg|gif|webp)$/,
-    loader: 'file-loader',
-    // options: {
-    //   name: '[path][name].[ext]',
-    // },
-  },
-  {
     test: /\.(m?jsx?|node)$/,
     exclude: /(.webpack|node_modules)/,
     parser: { amd: false },

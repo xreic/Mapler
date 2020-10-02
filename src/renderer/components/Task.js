@@ -23,7 +23,7 @@ export const Task = ({ name }) => {
         // console.error('==== Task.js Error ====');
         // console.error(err);
         // console.error('==== Task.js Error ====');
-        // throw err;
+        throw err;
       } finally {
         setLoading(false);
       }
@@ -31,8 +31,13 @@ export const Task = ({ name }) => {
   }, []);
 
   if (!loading && !!importedImage.current) {
-    return <img src={importedImage.current} />;
+    return (
+      <img
+        src={importedImage.current}
+        className="object-scale-down rounded-full h-53px w-57px"
+      />
+    );
   }
 
-  return <p className="text-center h-57 w-86">{name}</p>;
+  return <p className="text-center h-57px w-86px">{name}</p>;
 };
