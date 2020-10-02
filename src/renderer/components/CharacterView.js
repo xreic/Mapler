@@ -9,8 +9,6 @@ import { DUMMY_CHARS } from './utils/variables';
  * Will be using Electron store to retrieve
  * character names and character codes to render
  */
-
-// Components
 export const CharacterView = () => (
   <>
     <div className="overflow-y-scroll justify-items-center grid grid-cols-3 gap-2 py-2 h-64">
@@ -31,4 +29,3 @@ export const CharacterView = () => (
     <p className="text-center border border-red-500">Add Character</p>
   </>
 );
-

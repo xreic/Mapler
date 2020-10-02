@@ -1,7 +1,6 @@
 // Core
 import React, { useEffect, useRef, useState } from 'react';
 
-// Component
 export const Task = ({ name }) => {
   /**
    * importImage stores the dynamically imported image
@@ -32,15 +31,18 @@ export const Task = ({ name }) => {
 
   if (!loading && !!importedImage.current) {
     return (
-      <>
+      <div className="border border-red-500 bg-green-600 rounded-md">
         <img
           src={importedImage.current}
-          className="object-scale-down rounded-full"
+          className="object-contain mx-auto border border-black bg-gray-600 rounded-full h-57px w-53px"
         />
-        <p className="text-sm text-center">{name}</p>
-      </>
+      </div>
     );
   }
 
-  return <p className="text-center">{name}</p>;
+  return (
+    <p className="border border-red-500 text-sm text-center h-57px w-86px">
+      {name}
+    </p>
+  );
 };

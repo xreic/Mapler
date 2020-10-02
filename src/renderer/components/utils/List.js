@@ -1,16 +1,13 @@
 // Core
 import React from 'react';
+
+// Component
 import { Task } from '../Task';
 
-// Components
-export const List = ({ list }) => {
-  return (
-    <div className="grid grid-cols-3 items-center gap-6">
-      {list.map((item) => (
-        <div key={item} className="border border-red-500 ">
-          <Task name={item} />
-        </div>
-      ))}
-    </div>
-  );
-};
+export const List = ({ list }) => (
+  <div className="justify-items-stretch grid grid-cols-3 gap-1">
+    {list.map((item) => (
+      <Task key={item} name={item} />
+    ))}
+  </div>
+);

@@ -33,7 +33,6 @@ import {
 let source = createMemorySource('/');
 let history = createHistory(source);
 
-// Component
 const App = () => (
   <LocationProvider history={history}>
     <MainNav />
