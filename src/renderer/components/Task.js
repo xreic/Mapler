@@ -40,9 +40,11 @@ export const Task = ({ name }) => {
     );
   }
 
-  return (
-    <p className="border border-red-500 text-sm text-center h-57px w-86px">
-      {name}
-    </p>
-  );
+  // return (
+  //   <p className="border border-red-500 text-sm text-center h-57px w-86px">
+  //     {name}
+  //   </p>
+  // );
+
+  return null;
 };

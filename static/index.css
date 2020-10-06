@@ -14,3 +14,27 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.fade {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+}
+
+.fade-enter {
+  opacity: 0.15;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0.15;
+  transition: opacity 300ms;
+}
