@@ -49,7 +49,7 @@ exports.MAPLE_WORLD_QUESTS = [
   'Commerci Voyages',
   'Yu Garden',
   'Daily Gift',
-  'Phantom Forest',
+  'Shadowknight Coin',
   'Guild Buff',
   'Scrapyard',
   'Dark World Tree',
