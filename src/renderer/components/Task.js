@@ -35,8 +35,9 @@ export const Task = ({ name }) => {
         <img
           src={importedImage.current}
           alt={name}
-          className="object-contain mx-auto border border-black bg-white rounded-full h-57px w-53px"
+          className="mx-auto border border-black bg-white rounded-full h-57px w-53px"
         />
+        <p className="text-center text-xs">{name}</p>
       </div>
     );
   }

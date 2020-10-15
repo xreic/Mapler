@@ -13,7 +13,7 @@ import { Transition } from './utils/Transition';
 export const CharacterView = ({ location }) => (
   <>
     <Transition location={location}>
-      <div className="overflow-y-scroll justify-items-center grid grid-cols-3 gap-2 py-2 h-64">
+      <div className="overflow-y-scroll justify-items-center grid grid-cols-3 gap-2 px-2 py-2 h-64">
         {DUMMY_CHARS.map((char, index) => (
           <img
             key={`${char}${index}`}
