@@ -91,7 +91,6 @@
     "cheerio": "^1.0.0-rc.3",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.0",
-    "iohook": "^0.6.6",
     "needle": "^2.5.2",
     "postcss": "^8.0.9",
     "react": "^16.13.1",
