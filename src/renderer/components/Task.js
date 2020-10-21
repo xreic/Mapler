@@ -37,16 +37,10 @@ export const Task = ({ name }) => {
           alt={name}
           className="mx-auto border border-black bg-white rounded-full h-57px w-53px"
         />
-        <p className="text-center text-xs">{name}</p>
+        {/* <p className="text-center text-xs">{name}</p> */}
       </div>
     );
   }
-
-  // return (
-  //   <p className="border border-red-500 text-sm text-center h-57px w-86px">
-  //     {name}
-  //   </p>
-  // );
 
   return null;
 };
