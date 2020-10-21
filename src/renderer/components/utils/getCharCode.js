@@ -1,6 +1,5 @@
 // Core
 import Store from 'electron-store';
-import got from 'got';
 import needle from 'needle';
 import cheerio from 'cheerio';
 import { CHAR_CODES, ACTIVE } from './variables';
