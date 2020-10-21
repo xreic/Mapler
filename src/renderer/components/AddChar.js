@@ -1,7 +1,7 @@
 // Core
 import React, { useState } from 'react';
 import Store from 'electron-store';
-import { getCharCode } from './utils/getCharCode';
+import { getCharCode, fakeCall } from './utils/getCharCode';
 import { ACTIVE, CHAR_CODES, CHARACTERS } from './utils/variables';
 
 // Libraries
@@ -19,8 +19,17 @@ export const AddChar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const isSuccessful = await getCharCode(charName);
-    if (isSuccessful) {
+
+    let isSuccessful = false;
+
+    while (!isSuccessful) {
+      console.log('Calling');
+      isSuccessful = await getCharCode(charName);
+    }
+
+    if (isSuccessful === 'Invalid Character Name') {
+      console.log('Invalid Character Name');
+    } else if (isSuccessful) {
       e.target.reset();
     }
 

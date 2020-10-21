@@ -48,9 +48,5 @@ export const CharacterView = ({ location }) => {
     );
   }
 
-  return (
-    <Transition location={location}>
-      <AddChar />
-    </Transition>
-  );
+  return <AddChar />;
 };
