@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Store from 'electron-store';
 import { getCharCode } from './utils/getCharCode';
-import { ACTIVE, CHAR_CODES, CHARACTERS } from './utils/variables';
+import { ACTIVE, CHARACTERS } from './utils/variables';
 
 // Libraries
 const store = new Store();
@@ -70,7 +70,6 @@ export const AddChar = () => {
         className="text-center border border-red-500 w-full"
         onClick={() => {
           store.set(ACTIVE, '');
-          store.set(CHAR_CODES, []);
           store.set(CHARACTERS, []);
         }}
       >

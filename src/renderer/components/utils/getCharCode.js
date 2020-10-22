@@ -3,7 +3,7 @@ import Store from 'electron-store';
 import https from 'https';
 import needle from 'needle';
 import cheerio from 'cheerio';
-import { CHAR_CODES, ACTIVE, CHARACTERS } from './variables';
+import { ACTIVE, CHARACTERS } from './variables';
 
 const store = new Store();
 const agent = new https.Agent({
@@ -40,8 +40,7 @@ const getTemplate = (charName, charCode) => ({
  * @param {string} charCode
  */
 const setStore = (charName, charCode) => {
-  store.set(ACTIVE, charName);
-  store.set(CHAR_CODES, [...store.get(CHAR_CODES), charCode]);
+  store.set(ACTIVE, charCode);
   store.set(CHARACTERS, [
     ...store.get(CHARACTERS),
     getTemplate(charName, charCode),
