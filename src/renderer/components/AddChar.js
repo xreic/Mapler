@@ -1,7 +1,7 @@
 // Core
 import React, { useState } from 'react';
 import Store from 'electron-store';
-import { getCharCode, fakeCall } from './utils/getCharCode';
+import { getCharCode } from './utils/getCharCode';
 import { ACTIVE, CHAR_CODES, CHARACTERS } from './utils/variables';
 
 // Libraries
@@ -27,21 +27,14 @@ export const AddChar = () => {
       isSuccessful = await getCharCode(charName);
     }
 
-    if (isSuccessful === 'Invalid Character Name') {
-      console.log('Invalid Character Name');
-    } else if (isSuccessful) {
+    if (isSuccessful === true) {
       e.target.reset();
+    } else if (isSuccessful !== false) {
+      console.log(isSuccessful);
     }
 
     setIsLoading(false);
   };
-
-  const getTemplate = (charCode) => ({
-    name: charName,
-    code: charCode,
-    bosses: { daily: [], weekly: [], hidden: [] },
-    quests: { mapleworld: [], arcaneriver: [], hidden: [] },
-  });
 
   if (isAdding) {
     return (
@@ -50,6 +43,7 @@ export const AddChar = () => {
           placeholder="Character Code"
           onChange={handleChange}
           className="flex-1 text-center border border-red-500"
+          maxLength={12}
           disabled={isLoading}
         ></input>
         <button

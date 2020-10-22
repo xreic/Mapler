@@ -3,7 +3,7 @@ import Store from 'electron-store';
 import https from 'https';
 import needle from 'needle';
 import cheerio from 'cheerio';
-import { CHAR_CODES, ACTIVE } from './variables';
+import { CHAR_CODES, ACTIVE, CHARACTERS } from './variables';
 
 const store = new Store();
 const agent = new https.Agent({
@@ -15,11 +15,52 @@ const agent = new https.Agent({
   timeout: 2000,
 });
 
-export const getCharCode = async (character) => {
+/**
+ * Returns a boolean whether or not the character is stored already
+ * @param {string} charName
+ */
+const isDupe = (charName) =>
+  store.get(CHARACTERS).some(({ name }) => charName === name);
+
+/**
+ * Returns a data store shape per character entry
+ * @param {string} charName
+ * @param {string} charCode
+ */
+const getTemplate = (charName, charCode) => ({
+  name: charName,
+  code: charCode,
+  bosses: { daily: [], weekly: [], hidden: [] },
+  quests: { mapleworld: [], arcaneriver: [], hidden: [] },
+});
+
+/**
+ * Sets the valid character into the data store
+ * @param {string} charName
+ * @param {string} charCode
+ */
+const setStore = (charName, charCode) => {
+  store.set(ACTIVE, charName);
+  store.set(CHAR_CODES, [...store.get(CHAR_CODES), charCode]);
+  store.set(CHARACTERS, [
+    ...store.get(CHARACTERS),
+    getTemplate(charName, charCode),
+  ]);
+};
+
+/**
+ * Performs a network requests against the Maplestory rankings page to retrieve an image the desired character
+ * @param {string} charName
+ */
+export const getCharCode = async (charName) => {
+  if (isDupe(charName)) {
+    return 'Dupe';
+  }
+
   const url = `https://maplestory.nexon.net/rankings/overall-ranking/legendary`;
   const params = {
     pageIndex: 1,
-    character_name: encodeURIComponent(character.trim()),
+    character_name: encodeURIComponent(charName.trim()),
     search: true,
     rebootIndex: 1,
   };
@@ -44,28 +85,10 @@ export const getCharCode = async (character) => {
       return 'Invalid Character Name';
     }
 
-    const charCode = link.substring(37, link.length - 4);
-
-    store.set(ACTIVE, character);
-    store.set(CHAR_CODES, [...store.get(CHAR_CODES), charCode]);
+    setStore(charName, link.substring(37, link.length - 4));
 
     return true;
   } catch (err) {
-    return false;
-  }
-};
-
-export const fakeCall = async () => {
-  const baseURL = 'https://google.com';
-
-  try {
-    const fakeData = await needle('get', baseURL);
-
-    return false;
-  } catch (err) {
-    console.log('err');
-    console.log(err);
-
     return false;
   }
 };
