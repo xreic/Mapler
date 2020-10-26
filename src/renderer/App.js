@@ -5,7 +5,8 @@ import { Location, Router } from '@reach/router';
 
 // Components
 import { CharacterView } from './components/CharacterView';
-import { MainNav } from './components/navs/MainNav';
+import { NavBar } from './components/NavBar';
+import { Transition } from './components/utils/Transition';
 import { View } from './components/View';
 import { List } from './components/utils/List';
 
@@ -23,28 +24,36 @@ import {
   ARCANE,
 } from './components/utils/variables';
 
-const App = () => (
-  <Location>
-    {({ location }) => (
-      <div className="select-none">
-        <MainNav />
+const App = () => {
+  const handleDrag = (e) => {
+    e.preventDefault();
+  };
 
-        <Router primary={false}>
-          <CharacterView path="/" default />
+  return (
+    <Location>
+      {({ location }) => (
+        <div className="select-none" onDragStart={handleDrag}>
+          <NavBar location={location} />
 
-          <View option={BOSSES} path={`/${BOSSES}`} location={location}>
-            <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
-            <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
-          </View>
+          <Transition location={location}>
+            <Router primary={false}>
+              <CharacterView path="/" default />
 
-          <View option={`${QUESTS}`} path={`/${QUESTS}`} location={location}>
-            <List list={MAPLE_WORLD_QUESTS} path={`/${MAPLE}`} default />
-            <List list={ARCANE_RIVER_QUESTS} path={`/${ARCANE}`} />
-          </View>
-        </Router>
-      </div>
-    )}
-  </Location>
-);
+              <View path={`/${BOSSES}`}>
+                <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
+                <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
+              </View>
+
+              <View path={`/${QUESTS}`}>
+                <List list={MAPLE_WORLD_QUESTS} path={`/${MAPLE}`} default />
+                <List list={ARCANE_RIVER_QUESTS} path={`/${ARCANE}`} />
+              </View>
+            </Router>
+          </Transition>
+        </div>
+      )}
+    </Location>
+  );
+};
 
 export default hot(App);

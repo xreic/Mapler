@@ -42,10 +42,6 @@ export const CharacterView = () => {
     store.set(ACTIVE, char);
   };
 
-  const handleDrag = (e) => {
-    e.preventDefault();
-  };
-
   if (charList.length > 0) {
     return (
       <>
@@ -58,7 +54,6 @@ export const CharacterView = () => {
                 activeChar === char && 'bg-blue-500'
               }`}
               onClick={() => handleClick(char)}
-              onDragStart={handleDrag}
             />
           ))}
         </div>
