@@ -4,10 +4,9 @@ import { hot } from 'react-hot-loader/root';
 import { Location, Router } from '@reach/router';
 
 // Components
-import { CharacterView } from './components/CharacterView';
-import { NavBar } from './components/NavBar';
 import { Transition } from './components/utils/Transition';
-import { View } from './components/View';
+import { NavBar } from './components/NavBar';
+import { CharacterView } from './components/CharacterView';
 import { List } from './components/utils/List';
 
 // Helpers/Declarations/Variables/Etc
@@ -24,7 +23,12 @@ import {
   ARCANE,
 } from './components/utils/variables';
 
+const View = ({ children }) => {
+  return <div className="overflow-y-scroll px-2 py-2 h-64">{children}</div>;
+};
+
 const App = () => {
+  // TODO: Remove later for drag-n-move character arrangement
   const handleDrag = (e) => {
     e.preventDefault();
   };
