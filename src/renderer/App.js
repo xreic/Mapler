@@ -7,7 +7,7 @@ import { Location, Router } from '@reach/router';
 import { Transition } from './components/utils/Transition';
 import { NavBar } from './components/NavBar';
 import { CharacterView } from './components/CharacterView';
-import { List } from './components/utils/List';
+import { Task } from './components/Task';
 
 // Helpers/Declarations/Variables/Etc
 import {
@@ -23,9 +23,18 @@ import {
   ARCANE,
 } from './components/utils/variables';
 
+// Mini-components
 const View = ({ children }) => {
   return <div className="overflow-y-scroll px-2 py-2 h-64">{children}</div>;
 };
+
+const List = ({ list }) => (
+  <div className="justify-items-stretch grid grid-cols-3 gap-1">
+    {list.map((item) => (
+      <Task key={item} name={item} />
+    ))}
+  </div>
+);
 
 const App = () => {
   // TODO: Remove later for drag-n-move character arrangement
