@@ -2,6 +2,43 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
+// Helpers/Declarations/Variables/Etc
+import {
+  BOSSES,
+  QUESTS,
+  DAILY,
+  WEEKLY,
+  MAPLE,
+  ARCANE,
+} from './utils/variables';
+
+// Route paths
+const mainPaths = [
+  {
+    path: `/${BOSSES}`,
+    location: 'Bosses',
+  },
+  {
+    path: `/${QUESTS}`,
+    location: 'Quests',
+  },
+  {
+    path: '/',
+    location: 'Characters',
+  },
+];
+
+const subPaths = [
+  [
+    { path: `/${BOSSES}/${DAILY}`, location: `Daily` },
+    { path: `/${BOSSES}/${WEEKLY}`, location: `Weekly` },
+  ],
+  [
+    { path: `/${QUESTS}/${MAPLE}`, location: `Maple World` },
+    { path: `/${QUESTS}/${ARCANE}`, location: `Arcane River` },
+  ],
+];
+
 const NavLink = ({ path, location }) => (
   <Link to={path} className="flex-1 text-center border border-red-500">
     {location}
@@ -10,38 +47,36 @@ const NavLink = ({ path, location }) => (
 
 const UpperNav = () => (
   <nav className="flex items-stretch">
-    <NavLink path="/bosses" location="Bosses" />
-    <NavLink path="/quests" location="Quests" />
-    <NavLink path="/" location="Characters" />
-    {/* supposed to be a settings button
-    <div className="inline-block text-center border border-red-500 w-26 min-w-26">
-      S
-    </div>
-    */}
+    {mainPaths.map(({ path, location }) => (
+      <NavLink key={location} path={path} location={location} />
+    ))}
   </nav>
 );
 
 const LowerNav = ({ location }) => {
-  const paths = location.pathname.split('/').slice(1);
-  const subPaths = [];
+  const paths = location.pathname.split('/');
 
-  if (paths[0] === '' || paths[0] === 'main_window') {
-    return null;
-  } else if (paths[0] === 'bosses') {
-    subPaths.push({ path: '/bosses/daily', location: 'Daily' });
-    subPaths.push({ path: '/bosses/weekly', location: 'Weekly' });
-  } else if (paths[0] === 'quests') {
-    subPaths.push({ path: '/quests/maple', location: 'Maple World' });
-    subPaths.push({ path: '/quests/arcane', location: 'Arcane River' });
+  if (paths[1] === `${BOSSES}`) {
+    return (
+      <nav className="flex items-stretch">
+        {subPaths[0].map(({ path, location }) => (
+          <NavLink key={location} path={path} location={location} />
+        ))}
+      </nav>
+    );
   }
 
-  return (
-    <nav className="flex items-stretch">
-      {subPaths.map(({ path, location }) => (
-        <NavLink key={location} path={path} location={location} />
-      ))}
-    </nav>
-  );
+  if (paths[1] === `${QUESTS}`) {
+    return (
+      <nav className="flex items-stretch">
+        {subPaths[1].map(({ path, location }) => (
+          <NavLink key={location} path={path} location={location} />
+        ))}
+      </nav>
+    );
+  }
+
+  return <nav className="flex items-stretch"></nav>;
 };
 
 // Component
