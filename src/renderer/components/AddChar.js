@@ -1,11 +1,6 @@
 // Core
 import React, { useState } from 'react';
-import Store from 'electron-store';
 import { getCharCode } from './utils/getCharCode';
-import { ACTIVE, CHARACTERS } from './utils/variables';
-
-// Libraries
-const store = new Store();
 
 export const AddChar = () => {
   const [isAdding, setIsAdding] = useState(false);
@@ -57,24 +52,13 @@ export const AddChar = () => {
   }
 
   return (
-    <>
-      <button
-        className="text-center border border-red-500 w-full"
-        onClick={() => {
-          setIsAdding(true);
-        }}
-      >
-        Add Character
-      </button>
-      <button
-        className="text-center border border-red-500 w-full"
-        onClick={() => {
-          store.set(ACTIVE, '');
-          store.set(CHARACTERS, []);
-        }}
-      >
-        Clear
-      </button>
-    </>
+    <button
+      className="flex-1 text-center border border-red-500 w-full"
+      onClick={() => {
+        setIsAdding(true);
+      }}
+    >
+      Add Character
+    </button>
   );
 };

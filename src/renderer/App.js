@@ -26,27 +26,11 @@ import {
 const App = () => (
   <Location>
     {({ location }) => (
-      <>
+      <div className="select-none">
         <MainNav />
 
-        {/*
-        Currently using "primary" prop to "reset"
-          scroll back to the top upon switching
-        */}
         <Router primary={false}>
-          {/*
-          Need character selection view that reports
-            the current character to the entire app
-            need to store app state
-
-          More likely a combination of 2 + 3
-
-          1. Redux (Least likely)
-          2. Hooks
-          3. Subscription to Electron store
-          */}
-
-          <CharacterView path="/" location={location} default />
+          <CharacterView path="/" default />
 
           <View option={BOSSES} path={`/${BOSSES}`} location={location}>
             <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
@@ -58,7 +42,7 @@ const App = () => (
             <List list={ARCANE_RIVER_QUESTS} path={`/${ARCANE}`} />
           </View>
         </Router>
-      </>
+      </div>
     )}
   </Location>
 );
