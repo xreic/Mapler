@@ -32,12 +32,10 @@ export const CharacterList = ({ hidingAdd }) => {
     store.set(ACTIVE, index);
   };
 
-  const multiSelect = (char) => {
-    let newList = store.get(DELETING);
-    const found = newList.indexOf(char);
-
-    found === -1 ? newList.push(char) : newList.splice(found, 1);
-    store.set(DELETING, newList);
+  const multiSelect = (index) => {
+    const deleteList = store.get(DELETING);
+    deleteList[index] = deleteList[index] === 0 ? 1 : 0;
+    store.set(DELETING, deleteList);
   };
 
   return (
@@ -49,11 +47,11 @@ export const CharacterList = ({ hidingAdd }) => {
             src={`http://msavatar1.nexon.net/Character/${char}.png`}
             className={`rounded-full border border-red-500 ${
               hidingAdd
-                ? deleteList.indexOf(char) !== -1 && 'bg-green-500'
+                ? deleteList[index] && 'bg-green-500'
                 : activeChar === index && 'bg-blue-500'
             }`}
             onClick={() => {
-              hidingAdd ? multiSelect(char) : handleClick(index);
+              hidingAdd ? multiSelect(index) : handleClick(index);
             }}
           />
         ))}

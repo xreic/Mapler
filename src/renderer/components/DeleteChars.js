@@ -16,17 +16,17 @@ export const DeleteChars = ({ hidingAdd, hideAdd }) => {
   const handleDelete = () => {
     const deleteList = store.get(DELETING);
 
-    if (!deleteList.length) return;
+    if (!deleteList.some((item) => item === 1)) return;
 
     const characters = store
       .get(CHARACTERS)
-      .filter((char) => (deleteList.indexOf(char.code) === -1 ? true : false));
+      .filter((_, index) => !deleteList[index]);
     const active = characters.length > 0 ? 0 : null;
 
     store.set({
       active,
       characters,
-      deleting: [],
+      deleting: new Array(characters.length).fill(0),
     });
 
     navigate('/');
