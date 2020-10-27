@@ -1,7 +1,7 @@
 // Core
 import React, { useEffect, useRef, useState } from 'react';
 
-export const Task = ({ name }) => {
+export const Task = ({ name, index, handleClick }) => {
   /**
    * importImage stores the dynamically imported image
    * need useState to trigger component update once the import has finished
@@ -31,7 +31,10 @@ export const Task = ({ name }) => {
 
   if (!loading && !!importedImage.current) {
     return (
-      <div className="border border-red-500 bg-green-600 rounded-md">
+      <div
+        className="border border-red-500 bg-green-600 rounded-md"
+        onClick={() => handleClick(index)}
+      >
         <img
           src={importedImage.current}
           alt={name}

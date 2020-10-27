@@ -3,6 +3,8 @@ import Store from 'electron-store';
 import https from 'https';
 import needle from 'needle';
 import cheerio from 'cheerio';
+
+// Helpers
 import { ACTIVE, CHARACTERS } from './variables';
 
 const store = new Store();
@@ -30,8 +32,14 @@ const isDupe = (charName) =>
 const getTemplate = (charName, charCode) => ({
   name: charName,
   code: charCode,
-  bosses: { daily: [], weekly: [], hidden: [] },
-  quests: { mapleworld: [], arcaneriver: [], hidden: [] },
+  bosses: {
+    daily: [],
+    weekly: [],
+  },
+  quests: {
+    mapleworld: [],
+    arcaneriver: [],
+  },
 });
 
 /**

@@ -1,8 +1,10 @@
 // Core
-import React from 'react';
+import React, { useState } from 'react';
+import Store from 'electron-store';
 import { Link } from '@reach/router';
 
 // Helpers/Declarations/Variables/Etc
+import { GrEdit, GrCheckmark } from 'react-icons/gr';
 import {
   BOSSES,
   QUESTS,
@@ -10,13 +12,40 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
+  EDIT,
 } from './utils/variables';
 
+// Electron Store
+const store = new Store();
+
+// Mini-components
 const NavLink = ({ path, location }) => (
   <Link to={path} className="flex-1 text-center border border-red-500">
     {location}
   </Link>
 );
+
+const EditButton = ({}) => {
+  const [isEditting, setIsEditting] = useState(false);
+
+  const handleClick = () => {
+    store.set(EDIT, !isEditting);
+    setIsEditting(!isEditting);
+  };
+
+  return (
+    <button
+      className="border border-red-500 w-26px h-26px"
+      onClick={handleClick}
+    >
+      {isEditting ? (
+        <GrCheckmark className="m-auto" />
+      ) : (
+        <GrEdit className="m-auto" />
+      )}
+    </button>
+  );
+};
 
 const UpperNav = ({ location }) => {
   // TODO: Change "Characters" tab label to the active character's name when not active
@@ -63,6 +92,7 @@ const LowerNav = ({ location }) => {
         {subPaths[0].map(({ path, location }) => (
           <NavLink key={location} path={path} location={location} />
         ))}
+        <EditButton />
       </nav>
     );
   }
@@ -73,6 +103,7 @@ const LowerNav = ({ location }) => {
         {subPaths[1].map(({ path, location }) => (
           <NavLink key={location} path={path} location={location} />
         ))}
+        <EditButton />
       </nav>
     );
   }

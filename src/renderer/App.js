@@ -1,6 +1,5 @@
 // Core
-import React, { useEffect, useState } from 'react';
-import Store from 'electron-store';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Location, Router } from '@reach/router';
 
@@ -8,7 +7,7 @@ import { Location, Router } from '@reach/router';
 import { Transition } from './components/utils/Transition';
 import { NavBar } from './components/NavBar';
 import { CharacterView } from './components/CharacterView';
-import { Task } from './components/Task';
+import { List } from './components/List';
 
 // Helpers/Declarations/Variables/Etc
 import {
@@ -22,40 +21,14 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-  ACTIVE,
-  CHARACTERS,
 } from './components/utils/variables';
-
-// Store
-const store = new Store({ watch: true });
 
 // Mini-components
 const View = ({ children }) => {
   return <div className="overflow-y-scroll px-2 py-2 h-64">{children}</div>;
 };
 
-const List = ({ list }) => (
-  <div className="justify-items-stretch grid grid-cols-3 gap-1">
-    {list.map((item) => (
-      <Task key={item} name={item} />
-    ))}
-  </div>
-);
-
 const App = () => {
-  const [active, setActive] = useState(store.get(ACTIVE));
-  const [char, setChar] = useState(store.get(CHARACTERS)[store.get(ACTIVE)]);
-
-  useEffect(() => {
-    const unsub = store.onDidAnyChange(({ active, character }, old) => {
-      // setActive(active);
-      // setChar(character[active]);
-    });
-    return () => {
-      unsub();
-    };
-  }, [active, char]);
-
   // TODO: Remove later for drag-n-move character arrangement (Future feature)
   const handleDrag = (e) => {
     e.preventDefault();
@@ -64,6 +37,7 @@ const App = () => {
   return (
     // TODO: Use LocationProvider later on (Maybe?)
     <Location>
+      {/* TODO: me dumb remove location from all props and access normally later */}
       {({ location }) => (
         <div className="select-none" onDragStart={handleDrag}>
           <NavBar location={location} />
@@ -73,13 +47,13 @@ const App = () => {
               <CharacterView path="/" default />
 
               <View path={`/${BOSSES}`}>
-                <List list={DAILY_BOSSES} path={`/${DAILY}`} default />
-                <List list={WEEKLY_BOSSES} path={`/${WEEKLY}`} />
+                <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
+                <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
               </View>
 
               <View path={`/${QUESTS}`}>
-                <List list={MAPLE_WORLD_QUESTS} path={`/${MAPLE}`} default />
-                <List list={ARCANE_RIVER_QUESTS} path={`/${ARCANE}`} />
+                <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
+                <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
               </View>
             </Router>
           </Transition>
