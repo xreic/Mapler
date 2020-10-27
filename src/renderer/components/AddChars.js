@@ -26,17 +26,16 @@ export const AddChars = ({ hideDelete }) => {
     let isSuccessful = false;
 
     while (!isSuccessful) {
-      console.log('Calling');
       isSuccessful = await getCharCode(charName);
     }
 
     if (isSuccessful === true) {
       e.target.reset();
-    } else if (isSuccessful !== false) {
-      console.log(isSuccessful);
     }
 
     setIsLoading(false);
+
+    // TODO: Set focus back to input
   };
 
   const goBack = () => {
@@ -62,7 +61,11 @@ export const AddChars = ({ hideDelete }) => {
             className="text-center border border-red-500"
             disabled={isLoading}
           >
-            {isLoading ? <GrFormRefresh /> : <GrFormNextLink />}
+            {isLoading ? (
+              <GrFormRefresh className="animate-spin" />
+            ) : (
+              <GrFormNextLink />
+            )}
           </button>
         </form>
       </>

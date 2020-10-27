@@ -1,5 +1,6 @@
 // Core
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Store from 'electron-store';
 import { hot } from 'react-hot-loader/root';
 import { Location, Router } from '@reach/router';
 
@@ -21,7 +22,12 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
+  ACTIVE,
+  CHARACTERS,
 } from './components/utils/variables';
+
+// Store
+const store = new Store({ watch: true });
 
 // Mini-components
 const View = ({ children }) => {
@@ -37,6 +43,23 @@ const List = ({ list }) => (
 );
 
 const App = () => {
+  // const [active, setActive] = useState(store.get(ACTIVE));
+  // const [char, setChar] = useState(
+  //   store.get(CHARACTERS).filter((char) => active === char.code)[0],
+  // );
+
+  // useEffect(() => {
+  //   const unsub = store.onDidAnyChange((delta, old) => {
+  //     setActive(delta.active);
+  //     setChar(
+  //       store.get(CHARACTERS).filter((char) => delta.active === char.code)[0],
+  //     );
+  //   });
+  //   return () => {
+  //     unsub();
+  //   };
+  // }, [active, char]);
+
   // TODO: Remove later for drag-n-move character arrangement
   const handleDrag = (e) => {
     e.preventDefault();

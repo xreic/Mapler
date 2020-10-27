@@ -52,9 +52,7 @@ const setStore = (charName, charCode) => {
  * @param {string} charName
  */
 export const getCharCode = async (charName) => {
-  if (isDupe(charName)) {
-    return 'Dupe';
-  }
+  if (isDupe(charName)) return true;
 
   const url = `https://maplestory.nexon.net/rankings/overall-ranking/legendary`;
   const params = {
@@ -65,16 +63,10 @@ export const getCharCode = async (charName) => {
   };
 
   try {
-    needle('get', url, params, {
-      agent,
-      open_timeout: 2000,
-      response_timeout: 2000,
-    });
-
     const rawData = await needle('get', url, params, {
       agent,
-      open_timeout: 2000,
-      response_timeout: 2000,
+      open_timeout: 5000,
+      response_timeout: 5000,
     });
 
     const $ = cheerio.load(rawData.body);

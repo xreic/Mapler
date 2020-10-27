@@ -1,18 +1,57 @@
 // Core
-import React, { useState } from 'react';
+import React from 'react';
+import Store from 'electron-store';
+import { navigate } from '@reach/router';
+
+// Helpers
+import { CHARACTERS, DELETING } from './utils/variables';
+
+// Electron Store
+const store = new Store();
 
 // Icons
-import { GrFormSubtract } from 'react-icons/gr';
+import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
-export const DeleteChars = ({ hidingAdd, hideAdd }) => {
+export const DeleteChars = ({ hidingAdd, hideAdd, setForce }) => {
+  const handleDelete = () => {
+    const deleteList = store.get(DELETING);
+
+    if (!deleteList.length) return;
+
+    const characters = store
+      .get(CHARACTERS)
+      .filter((char) => (deleteList.indexOf(char.code) === -1 ? true : false));
+    const active = characters[0]?.code !== undefined ? characters[0].code : '';
+
+    store.set({
+      active,
+      characters,
+      deleting: [],
+    });
+
+    navigate('/');
+    hideAdd(true);
+  };
+
+  const goBack = () => {
+    hideAdd(false);
+  };
+
   return (
-    <button
-      className="flex-1 border border-red-500 h-26px"
-      onClick={() => {
-        hidingAdd ? hideAdd(false) : hideAdd(true);
-      }}
-    >
-      <GrFormSubtract className="m-auto" />
-    </button>
+    <>
+      {hidingAdd === true && (
+        <button className="border border-red-500" onClick={goBack}>
+          <GrFormPreviousLink />
+        </button>
+      )}
+      <button
+        className="flex-1 border border-red-500 h-26px"
+        onClick={() => {
+          hidingAdd ? handleDelete() : hideAdd(true);
+        }}
+      >
+        <GrFormSubtract className="m-auto" />
+      </button>
+    </>
   );
 };

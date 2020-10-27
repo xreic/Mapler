@@ -14,7 +14,11 @@ if (require('electron-squirrel-startup')) {
 fs.readdir(app.getPath('userData'), (err, files) => {
   const store = new Store();
   if (files.indexOf('config.json') === -1) {
-    store.set({ characters: [] });
+    store.set({
+      active: '',
+      characters: [],
+      deleting: [],
+    });
   }
 });
 
