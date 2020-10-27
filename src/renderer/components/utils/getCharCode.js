@@ -40,7 +40,8 @@ const getTemplate = (charName, charCode) => ({
  * @param {string} charCode
  */
 const setStore = (charName, charCode) => {
-  store.set(ACTIVE, charCode);
+  const currentActive = store.get(ACTIVE);
+  store.set(ACTIVE, currentActive === null ? 0 : currentActive + 1);
   store.set(CHARACTERS, [
     ...store.get(CHARACTERS),
     getTemplate(charName, charCode),
@@ -57,7 +58,7 @@ export const getCharCode = async (charName) => {
   const url = `https://maplestory.nexon.net/rankings/overall-ranking/legendary`;
   const params = {
     pageIndex: 1,
-    character_name: encodeURIComponent(charName.trim()),
+    character_name: charName.trim(),
     search: true,
     rebootIndex: 1,
   };
@@ -72,9 +73,7 @@ export const getCharCode = async (charName) => {
     const $ = cheerio.load(rawData.body);
     const link = $('img.avatar').attr('src');
 
-    if (!link) {
-      return 'Invalid Character Name';
-    }
+    if (!link) return 'Invalid Character Name';
 
     setStore(charName, link.substring(37, link.length - 4));
 

@@ -43,29 +43,26 @@ const List = ({ list }) => (
 );
 
 const App = () => {
-  // const [active, setActive] = useState(store.get(ACTIVE));
-  // const [char, setChar] = useState(
-  //   store.get(CHARACTERS).filter((char) => active === char.code)[0],
-  // );
+  const [active, setActive] = useState(store.get(ACTIVE));
+  const [char, setChar] = useState(store.get(CHARACTERS)[store.get(ACTIVE)]);
 
-  // useEffect(() => {
-  //   const unsub = store.onDidAnyChange((delta, old) => {
-  //     setActive(delta.active);
-  //     setChar(
-  //       store.get(CHARACTERS).filter((char) => delta.active === char.code)[0],
-  //     );
-  //   });
-  //   return () => {
-  //     unsub();
-  //   };
-  // }, [active, char]);
+  useEffect(() => {
+    const unsub = store.onDidAnyChange(({ active, character }, old) => {
+      // setActive(active);
+      // setChar(character[active]);
+    });
+    return () => {
+      unsub();
+    };
+  }, [active, char]);
 
-  // TODO: Remove later for drag-n-move character arrangement
+  // TODO: Remove later for drag-n-move character arrangement (Future feature)
   const handleDrag = (e) => {
     e.preventDefault();
   };
 
   return (
+    // TODO: Use LocationProvider later on (Maybe?)
     <Location>
       {({ location }) => (
         <div className="select-none" onDragStart={handleDrag}>

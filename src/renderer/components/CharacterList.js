@@ -28,8 +28,8 @@ export const CharacterList = ({ hidingAdd }) => {
     };
   }, []);
 
-  const handleClick = (char) => {
-    store.set(ACTIVE, char);
+  const handleClick = (index) => {
+    store.set(ACTIVE, index);
   };
 
   const multiSelect = (char) => {
@@ -43,17 +43,17 @@ export const CharacterList = ({ hidingAdd }) => {
   return (
     <div className="overflow-y-scroll px-2 py-2 h-64">
       <div className="justify-items-center grid grid-cols-3 gap-2">
-        {charList.map((char) => (
+        {charList.map((char, index) => (
           <img
             key={char}
             src={`http://msavatar1.nexon.net/Character/${char}.png`}
             className={`rounded-full border border-red-500 ${
               hidingAdd
                 ? deleteList.indexOf(char) !== -1 && 'bg-green-500'
-                : activeChar === char && 'bg-blue-500'
+                : activeChar === index && 'bg-blue-500'
             }`}
             onClick={() => {
-              hidingAdd ? multiSelect(char) : handleClick(char);
+              hidingAdd ? multiSelect(char) : handleClick(index);
             }}
           />
         ))}

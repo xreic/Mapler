@@ -34,8 +34,7 @@ export const AddChars = ({ hideDelete }) => {
     }
 
     setIsLoading(false);
-
-    // TODO: Set focus back to input
+    // TODO: Set focus back to input (QOL)
   };
 
   const goBack = () => {

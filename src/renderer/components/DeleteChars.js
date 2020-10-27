@@ -12,7 +12,7 @@ const store = new Store();
 // Icons
 import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
-export const DeleteChars = ({ hidingAdd, hideAdd, setForce }) => {
+export const DeleteChars = ({ hidingAdd, hideAdd }) => {
   const handleDelete = () => {
     const deleteList = store.get(DELETING);
 
@@ -21,7 +21,7 @@ export const DeleteChars = ({ hidingAdd, hideAdd, setForce }) => {
     const characters = store
       .get(CHARACTERS)
       .filter((char) => (deleteList.indexOf(char.code) === -1 ? true : false));
-    const active = characters[0]?.code !== undefined ? characters[0].code : '';
+    const active = characters.length > 0 ? 0 : null;
 
     store.set({
       active,
