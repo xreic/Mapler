@@ -12,7 +12,7 @@ const store = new Store({ watch: true });
 export const CharacterView = () => {
   const [activeChar, setActiveChar] = useState(store.get(ACTIVE));
   const [charList, setCharList] = useState(
-    store.get(CHARACTERS).map(({ code }) => code),
+    store.get(CHARACTERS).map(({ code }) => code) || [],
   );
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -45,17 +45,19 @@ export const CharacterView = () => {
   if (charList.length > 0) {
     return (
       <>
-        <div className="overflow-y-scroll justify-items-center grid grid-cols-3 gap-2 px-2 py-2 h-64">
-          {charList.map((char) => (
-            <img
-              key={`${char}`}
-              src={`http://msavatar1.nexon.net/Character/${char}.png`}
-              className={`object-scale-down inline-block border border-red-500 ${
-                activeChar === char && 'bg-blue-500'
-              }`}
-              onClick={() => handleClick(char)}
-            />
-          ))}
+        <div className="h-64">
+          <div className="overflow-y-scroll justify-items-center grid grid-cols-3 gap-2 px-2 py-2">
+            {charList.map((char) => (
+              <img
+                key={`${char}`}
+                src={`http://msavatar1.nexon.net/Character/${char}.png`}
+                className={`inline-block border border-red-500 ${
+                  activeChar === char && 'bg-blue-500'
+                }`}
+                onClick={() => handleClick(char)}
+              />
+            ))}
+          </div>
         </div>
         <div className="flex">
           <button className="flex-1 text-center border border-red-500 w-full">
