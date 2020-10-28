@@ -4,7 +4,6 @@ import { hot } from 'react-hot-loader/root';
 import { Location, Router } from '@reach/router';
 
 // Components
-import { CharProvider } from './components/context/CharContext';
 import { EditProvider } from './components/context/EditContext';
 import { Transition } from './components/utils/Transition';
 import { NavBar } from './components/NavBar';
