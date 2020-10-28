@@ -1,10 +1,10 @@
 // Core
-import React, { useState } from 'react';
-import Store from 'electron-store';
+import React, { useContext } from 'react';
 import { Link } from '@reach/router';
-
-// Helpers/Declarations/Variables/Etc
 import { GrEdit, GrCheckmark } from 'react-icons/gr';
+
+// Helpers
+import { EditContext } from './context/EditContext';
 import {
   BOSSES,
   QUESTS,
@@ -12,25 +12,20 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-  EDIT,
 } from './utils/variables';
 
-// Electron Store
-const store = new Store();
-
 // Mini-components
-const NavLink = ({ path, location }) => (
+const NavLink = ({ path, label }) => (
   <Link to={path} className="flex-1 text-center border border-red-500">
-    {location}
+    {label}
   </Link>
 );
 
 const EditButton = ({}) => {
-  const [isEditting, setIsEditting] = useState(false);
+  const { isEditing, setIsEditing } = useContext(EditContext);
 
   const handleClick = () => {
-    store.set(EDIT, !isEditting);
-    setIsEditting(!isEditting);
+    setIsEditing(!isEditing);
   };
 
   return (
@@ -38,7 +33,7 @@ const EditButton = ({}) => {
       className="border border-red-500 w-26px h-26px"
       onClick={handleClick}
     >
-      {isEditting ? (
+      {isEditing ? (
         <GrCheckmark className="m-auto" />
       ) : (
         <GrEdit className="m-auto" />
@@ -47,61 +42,52 @@ const EditButton = ({}) => {
   );
 };
 
-const UpperNav = ({ location }) => {
+const UpperNav = () => {
   // TODO: Change "Characters" tab label to the active character's name when not active
   const mainPaths = [
-    {
-      path: `/${BOSSES}`,
-      location: 'Bosses',
-    },
-    {
-      path: `/${QUESTS}`,
-      location: 'Quests',
-    },
-    {
-      path: '/',
-      location: 'Characters',
-    },
+    { path: `/${BOSSES}/${DAILY}`, label: 'Bosses' },
+    { path: `/${QUESTS}/${MAPLE}`, label: 'Quests' },
+    { path: '/', label: 'Characters' },
   ];
 
   return (
     <nav className="flex items-stretch">
-      {mainPaths.map(({ path, location }) => (
-        <NavLink key={location} path={path} location={location} />
+      {mainPaths.map(({ path, label }) => (
+        <NavLink key={label} path={path} label={label} />
       ))}
     </nav>
   );
 };
 
-const LowerNav = ({ location }) => {
+const LowerNav = () => {
   const subPaths = [
     [
-      { path: `/${BOSSES}/${DAILY}`, location: `Daily` },
-      { path: `/${BOSSES}/${WEEKLY}`, location: `Weekly` },
+      { path: `/${BOSSES}/${DAILY}`, label: `Daily` },
+      { path: `/${BOSSES}/${WEEKLY}`, label: `Weekly` },
     ],
     [
-      { path: `/${QUESTS}/${MAPLE}`, location: `Maple World` },
-      { path: `/${QUESTS}/${ARCANE}`, location: `Arcane River` },
+      { path: `/${QUESTS}/${MAPLE}`, label: `Maple World` },
+      { path: `/${QUESTS}/${ARCANE}`, label: `Arcane River` },
     ],
   ];
-  const paths = location.pathname.split('/');
+  const [_, main] = location.pathname.split('/');
 
-  if (paths[1] === `${BOSSES}`) {
+  if (main === `${BOSSES}`) {
     return (
       <nav className="flex items-stretch">
-        {subPaths[0].map(({ path, location }) => (
-          <NavLink key={location} path={path} location={location} />
+        {subPaths[0].map(({ path, label }) => (
+          <NavLink key={label} path={path} label={label} />
         ))}
         <EditButton />
       </nav>
     );
   }
 
-  if (paths[1] === `${QUESTS}`) {
+  if (main === `${QUESTS}`) {
     return (
       <nav className="flex items-stretch">
-        {subPaths[1].map(({ path, location }) => (
-          <NavLink key={location} path={path} location={location} />
+        {subPaths[1].map(({ path, label }) => (
+          <NavLink key={label} path={path} label={label} />
         ))}
         <EditButton />
       </nav>
@@ -111,12 +97,11 @@ const LowerNav = ({ location }) => {
   return <nav className="flex items-stretch"></nav>;
 };
 
-// Component
-export const NavBar = ({ location }) => {
+export const NavBar = () => {
   return (
     <>
-      <UpperNav location={location} />
-      <LowerNav location={location} />
+      <UpperNav />
+      <LowerNav />
     </>
   );
 };

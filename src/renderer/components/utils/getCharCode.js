@@ -5,7 +5,14 @@ import needle from 'needle';
 import cheerio from 'cheerio';
 
 // Helpers
-import { ACTIVE, CHARACTERS } from './variables';
+import {
+  ACTIVE,
+  CHARACTERS,
+  DAILY_BOSSES,
+  WEEKLY_BOSSES,
+  MAPLE_WORLD_QUESTS,
+  ARCANE_RIVER_QUESTS,
+} from './variables';
 
 const store = new Store();
 const agent = new https.Agent({
@@ -33,12 +40,12 @@ const getTemplate = (charName, charCode) => ({
   name: charName,
   code: charCode,
   bosses: {
-    daily: [],
-    weekly: [],
+    daily: new Array(DAILY_BOSSES.length).fill(0),
+    weekly: new Array(WEEKLY_BOSSES.length).fill(0),
   },
   quests: {
-    mapleworld: [],
-    arcaneriver: [],
+    maple: new Array(MAPLE_WORLD_QUESTS.length).fill(0),
+    arcane: new Array(ARCANE_RIVER_QUESTS.length).fill(0),
   },
 });
 

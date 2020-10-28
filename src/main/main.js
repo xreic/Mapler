@@ -15,7 +15,7 @@ fs.readdir(app.getPath('userData'), (err, files) => {
   const store = new Store();
   if (files.indexOf('config.json') === -1) {
     store.set({
-      active: '',
+      active: null,
       characters: [],
       deleting: [],
     });

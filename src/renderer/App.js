@@ -9,7 +9,8 @@ import { NavBar } from './components/NavBar';
 import { CharacterView } from './components/CharacterView';
 import { List } from './components/List';
 
-// Helpers/Declarations/Variables/Etc
+// Helpers
+import { EditProvider } from './components/context/EditContext';
 import {
   DAILY_BOSSES,
   WEEKLY_BOSSES,
@@ -24,9 +25,9 @@ import {
 } from './components/utils/variables';
 
 // Mini-components
-const View = ({ children }) => {
-  return <div className="overflow-y-scroll px-2 py-2 h-64">{children}</div>;
-};
+const View = ({ children }) => (
+  <div className="overflow-y-scroll px-2 py-2 h-64">{children}</div>
+);
 
 const App = () => {
   // TODO: Remove later for drag-n-move character arrangement (Future feature)
@@ -37,26 +38,27 @@ const App = () => {
   return (
     // TODO: Use LocationProvider later on (Maybe?)
     <Location>
-      {/* TODO: me dumb remove location from all props and access normally later */}
       {({ location }) => (
         <div className="select-none" onDragStart={handleDrag}>
-          <NavBar location={location} />
+          <EditProvider>
+            <NavBar />
 
-          <Transition location={location}>
-            <Router primary={false}>
-              <CharacterView path="/" default />
+            <Transition location={location}>
+              <Router primary={false}>
+                <CharacterView path="/" default />
 
-              <View path={`/${BOSSES}`}>
-                <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
-                <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
-              </View>
+                <View path={`/${BOSSES}`}>
+                  <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
+                  <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
+                </View>
 
-              <View path={`/${QUESTS}`}>
-                <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
-                <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
-              </View>
-            </Router>
-          </Transition>
+                <View path={`/${QUESTS}`}>
+                  <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
+                  <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
+                </View>
+              </Router>
+            </Transition>
+          </EditProvider>
         </div>
       )}
     </Location>

@@ -1,7 +1,10 @@
 // Core
 import React, { useEffect, useRef, useState } from 'react';
 
-export const Task = ({ name, index, handleClick }) => {
+// Colors
+const colors = ['bg-blue-600', 'bg-green-600', 'bg-red-600'];
+
+export const Task = ({ name, index, handleClick, filter }) => {
   /**
    * importImage stores the dynamically imported image
    * need useState to trigger component update once the import has finished
@@ -19,9 +22,6 @@ export const Task = ({ name, index, handleClick }) => {
 
         importedImage.current = namedImage;
       } catch (err) {
-        // console.error('==== Task.js Error ====');
-        // console.error(err);
-        // console.error('==== Task.js Error ====');
         throw err;
       } finally {
         setLoading(false);
@@ -32,7 +32,9 @@ export const Task = ({ name, index, handleClick }) => {
   if (!loading && !!importedImage.current) {
     return (
       <div
-        className="border border-red-500 bg-green-600 rounded-md"
+        className={`border border-red-500 rounded-md
+        ${colors[filter] || 'bg-blue-600'}
+        `}
         onClick={() => handleClick(index)}
       >
         <img

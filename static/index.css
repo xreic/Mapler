@@ -27,7 +27,7 @@ body {
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 300ms;
+  transition: opacity 500ms;
 }
 
 .fade-exit {
@@ -36,5 +36,5 @@ body {
 
 .fade-exit-active {
   opacity: 0.15;
-  transition: opacity 300ms;
+  transition: opacity 500ms;
 }
