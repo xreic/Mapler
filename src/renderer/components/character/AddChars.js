@@ -1,5 +1,5 @@
 // Core
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { getCharCode } from '../utils/getCharCode';
 
 // Helpers
@@ -9,13 +9,20 @@ import {
   GrFormNextLink,
   GrFormRefresh,
   GrFormAdd,
+  GrFormClose,
 } from 'react-icons/gr';
 
+const INVALID = 'Invalid Character Name';
+
 export const AddChars = () => {
+  // View Hooks
   const { hideAddButton, setHideDelete } = useContext(CharContext);
-  const [isAdding, setIsAdding] = useState(false);
-  const [charName, setCharName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+
+  // Form Data Hooks
+  const [charName, setCharName] = useState('');
+  const inputRef = useRef();
 
   const handleChange = (e) => {
     setCharName(e.target.value);
@@ -23,20 +30,29 @@ export const AddChars = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isLoading) return;
+    if (charName == INVALID) {
+      setCharName('');
+      return;
+    }
+
     setIsLoading(true);
 
-    let isSuccessful = false;
+    let isSuccessful;
 
-    while (!isSuccessful) {
-      isSuccessful = await getCharCode(charName);
-    }
+    while (!isSuccessful) isSuccessful = await getCharCode(charName);
 
-    if (isSuccessful === true) {
-      e.target.reset();
-    }
+    if (isSuccessful === true) e.target.reset();
+    if (isSuccessful == INVALID) setCharName(INVALID);
 
     setIsLoading(false);
-    // TODO: Set focus back to input (QOL)
+    inputRef.current.focus();
+  };
+
+  const startAdding = () => {
+    setIsAdding(true);
+    setHideDelete(true);
   };
 
   const goBack = () => {
@@ -54,18 +70,20 @@ export const AddChars = () => {
         </button>
         <form onSubmit={handleSubmit} className="flex w-full">
           <input
-            placeholder="Character Code"
-            onChange={handleChange}
             className="flex-1 text-center border border-red-500"
+            placeholder="Character Code"
             maxLength={12}
+            value={charName}
+            ref={inputRef}
+            onChange={handleChange}
             disabled={isLoading}
+            spellCheck={false}
           ></input>
-          <button
-            className="text-center border border-red-500"
-            disabled={isLoading}
-          >
+          <button className="text-center border border-red-500">
             {isLoading ? (
               <GrFormRefresh className="animate-spin" />
+            ) : charName == INVALID ? (
+              <GrFormClose />
             ) : (
               <GrFormNextLink />
             )}
@@ -78,10 +96,7 @@ export const AddChars = () => {
   return (
     <button
       className="flex-1 border border-red-500 h-26px"
-      onClick={() => {
-        setIsAdding(true);
-        setHideDelete(true);
-      }}
+      onClick={startAdding}
     >
       <GrFormAdd className="m-auto" />
     </button>
