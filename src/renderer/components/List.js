@@ -53,38 +53,21 @@ export const List = ({ list }) => {
     store.set(CHARACTERS, allChars);
   };
 
-  // NOTE: is there a better way to do this?
-  if (!isEditing) {
-    return (
-      <GridLayout>
-        {list.map((item, index) => {
-          if (filter[index] !== 2) {
-            return (
-              <Task
-                key={item}
-                name={item}
-                index={index}
-                handleClick={handleClick}
-                filter={filter[index]}
-              />
-            );
-          }
-        })}
-      </GridLayout>
-    );
-  }
-
   return (
     <GridLayout>
-      {list.map((item, index) => (
-        <Task
-          key={item}
-          name={item}
-          index={index}
-          handleClick={handleClick}
-          filter={filter[index]}
-        />
-      ))}
+      {list.map((item, index) => {
+        if (filter[index] !== 2 || isEditing) {
+          return (
+            <Task
+              key={item}
+              name={item}
+              index={index}
+              handleClick={handleClick}
+              filter={filter[index]}
+            />
+          );
+        }
+      })}
     </GridLayout>
   );
 };

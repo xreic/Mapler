@@ -1,10 +1,10 @@
 // Core
 import React, { useContext } from 'react';
 import { Link } from '@reach/router';
-import { GrEdit, GrCheckmark } from 'react-icons/gr';
 
 // Helpers
 import { EditContext } from './context/EditContext';
+import { GrEdit, GrCheckmark } from 'react-icons/gr';
 import {
   BOSSES,
   QUESTS,
@@ -21,7 +21,7 @@ const NavLink = ({ path, label }) => (
   </Link>
 );
 
-const EditButton = ({}) => {
+const EditButton = () => {
   const { isEditing, setIsEditing } = useContext(EditContext);
 
   const handleClick = () => setIsEditing(!isEditing);

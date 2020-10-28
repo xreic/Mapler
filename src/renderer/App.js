@@ -36,7 +36,6 @@ const App = () => {
   };
 
   return (
-    // TODO: Use LocationProvider later on (Maybe?)
     <Location>
       {({ location }) => (
         <div className="select-none" onDragStart={handleDrag}>

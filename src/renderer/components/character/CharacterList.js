@@ -20,11 +20,13 @@ export const CharacterList = () => {
 
   // Hooks P2: Store subscriptions
   useEffect(() => {
-    const unsub = store.onDidAnyChange((delta, _) => {
-      setActiveChar(delta.active);
-      setCharList(delta.characters.map(({ code }) => code));
-      setDeleteList(delta.deleting);
-    });
+    const unsub = store.onDidAnyChange(
+      ({ active, characters, deleting }, _) => {
+        setActiveChar(active);
+        setCharList(characters.map(({ code }) => code));
+        setDeleteList(deleting);
+      },
+    );
     return () => {
       unsub();
     };
