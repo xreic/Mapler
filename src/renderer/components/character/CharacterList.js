@@ -1,15 +1,17 @@
 // Core
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
 // Helpers
-import { ACTIVE, CHARACTERS, DELETING } from './utils/variables';
+import { CharContext } from '../context/CharContext';
+import { ACTIVE, CHARACTERS, DELETING } from '../utils/variables';
 
 // Electron Store
 const store = new Store({ watch: true });
 
-export const CharacterList = ({ hidingAdd }) => {
+export const CharacterList = () => {
   // Hooks P1: Initial state
+  const { hideAddButton } = useContext(CharContext);
   const [activeChar, setActiveChar] = useState(store.get(ACTIVE));
   const [charList, setCharList] = useState(
     store.get(CHARACTERS).map(({ code }) => code) || [],
@@ -46,12 +48,12 @@ export const CharacterList = ({ hidingAdd }) => {
             key={char}
             src={`http://msavatar1.nexon.net/Character/${char}.png`}
             className={`rounded-full border border-red-500 ${
-              hidingAdd
+              hideAddButton
                 ? deleteList[index] && 'bg-green-500'
                 : activeChar === index && 'bg-blue-500'
             }`}
             onClick={() => {
-              hidingAdd ? multiSelect(index) : handleClick(index);
+              hideAddButton ? multiSelect(index) : handleClick(index);
             }}
           />
         ))}

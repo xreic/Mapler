@@ -1,8 +1,9 @@
 // Core
-import React, { useState } from 'react';
-import { getCharCode } from './utils/getCharCode';
+import React, { useContext, useState } from 'react';
+import { getCharCode } from '../utils/getCharCode';
 
 // Helpers
+import { CharContext } from '../context/CharContext';
 import {
   GrFormPreviousLink,
   GrFormNextLink,
@@ -10,7 +11,8 @@ import {
   GrFormAdd,
 } from 'react-icons/gr';
 
-export const AddChars = ({ hideDelete }) => {
+export const AddChars = () => {
+  const { hideAddButton, setHideDelete } = useContext(CharContext);
   const [isAdding, setIsAdding] = useState(false);
   const [charName, setCharName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +41,10 @@ export const AddChars = ({ hideDelete }) => {
 
   const goBack = () => {
     setIsAdding(false);
-    hideDelete(false);
+    setHideDelete(false);
   };
+
+  if (hideAddButton) return null;
 
   if (isAdding) {
     return (
@@ -76,7 +80,7 @@ export const AddChars = ({ hideDelete }) => {
       className="flex-1 border border-red-500 h-26px"
       onClick={() => {
         setIsAdding(true);
-        hideDelete(true);
+        setHideDelete(true);
       }}
     >
       <GrFormAdd className="m-auto" />

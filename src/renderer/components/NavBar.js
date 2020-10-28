@@ -24,9 +24,7 @@ const NavLink = ({ path, label }) => (
 const EditButton = ({}) => {
   const { isEditing, setIsEditing } = useContext(EditContext);
 
-  const handleClick = () => {
-    setIsEditing(!isEditing);
-  };
+  const handleClick = () => setIsEditing(!isEditing);
 
   return (
     <button
