@@ -10,6 +10,11 @@ import { EditContext } from './context/EditContext';
 // Electron store
 const store = new Store({ watch: true });
 
+// Mini-component
+const GridLayout = ({ children }) => (
+  <div className="justify-items-stretch grid grid-cols-3 gap-2">{children}</div>
+);
+
 export const List = ({ list }) => {
   const [_, main, sub] = location.pathname.split('/');
 
@@ -48,9 +53,10 @@ export const List = ({ list }) => {
     store.set(CHARACTERS, allChars);
   };
 
+  // NOTE: is there a better way to do this?
   if (!isEditing) {
     return (
-      <div className="justify-items-stretch grid grid-cols-3 gap-1">
+      <GridLayout>
         {list.map((item, index) => {
           if (filter[index] !== 2) {
             return (
@@ -64,12 +70,12 @@ export const List = ({ list }) => {
             );
           }
         })}
-      </div>
+      </GridLayout>
     );
   }
 
   return (
-    <div className="justify-items-stretch grid grid-cols-3 gap-1">
+    <GridLayout>
       {list.map((item, index) => (
         <Task
           key={item}
@@ -79,6 +85,6 @@ export const List = ({ list }) => {
           filter={filter[index]}
         />
       ))}
-    </div>
+    </GridLayout>
   );
 };
