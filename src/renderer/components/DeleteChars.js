@@ -5,12 +5,10 @@ import { navigate } from '@reach/router';
 
 // Helpers
 import { CHARACTERS, DELETING } from './utils/variables';
+import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
 // Electron Store
 const store = new Store();
-
-// Icons
-import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
 export const DeleteChars = ({ hidingAdd, hideAdd }) => {
   const handleDelete = () => {

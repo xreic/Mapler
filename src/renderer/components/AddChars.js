@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { getCharCode } from './utils/getCharCode';
 
-// Icons
+// Helpers
 import {
   GrFormPreviousLink,
   GrFormNextLink,

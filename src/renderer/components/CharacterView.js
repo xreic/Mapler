@@ -1,13 +1,10 @@
 // Core
 import React, { useState } from 'react';
 
-// Components and Helpers
+// Components
 import { DeleteChars } from './DeleteChars';
 import { AddChars } from './AddChars';
 import { CharacterList } from './CharacterList';
-
-// Electron Store
-// const store = new Store({ watch: true });
 
 export const CharacterView = () => {
   // TODO: Think of a better way to do this

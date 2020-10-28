@@ -1,7 +1,7 @@
 // Core
 import React, { useEffect, useRef, useState } from 'react';
 
-// Colors
+// Helpers
 const colors = ['bg-blue-600', 'bg-green-600', 'bg-red-600'];
 
 export const Task = ({ name, index, handleClick, filter }) => {

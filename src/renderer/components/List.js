@@ -12,6 +12,7 @@ const store = new Store({ watch: true });
 
 export const List = ({ list }) => {
   const [_, main, sub] = location.pathname.split('/');
+
   // Hooks P1
   const { isEditing } = useContext(EditContext);
   const { current: active } = useRef(store.get(ACTIVE));

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Store from 'electron-store';
 
-// Components and Helpers
+// Helpers
 import { ACTIVE, CHARACTERS, DELETING } from './utils/variables';
 
 // Electron Store
@@ -18,7 +18,7 @@ export const CharacterList = ({ hidingAdd }) => {
 
   // Hooks P2: Store subscriptions
   useEffect(() => {
-    const unsub = store.onDidAnyChange((delta, old) => {
+    const unsub = store.onDidAnyChange((delta, _) => {
       setActiveChar(delta.active);
       setCharList(delta.characters.map(({ code }) => code));
       setDeleteList(delta.deleting);
