@@ -20,7 +20,7 @@ export const List = ({ list }) => {
   const { isEditing } = useContext(EditContext);
   const { current: active } = useRef(store.get(ACTIVE));
   const [filter, setFilter] = useState(
-    store.get(CHARACTERS)[store.get(ACTIVE)][main][sub],
+    store.get(CHARACTERS)[store.get(ACTIVE)]?.main?.sub || [],
   );
 
   // Hooks P2 - Reset Timers

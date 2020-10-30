@@ -12,6 +12,7 @@ import {
   WEEKLY_BOSSES,
   MAPLE_WORLD_QUESTS,
   ARCANE_RIVER_QUESTS,
+  DELETING,
 } from './variables';
 
 const store = new Store();
@@ -36,7 +37,7 @@ const isDupe = (charName) =>
  * @param {string} charName
  * @param {string} charCode
  */
-const getTemplate = (charName, charCode) => ({
+export const getTemplate = (charName, charCode) => ({
   name: charName,
   code: charCode,
   bosses: {
@@ -56,11 +57,13 @@ const getTemplate = (charName, charCode) => ({
  */
 const setStore = (charName, charCode) => {
   const currentActive = store.get(ACTIVE);
+  const deleteList = store.get(DELETING);
   store.set(ACTIVE, currentActive === null ? 0 : currentActive + 1);
   store.set(CHARACTERS, [
     ...store.get(CHARACTERS),
     getTemplate(charName, charCode),
   ]);
+  store.set(DELETING, [...deleteList, 0]);
 };
 
 /**

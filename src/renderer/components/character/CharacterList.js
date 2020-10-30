@@ -45,20 +45,23 @@ export const CharacterList = () => {
   return (
     <div className="overflow-y-scroll px-2 py-2 h-64">
       <div className="justify-items-center grid grid-cols-3 gap-2">
-        {charList.map((char, index) => (
-          <img
-            key={char}
-            src={`http://msavatar1.nexon.net/Character/${char}.png`}
-            className={`rounded-full border border-red-500 ${
-              hideAddButton
-                ? deleteList[index] && 'bg-green-500'
-                : activeChar === index && 'bg-blue-500'
-            }`}
-            onClick={() => {
-              hideAddButton ? multiSelect(index) : handleClick(index);
-            }}
-          />
-        ))}
+        {charList.map(
+          (char, index) =>
+            char && (
+              <img
+                key={char}
+                src={`http://msavatar1.nexon.net/Character/${char}.png`}
+                className={`rounded-full border border-red-500 ${
+                  hideAddButton
+                    ? deleteList[index] && 'bg-green-500'
+                    : activeChar === index && 'bg-blue-500'
+                }`}
+                onClick={() => {
+                  hideAddButton ? multiSelect(index) : handleClick(index);
+                }}
+              />
+            ),
+        )}
       </div>
     </div>
   );

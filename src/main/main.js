@@ -3,6 +3,7 @@ import { app, BrowserWindow, nativeTheme } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
 import fs from 'fs';
+import { getTemplate } from '../renderer/components/utils/getCharCode';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -17,9 +18,9 @@ const store = new Store();
 fs.readdir(app.getPath('userData'), (err, files) => {
   if (files.indexOf('config.json') === -1) {
     store.set({
-      active: null,
-      characters: [],
-      deleting: [],
+      active: 0,
+      characters: [getTemplate('DEFAULT CHARACTER', null)],
+      deleting: [0],
     });
   }
 });
