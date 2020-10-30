@@ -1,7 +1,6 @@
 // Core
 import React, { useContext, useState } from 'react';
 import Store from 'electron-store';
-import { navigate } from '@reach/router';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
@@ -31,7 +30,8 @@ export const DeleteChars = () => {
       deleting: new Array(characters.length).fill(0),
     });
 
-    navigate('/');
+    // navigate('/');
+    setHideAdd(false);
   };
 
   const startDeleting = () => {

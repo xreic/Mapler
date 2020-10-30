@@ -36,6 +36,9 @@ const App = () => {
   };
 
   return (
+    // TODO: Go back to LocationProvider
+    // Final build doesn't like this way of routing
+    // Have to use hash
     <Location>
       {({ location }) => (
         <div className="select-none" onDragStart={handleDrag}>

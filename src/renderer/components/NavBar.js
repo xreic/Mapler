@@ -14,34 +14,17 @@ import {
   ARCANE,
 } from './utils/variables';
 
-// Mini-components
-const NavLink = ({ path, label }) => (
-  <Link to={path} className="flex-1 text-center border border-red-500">
-    {label}
-  </Link>
-);
-
-const EditButton = () => {
-  const { isEditing, setIsEditing } = useContext(EditContext);
-
-  const handleClick = () => setIsEditing(!isEditing);
-
+export const NavBar = () => {
   return (
-    <button
-      className="border border-red-500 w-26px h-26px"
-      onClick={handleClick}
-    >
-      {isEditing ? (
-        <GrCheckmark className="m-auto" />
-      ) : (
-        <GrEdit className="m-auto" />
-      )}
-    </button>
+    <>
+      <UpperNav />
+      <LowerNav />
+    </>
   );
 };
 
+// Mini-components
 const UpperNav = () => {
-  // TODO: Change "Characters" tab label to the active character's name when not active
   const mainPaths = [
     { path: `/${BOSSES}/${DAILY}`, label: 'Bosses' },
     { path: `/${QUESTS}/${MAPLE}`, label: 'Quests' },
@@ -95,11 +78,27 @@ const LowerNav = () => {
   return <nav className="flex items-stretch"></nav>;
 };
 
-export const NavBar = () => {
+const NavLink = ({ path, label }) => (
+  <Link to={path} className="flex-1 text-center border border-red-500">
+    {label}
+  </Link>
+);
+
+const EditButton = () => {
+  const { isEditing, setIsEditing } = useContext(EditContext);
+
+  const handleClick = () => setIsEditing(!isEditing);
+
   return (
-    <>
-      <UpperNav />
-      <LowerNav />
-    </>
+    <button
+      className="border border-red-500 w-26px h-26px"
+      onClick={handleClick}
+    >
+      {isEditing ? (
+        <GrCheckmark className="m-auto" />
+      ) : (
+        <GrEdit className="m-auto" />
+      )}
+    </button>
   );
 };

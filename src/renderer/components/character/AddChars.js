@@ -38,12 +38,10 @@ export const AddChars = () => {
     }
 
     setIsLoading(true);
-
     let isSuccessful;
 
     while (!isSuccessful) isSuccessful = await getCharCode(charName);
-
-    if (isSuccessful === true) e.target.reset();
+    if (isSuccessful === true) setCharName('');
     if (isSuccessful == INVALID) setCharName(INVALID);
 
     setIsLoading(false);
