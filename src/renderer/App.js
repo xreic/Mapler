@@ -1,7 +1,12 @@
 // Core
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { Location, Router } from '@reach/router';
+import {
+  createMemorySource,
+  createHistory,
+  LocationProvider,
+  Router,
+} from '@reach/router';
 
 // Components
 import { EditProvider } from './components/context/EditContext';
@@ -24,6 +29,10 @@ import {
   ARCANE,
 } from './components/utils/variables';
 
+// Reach Router
+let source = createMemorySource('/main_window');
+let history = createHistory(source);
+
 // Mini-components
 const View = ({ children }) => (
   <div className="overflow-y-scroll px-2 py-2 h-64">{children}</div>
@@ -36,37 +45,32 @@ const App = () => {
   };
 
   return (
-    // TODO: Go back to LocationProvider
-    // Final build doesn't like this way of routing
-    // Have to use hash
-    <Location>
-      {({ location }) => (
-        <div className="select-none" onDragStart={handleDrag}>
-          <EditProvider>
-            <NavBar />
+    <LocationProvider history={history}>
+      <div className="select-none" onDragStart={handleDrag}>
+        <EditProvider>
+          <NavBar />
 
-            <Transition location={location}>
-              <Router primary={false}>
-                {/* Character View */}
-                <CharacterView path="/" default />
+          <Transition>
+            <Router primary={false}>
+              {/* Character View */}
+              <CharacterView path="/" default />
 
-                {/* Bosses View */}
-                <View path={`/${BOSSES}`}>
-                  <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
-                  <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
-                </View>
+              {/* Bosses View */}
+              <View path={`/${BOSSES}`}>
+                <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
+                <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
+              </View>
 
-                {/* Quests View */}
-                <View path={`/${QUESTS}`}>
-                  <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
-                  <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
-                </View>
-              </Router>
-            </Transition>
-          </EditProvider>
-        </div>
-      )}
-    </Location>
+              {/* Quests View */}
+              <View path={`/${QUESTS}`}>
+                <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
+                <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
+              </View>
+            </Router>
+          </Transition>
+        </EditProvider>
+      </div>
+    </LocationProvider>
   );
 };
 

@@ -1,9 +1,7 @@
 const path = require('path');
 const rules = require('./webpack.rules');
 
-const sourcePaths = (src) => {
-  return path.join(__dirname, src);
-};
+const sourcePaths = (src) => path.join(__dirname, src);
 
 module.exports = {
   /**

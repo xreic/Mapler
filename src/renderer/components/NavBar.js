@@ -1,6 +1,6 @@
 // Core
 import React, { useContext } from 'react';
-import { Link } from '@reach/router';
+import { Link, useLocation } from '@reach/router';
 
 // Helpers
 import { EditContext } from './context/EditContext';
@@ -41,6 +41,9 @@ const UpperNav = () => {
 };
 
 const LowerNav = () => {
+  const location = useLocation();
+  const [_, main] = location.pathname.split('/');
+
   const subPaths = [
     [
       { path: `/${BOSSES}/${DAILY}`, label: `Daily` },
@@ -51,7 +54,6 @@ const LowerNav = () => {
       { path: `/${QUESTS}/${ARCANE}`, label: `Arcane River` },
     ],
   ];
-  const [_, main] = location.pathname.split('/');
 
   if (main === `${BOSSES}`) {
     return (

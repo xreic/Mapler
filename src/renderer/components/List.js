@@ -7,11 +7,13 @@ import { ACTIVE, CHARACTERS } from './utils/variables';
 import { Task } from './Task';
 import { EditContext } from './context/EditContext';
 import { getDailyReset, getWeeklyReset } from './utils/resetTimer';
+import { useLocation } from '@reach/router';
 
 // Electron store
 const store = new Store({ watch: true });
 
 export const List = ({ list }) => {
+  const location = useLocation();
   const [_, main, sub] = location.pathname.split('/');
 
   // Hooks P1
@@ -57,6 +59,7 @@ export const List = ({ list }) => {
       clearTimeout(weeklyResetSun.current);
     };
   });
+
   // Wednesday to Thursday reset (UTC)
   useEffect(() => {
     weeklyResetWed.current = setTimeout(() => {}, getWeeklyReset(4));
