@@ -14,7 +14,7 @@ export const CharacterList = () => {
   const { hideAddButton } = useContext(CharContext);
   const [activeChar, setActiveChar] = useState(store.get(ACTIVE));
   const [charList, setCharList] = useState(
-    store.get(CHARACTERS).map(({ code }) => code) || [],
+    store.get(CHARACTERS).map(({ code }) => code),
   );
   const [deleteList, setDeleteList] = useState(store.get(DELETING));
 

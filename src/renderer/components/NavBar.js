@@ -28,7 +28,7 @@ const UpperNav = () => {
   const mainPaths = [
     { path: `/${BOSSES}/${DAILY}`, label: 'Bosses' },
     { path: `/${QUESTS}/${MAPLE}`, label: 'Quests' },
-    { path: '/', label: 'Characters' },
+    { path: '/', label: 'Character' },
   ];
 
   return (
@@ -43,8 +43,6 @@ const UpperNav = () => {
 const LowerNav = () => {
   const location = useLocation();
   const [_, main] = location.pathname.split('/');
-
-  console.log(location.pathname);
 
   const subPaths = [
     [
