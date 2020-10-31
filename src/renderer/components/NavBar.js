@@ -44,6 +44,8 @@ const LowerNav = () => {
   const location = useLocation();
   const [_, main] = location.pathname.split('/');
 
+  console.log(location.pathname);
+
   const subPaths = [
     [
       { path: `/${BOSSES}/${DAILY}`, label: `Daily` },

@@ -1,11 +1,13 @@
 // Core
 import React, { useContext, useState } from 'react';
 import Store from 'electron-store';
+import { navigate } from '@reach/router';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
 import { CHARACTERS, DELETING } from '../utils/variables';
 import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
+import { getTemplate } from '../utils/getCharCode';
 
 // Electron Store
 const store = new Store();
@@ -22,16 +24,18 @@ export const DeleteChars = () => {
     const characters = store
       .get(CHARACTERS)
       .filter((_, index) => !deleteList[index]);
-    const active = characters.length > 0 ? 0 : null;
+    const active = 0;
 
     store.set({
       active,
-      characters,
-      deleting: new Array(characters.length).fill(0),
+      characters: characters.length
+        ? characters
+        : [getTemplate('DEFAULT CHARACTER', null)],
+      deleting: new Array(characters.length + 1).fill(0),
     });
 
-    // navigate('/');
     setHideAdd(false);
+    navigate('/main_window');
   };
 
   const startDeleting = () => {

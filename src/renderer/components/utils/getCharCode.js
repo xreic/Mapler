@@ -33,6 +33,12 @@ const isDupe = (charName) =>
   store.get(CHARACTERS).some(({ name }) => charName === name);
 
 /**
+ * Returns a boolean whether or not the character is the default character
+ * @param {object} char
+ */
+const checkIfDefault = ({ code }) => !code;
+
+/**
  * Returns a data store shape per character entry
  * @param {string} charName
  * @param {string} charCode
@@ -56,14 +62,15 @@ export const getTemplate = (charName, charCode) => ({
  * @param {string} charCode
  */
 const setStore = (charName, charCode) => {
+  let characters = store.get(CHARACTERS);
+
+  if (checkIfDefault(characters[0])) characters = characters.slice(1);
+
   const currentActive = store.get(ACTIVE);
-  const deleteList = store.get(DELETING);
-  store.set(ACTIVE, currentActive === null ? 0 : currentActive + 1);
-  store.set(CHARACTERS, [
-    ...store.get(CHARACTERS),
-    getTemplate(charName, charCode),
-  ]);
-  store.set(DELETING, [...deleteList, 0]);
+
+  store.set(ACTIVE, currentActive === null ? 0 : characters.length);
+  store.set(CHARACTERS, [...characters, getTemplate(charName, charCode)]);
+  store.set(DELETING, new Array(characters.length + 1).fill(0));
 };
 
 /**
