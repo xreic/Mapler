@@ -35,7 +35,7 @@ export const DeleteChars = () => {
     });
 
     setHideAdd(false);
-    navigate('/refresh');
+    navigate('/');
   };
 
   const startDeleting = () => {

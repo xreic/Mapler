@@ -13,9 +13,7 @@ export const CharacterList = () => {
   // Hooks P1: Initial state
   const { hideAddButton } = useContext(CharContext);
   const [activeChar, setActiveChar] = useState(store.get(ACTIVE));
-  const [charList, setCharList] = useState(
-    store.get(CHARACTERS).map(({ code }) => code),
-  );
+  const [charList, setCharList] = useState(store.get(CHARACTERS));
   const [deleteList, setDeleteList] = useState(store.get(DELETING));
 
   // Hooks P2: Store subscriptions
@@ -23,7 +21,7 @@ export const CharacterList = () => {
     const unsub = store.onDidAnyChange(
       ({ active, characters, deleting }, _) => {
         setActiveChar(active);
-        setCharList(characters.map(({ code }) => code));
+        setCharList(characters);
         setDeleteList(deleting);
       },
     );
@@ -46,11 +44,11 @@ export const CharacterList = () => {
     <div className="overflow-y-scroll px-2 py-2 h-64">
       <div className="justify-items-center grid grid-cols-3 gap-2">
         {charList.map(
-          (char, index) =>
-            char && (
+          ({ code }, index) =>
+            code && (
               <img
-                key={char}
-                src={`http://msavatar1.nexon.net/Character/${char}.png`}
+                key={code}
+                src={`http://msavatar1.nexon.net/Character/${code}.png`}
                 className={`rounded-full border border-red-500 ${
                   hideAddButton
                     ? deleteList[index] && 'bg-green-500'
