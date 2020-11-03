@@ -30,6 +30,9 @@ export const CharacterList = () => {
   }, []);
 
   // TODO: Character list not updating on deletion
+  // Go back to old datastore
+  //  Array to hold codes
+  //  Array of objects to hold per character data
   useEffect(() => {
     const unsubCharList = store.onDidChange(CHARACTERS, (characters, _) => {
       console.log('CharacterList.js - Characters');
