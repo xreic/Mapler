@@ -13,22 +13,43 @@ export const CharacterList = () => {
   // Hooks P1: Initial state
   const { hideAddButton } = useContext(CharContext);
   const [activeChar, setActiveChar] = useState(store.get(ACTIVE));
-  const [charList, setCharList] = useState(store.get(CHARACTERS));
+  const [charList, setCharList] = useState(
+    store.get(CHARACTERS).map(({ code }) => code),
+  );
   const [deleteList, setDeleteList] = useState(store.get(DELETING));
 
   // Hooks P2: Store subscriptions
+
   useEffect(() => {
-    const unsub = store.onDidAnyChange(
-      ({ active, characters, deleting }, _) => {
-        setActiveChar(active);
-        setCharList(characters);
-        setDeleteList(deleting);
-      },
-    );
+    const unsubActive = store.onDidChange(ACTIVE, (active, _) => {
+      setActiveChar(active);
+    });
     return () => {
-      unsub();
+      unsubActive();
     };
   }, []);
+
+  // TODO: Character list not updating on deletion
+  useEffect(() => {
+    const unsubCharList = store.onDidChange(CHARACTERS, (characters, _) => {
+      console.log('CharacterList.js - Characters');
+      setCharList(characters.map(({ code }) => code));
+    });
+
+    return () => {
+      unsubCharList();
+    };
+  });
+
+  useEffect(() => {
+    const unsubDeleteList = store.onDidChange(DELETING, (deleteList, _) => {
+      console.log('CharacterList.js - Delete');
+      setDeleteList(deleteList);
+    });
+    return () => {
+      unsubDeleteList();
+    };
+  });
 
   const handleClick = (index) => {
     store.set(ACTIVE, index);
@@ -44,7 +65,7 @@ export const CharacterList = () => {
     <div className="overflow-y-scroll px-2 py-2 h-64">
       <div className="justify-items-center grid grid-cols-3 gap-2">
         {charList.map(
-          ({ code }, index) =>
+          (code, index) =>
             code && (
               <img
                 key={code}

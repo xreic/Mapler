@@ -5,9 +5,9 @@ import { navigate } from '@reach/router';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
+import { getTemplate } from '../utils/getCharCode';
 import { CHARACTERS, DELETING } from '../utils/variables';
 import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
-import { getTemplate } from '../utils/getCharCode';
 
 // Electron Store
 const store = new Store();
@@ -24,18 +24,16 @@ export const DeleteChars = () => {
     const characters = store
       .get(CHARACTERS)
       .filter((_, index) => !deleteList[index]);
-    const active = 0;
 
     store.set({
-      active,
+      active: 0,
       characters: characters.length
         ? characters
         : [getTemplate('DEFAULT CHARACTER', null)],
-      deleting: new Array(characters.length + 1).fill(0),
+      deleting: new Array(characters.length ? characters.length : 1).fill(0),
     });
 
-    setHideAdd(false);
-    navigate('/');
+    // setHideAdd(false);
   };
 
   const startDeleting = () => {
@@ -44,8 +42,8 @@ export const DeleteChars = () => {
   };
 
   const goBack = () => {
-    setHideAdd(false);
     setIsDeleting(false);
+    setHideAdd(false);
   };
 
   if (hideDeleteButton) return null;
