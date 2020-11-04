@@ -12,8 +12,6 @@ import {
   GrFormClose,
 } from 'react-icons/gr';
 
-const INVALID = 'Invalid Character Name';
-
 export const AddChars = () => {
   // View Hooks
   const { hideAddButton, setHideDelete } = useContext(CharContext);
@@ -30,6 +28,7 @@ export const AddChars = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const INVALID = 'Invalid Character Name';
 
     if (isLoading) return;
     if (charName == INVALID) {

@@ -7,7 +7,6 @@ import cheerio from 'cheerio';
 // Helpers
 import {
   ACTIVE,
-  CODES,
   CHARACTERS,
   DELETING,
   DAILY_BOSSES,
@@ -58,18 +57,35 @@ export const getTemplate = (charName, charCode) => ({
 });
 
 /**
+ * Deletes the selected characters
+ */
+export const activateDelete = () => {
+  const deleteList = store.get(DELETING);
+
+  if (!deleteList.some((item) => item === 1)) return;
+
+  const characters = store
+    .get(CHARACTERS)
+    .filter((_, index) => !deleteList[index]);
+
+  store.set({
+    active: null,
+    characters: characters.length
+      ? characters
+      : [getTemplate('DEFAULT CHARACTER', null)],
+    deleting: new Array(characters.length ? characters.length : 1).fill(0),
+  });
+};
+
+/**
  * Sets the valid character into the data store
  * @param {string} charName
  * @param {string} charCode
  */
 const setStore = (charName, charCode) => {
   const characters = store.get(CHARACTERS);
-  const charCodes = store.get(CODES);
 
-  if (checkIfDefault(characters[0])) {
-    characters.shift();
-    charCodes.shift();
-  }
+  if (checkIfDefault(characters[0])) characters.shift();
 
   const currentActive = store.get(ACTIVE);
 
@@ -114,22 +130,4 @@ export const getCharCode = async (charName) => {
   } catch (err) {
     return false;
   }
-};
-
-export const activateDelete = () => {
-  const deleteList = store.get(DELETING);
-
-  if (!deleteList.some((item) => item === 1)) return;
-
-  const characters = store
-    .get(CHARACTERS)
-    .filter((_, index) => !deleteList[index]);
-
-  store.set({
-    active: null,
-    characters: characters.length
-      ? characters
-      : [getTemplate('DEFAULT CHARACTER', null)],
-    deleting: new Array(characters.length ? characters.length : 1).fill(0),
-  });
 };
