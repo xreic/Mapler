@@ -7,12 +7,13 @@ import cheerio from 'cheerio';
 // Helpers
 import {
   ACTIVE,
+  CODES,
   CHARACTERS,
+  DELETING,
   DAILY_BOSSES,
   WEEKLY_BOSSES,
   MAPLE_WORLD_QUESTS,
   ARCANE_RIVER_QUESTS,
-  DELETING,
 } from './variables';
 
 const store = new Store();
@@ -62,17 +63,24 @@ export const getTemplate = (charName, charCode) => ({
  * @param {string} charCode
  */
 const setStore = (charName, charCode) => {
-  let characters = store.get(CHARACTERS);
+  const characters = store.get(CHARACTERS);
+  const charCodes = store.get(CODES);
 
-  if (checkIfDefault(characters[0])) characters = characters.slice(1);
+  if (checkIfDefault(characters[0])) {
+    characters.shift();
+    charCodes.shift();
+  }
 
   const currentActive = store.get(ACTIVE);
 
-  store.set(ACTIVE, currentActive === null ? 0 : characters.length);
-  store.set(CHARACTERS, [...characters, getTemplate(charName, charCode)]);
-  store.set(DELETING, new Array(characters.length + 1).fill(0));
+  store.set({
+    active: currentActive === null ? 0 : characters.length,
+    characters: [...characters, getTemplate(charName, charCode)],
+    deleting: new Array(characters.length + 1).fill(0),
+  });
 };
 
+// TODO: Add abort functionality
 /**
  * Performs a network requests against the Maplestory rankings page to retrieve an image the desired character
  * @param {string} charName
@@ -106,4 +114,22 @@ export const getCharCode = async (charName) => {
   } catch (err) {
     return false;
   }
+};
+
+export const activateDelete = () => {
+  const deleteList = store.get(DELETING);
+
+  if (!deleteList.some((item) => item === 1)) return;
+
+  const characters = store
+    .get(CHARACTERS)
+    .filter((_, index) => !deleteList[index]);
+
+  store.set({
+    active: null,
+    characters: characters.length
+      ? characters
+      : [getTemplate('DEFAULT CHARACTER', null)],
+    deleting: new Array(characters.length ? characters.length : 1).fill(0),
+  });
 };

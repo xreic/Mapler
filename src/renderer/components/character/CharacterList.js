@@ -12,45 +12,24 @@ const store = new Store({ watch: true });
 export const CharacterList = () => {
   // Hooks P1: Initial state
   const { hideAddButton } = useContext(CharContext);
-  const [activeChar, setActiveChar] = useState(store.get(ACTIVE));
-  const [charList, setCharList] = useState(
+  const [active, setActive] = useState(store.get(ACTIVE) || 0);
+  const [characters, setCharacters] = useState(
     store.get(CHARACTERS).map(({ code }) => code),
   );
-  const [deleteList, setDeleteList] = useState(store.get(DELETING));
+  const [deleting, setDeleting] = useState(store.get(DELETING));
 
   // Hooks P2: Store subscriptions
-
   useEffect(() => {
-    const unsubActive = store.onDidChange(ACTIVE, (active, _) => {
-      setActiveChar(active);
-    });
+    const unsub = store.onDidAnyChange(
+      ({ active, characters, deleting }, _) => {
+        console.log('CharacterList.js');
+        setActive(active || 0);
+        setCharacters(characters.map(({ code }) => code));
+        setDeleting(deleting);
+      },
+    );
     return () => {
-      unsubActive();
-    };
-  }, []);
-
-  // TODO: Character list not updating on deletion
-  // Go back to old datastore
-  //  Array to hold codes
-  //  Array of objects to hold per character data
-  useEffect(() => {
-    const unsubCharList = store.onDidChange(CHARACTERS, (characters, _) => {
-      console.log('CharacterList.js - Characters');
-      setCharList(characters.map(({ code }) => code));
-    });
-
-    return () => {
-      unsubCharList();
-    };
-  });
-
-  useEffect(() => {
-    const unsubDeleteList = store.onDidChange(DELETING, (deleteList, _) => {
-      console.log('CharacterList.js - Delete');
-      setDeleteList(deleteList);
-    });
-    return () => {
-      unsubDeleteList();
+      unsub();
     };
   });
 
@@ -59,15 +38,15 @@ export const CharacterList = () => {
   };
 
   const multiSelect = (index) => {
-    const deleteList = store.get(DELETING);
-    deleteList[index] = deleteList[index] === 0 ? 1 : 0;
-    store.set(DELETING, deleteList);
+    const deleting = store.get(DELETING);
+    deleting[index] = deleting[index] === 0 ? 1 : 0;
+    store.set(DELETING, deleting);
   };
 
   return (
     <div className="overflow-y-scroll px-2 py-2 h-64">
       <div className="justify-items-center grid grid-cols-3 gap-2">
-        {charList.map(
+        {characters.map(
           (code, index) =>
             code && (
               <img
@@ -75,8 +54,8 @@ export const CharacterList = () => {
                 src={`http://msavatar1.nexon.net/Character/${code}.png`}
                 className={`rounded-full border border-red-500 ${
                   hideAddButton
-                    ? deleteList[index] && 'bg-green-500'
-                    : activeChar === index && 'bg-blue-500'
+                    ? deleting[index] && 'bg-green-500'
+                    : active === index && 'bg-blue-500'
                 }`}
                 onClick={() => {
                   hideAddButton ? multiSelect(index) : handleClick(index);
