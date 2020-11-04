@@ -1,5 +1,6 @@
 // Core
 import React, { useContext, useState } from 'react';
+import { navigate } from '@reach/router';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
@@ -13,6 +14,7 @@ export const DeleteChars = () => {
   const handleDelete = () => {
     activateDelete();
     setHideAdd(false);
+    navigate('/');
   };
 
   const startDeleting = () => {

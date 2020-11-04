@@ -27,7 +27,7 @@ const agent = new https.Agent({
 
 /**
  * Returns a boolean whether or not the character is stored already
- * @param {string} charName
+ * @param {string} charName - character name
  */
 const isDupe = (charName) =>
   store.get(CHARACTERS).some(({ name }) => charName === name);
@@ -40,8 +40,8 @@ const checkIfDefault = ({ code }) => !code;
 
 /**
  * Returns a data store shape per character entry
- * @param {string} charName
- * @param {string} charCode
+ * @param {string} charName - character name
+ * @param {string} charCode - character's image code
  */
 export const getTemplate = (charName, charCode) => ({
   name: charName,
@@ -68,8 +68,13 @@ export const activateDelete = () => {
     .get(CHARACTERS)
     .filter((_, index) => !deleteList[index]);
 
+  let active = store.get(ACTIVE);
+  deleteList.forEach((item, index) => {
+    if (item && index <= active) active -= 1;
+  });
+
   store.set({
-    active: null,
+    active: active >= 0 ? active : 0,
     characters: characters.length
       ? characters
       : [getTemplate('DEFAULT CHARACTER', null)],
@@ -79,8 +84,8 @@ export const activateDelete = () => {
 
 /**
  * Sets the valid character into the data store
- * @param {string} charName
- * @param {string} charCode
+ * @param {string} charName - character name
+ * @param {string} charCode - character's image code
  */
 const setStore = (charName, charCode) => {
   const characters = store.get(CHARACTERS);
@@ -99,7 +104,7 @@ const setStore = (charName, charCode) => {
 // TODO: Add abort functionality
 /**
  * Performs a network requests against the Maplestory rankings page to retrieve an image the desired character
- * @param {string} charName
+ * @param {string} charName - character name
  */
 export const getCharCode = async (charName) => {
   if (isDupe(charName)) return true;
