@@ -10,7 +10,10 @@ import { ACTIVE, CHARACTERS, DELETING } from '../utils/variables';
 const store = new Store({ watch: true });
 
 export const CharacterList = () => {
-  // Hooks P1: Initial state
+  /**
+   * Hooks P1: Initial state
+   * View switching and data hooks
+   */
   const { hideAddButton } = useContext(CharContext);
   const [active, setActive] = useState(store.get(ACTIVE) || 0);
   const [characters, setCharacters] = useState(
@@ -18,7 +21,10 @@ export const CharacterList = () => {
   );
   const [deleting, setDeleting] = useState(store.get(DELETING));
 
-  // Hooks P2: Store subscriptions
+  /**
+   * Hooks P2: Store subscriptions
+   * All encompassing subscription
+   */
   useEffect(() => {
     const unsub = store.onDidAnyChange(
       ({ active, characters, deleting }, _) => {

@@ -19,7 +19,6 @@ fs.readdir(app.getPath('userData'), (err, files) => {
   if (files.indexOf('config.json') === -1) {
     store.set({
       active: 0,
-      codes: [null],
       characters: [getTemplate('DEFAULT CHARACTER', null)],
       deleting: [0],
     });
