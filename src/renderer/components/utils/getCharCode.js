@@ -62,11 +62,11 @@ export const getTemplate = (charName, charCode) => ({
 export const activateDelete = () => {
   const deleteList = store.get(DELETING);
 
-  if (!deleteList.some((item) => item === 1)) return;
+  let characters = store.get(CHARACTERS);
 
-  const characters = store
-    .get(CHARACTERS)
-    .filter((_, index) => !deleteList[index]);
+  if (!deleteList.some((item) => item === 1)) return characters;
+
+  characters = characters.filter((_, index) => !deleteList[index]);
 
   let active = store.get(ACTIVE);
   deleteList.forEach((item, index) => {
@@ -80,6 +80,8 @@ export const activateDelete = () => {
       : [getTemplate('DEFAULT CHARACTER', null)],
     deleting: new Array(characters.length ? characters.length : 1).fill(0),
   });
+
+  return characters;
 };
 
 /**

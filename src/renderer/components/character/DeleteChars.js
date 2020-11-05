@@ -1,6 +1,5 @@
 // Core
 import React, { useContext, useState } from 'react';
-import { navigate } from '@reach/router';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
@@ -8,13 +7,15 @@ import { activateDelete } from '../utils/getCharCode';
 import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
 export const DeleteChars = () => {
-  const { setHideAdd, hideDeleteButton } = useContext(CharContext);
+  const { setHideAdd, hideDeleteButton, setCharacters } = useContext(
+    CharContext,
+  );
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = () => {
-    activateDelete();
-    setHideAdd(false);
-    navigate('/');
+    const characters = activateDelete();
+    setCharacters(characters.map(({ code }) => code));
+    goBack();
   };
 
   const startDeleting = () => {

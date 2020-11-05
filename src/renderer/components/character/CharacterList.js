@@ -4,7 +4,7 @@ import Store from 'electron-store';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
-import { ACTIVE, CHARACTERS, DELETING } from '../utils/variables';
+import { ACTIVE, DELETING } from '../utils/variables';
 
 // Electron Store
 const store = new Store({ watch: true });
@@ -14,11 +14,8 @@ export const CharacterList = () => {
    * Hooks P1: Initial state
    * View switching and data hooks
    */
-  const { hideAddButton } = useContext(CharContext);
-  const [active, setActive] = useState(store.get(ACTIVE) || 0);
-  const [characters, setCharacters] = useState(
-    store.get(CHARACTERS).map(({ code }) => code),
-  );
+  const { hideAddButton, characters } = useContext(CharContext);
+  const [active, setActive] = useState(store.get(ACTIVE));
   const [deleting, setDeleting] = useState(store.get(DELETING));
 
   /**
@@ -28,12 +25,11 @@ export const CharacterList = () => {
   useEffect(() => {
     const unsub = store.onDidAnyChange(
       ({ active, characters, deleting }, _) => {
-        console.log('CharacterList.js');
-        setActive(active || 0);
-        setCharacters(characters.map(({ code }) => code));
+        setActive(active);
         setDeleting(deleting);
       },
     );
+
     return () => {
       unsub();
     };
