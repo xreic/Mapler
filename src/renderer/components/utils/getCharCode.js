@@ -106,6 +106,8 @@ export const setStore = (charName, charCode) => {
 // TODO: Add abort functionality
 /**
  * Performs a network requests against the Maplestory rankings page to retrieve an image the desired character
+ *
+ * Returns the character's current image code
  * @param {string} charName - character name
  */
 export const getCharCode = async (charName) => {
