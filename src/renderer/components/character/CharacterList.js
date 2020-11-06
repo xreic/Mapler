@@ -44,7 +44,7 @@ export const CharacterList = () => {
   };
 
   return (
-    <div className="overflow-y-scroll px-2 py-2 h-64">
+    <div className="overflow-y-scroll px-2 py-2 h-289px">
       <div className="justify-items-center grid grid-cols-3 gap-2">
         {characters.map(
           (code, index) =>

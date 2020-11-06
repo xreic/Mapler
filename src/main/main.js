@@ -34,16 +34,20 @@ fs.readdir(app.getPath('userData'), (err, files) => {
 const createWindow = () => {
   updateAllChars();
 
+  const hideMenu = true;
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 325,
-    height: 367,
+    width: 350,
+    height: hideMenu ? 380 : 400,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
     },
     show: false,
   });
+
+  hideMenu && mainWindow.setMenu(null);
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 

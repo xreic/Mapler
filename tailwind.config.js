@@ -5,7 +5,12 @@ module.exports = {
       maxWidth: { '53px': '53px', '86px': '86px' },
       minHeight: { '57px': '57px' },
       minWidth: { '53px': '53px', '86px': '86px' },
-      height: { '26px': '26px', '57px': '57px' },
+      height: {
+        '26px': '26px',
+        '57px': '57px',
+        '289px': '289px',
+        '309px': '309px',
+      },
       width: { '26px': '26px', '53px': '53px', '86px': '86px' },
     },
   },
