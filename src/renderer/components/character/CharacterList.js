@@ -23,17 +23,15 @@ export const CharacterList = () => {
    * All encompassing subscription
    */
   useEffect(() => {
-    const unsub = store.onDidAnyChange(
-      ({ active, characters, deleting }, _) => {
-        setActive(active);
-        setDeleting(deleting);
-      },
-    );
+    const unsub = store.onDidAnyChange(({ active, deleting }, _) => {
+      setActive(active);
+      setDeleting(deleting);
+    });
 
     return () => {
       unsub();
     };
-  });
+  }, [active, deleting]);
 
   const handleClick = (index) => {
     store.set(ACTIVE, index);

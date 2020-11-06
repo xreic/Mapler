@@ -3,7 +3,13 @@ import { app, BrowserWindow, nativeTheme } from 'electron';
 import Store from 'electron-store';
 import path from 'path';
 import fs from 'fs';
-import { getTemplate } from '../renderer/components/utils/getCharCode';
+
+// Helpers
+import {
+  getCharCode,
+  getTemplate,
+} from '../renderer/components/utils/getCharCode';
+import { CHARACTERS } from '../renderer/components/utils/variables';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -26,13 +32,12 @@ fs.readdir(app.getPath('userData'), (err, files) => {
 });
 
 const createWindow = () => {
-  const width = 325;
-  const height = 367;
+  updateAllChars();
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width,
-    height,
+    width: 325,
+    height: 367,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
@@ -73,3 +78,18 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+const updateAllChars = async () => {
+  let chars = store.get(CHARACTERS);
+  const updateRequests = [];
+
+  for (let char of chars) updateRequests.push(await getCharCode(char.name));
+
+  const newCodes = await Promise.all(updateRequests);
+
+  chars = chars.map((char, index) => {
+    char.code = newCodes[index];
+    return char;
+  });
+
+  store.set(CHARACTERS, chars);
+};

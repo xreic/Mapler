@@ -29,7 +29,7 @@ const agent = new https.Agent({
  * Returns a boolean whether or not the character is stored already
  * @param {string} charName - character name
  */
-const isDupe = (charName) =>
+export const isDupe = (charName) =>
   store.get(CHARACTERS).some(({ name }) => charName === name);
 
 /**
@@ -89,7 +89,7 @@ export const activateDelete = () => {
  * @param {string} charName - character name
  * @param {string} charCode - character's image code
  */
-const setStore = (charName, charCode) => {
+export const setStore = (charName, charCode) => {
   const characters = store.get(CHARACTERS);
 
   if (checkIfDefault(characters[0])) characters.shift();
@@ -109,8 +109,6 @@ const setStore = (charName, charCode) => {
  * @param {string} charName - character name
  */
 export const getCharCode = async (charName) => {
-  if (isDupe(charName)) return true;
-
   const url = `https://maplestory.nexon.net/rankings/overall-ranking/legendary`;
   const params = {
     pageIndex: 1,
@@ -127,13 +125,10 @@ export const getCharCode = async (charName) => {
     });
 
     const $ = cheerio.load(rawData.body);
-    const link = $('img.avatar').attr('src');
+    const code = $('img.avatar').attr('src');
 
-    if (!link) return 'Invalid Character Name';
-
-    setStore(charName, link.substring(37, link.length - 4));
-
-    return true;
+    if (!code) return 'Invalid Character Name';
+    return code.substring(37, code.length - 4);
   } catch (err) {
     return false;
   }

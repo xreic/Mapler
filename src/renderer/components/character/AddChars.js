@@ -1,8 +1,8 @@
 // Core
 import React, { useContext, useRef, useState } from 'react';
-import { getCharCode } from '../utils/getCharCode';
 
 // Helpers
+import { getCharCode, isDupe, setStore } from '../utils/getCharCode';
 import { CharContext } from '../context/CharContext';
 import {
   GrFormPreviousLink,
@@ -31,18 +31,23 @@ export const AddChars = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isLoading) return;
+    if (isLoading || isDupe(charName)) return;
     if (charName == INVALID) {
       setCharName('');
       return;
     }
 
     setIsLoading(true);
-    let isSuccessful;
+    let charCode;
 
-    while (!isSuccessful) isSuccessful = await getCharCode(charName);
-    if (isSuccessful === true) setCharName('');
-    if (isSuccessful == INVALID) setCharName(INVALID);
+    while (!charCode) charCode = await getCharCode(charName);
+
+    if (charCode == INVALID) {
+      setCharName(INVALID);
+    } else if (charCode) {
+      setStore(charName, charCode);
+      setCharName('');
+    }
 
     setIsLoading(false);
     inputRef.current.focus();
