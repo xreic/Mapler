@@ -20,7 +20,7 @@ export const List = ({ list }) => {
   const { isEditing } = useContext(EditContext);
   const { current: active } = useRef(store.get(ACTIVE));
   const [filter, setFilter] = useState(
-    store.get(CHARACTERS)[store.get(ACTIVE)]?.main?.sub || [],
+    store.get(CHARACTERS)[store.get(ACTIVE)][main][sub],
   );
 
   // Hooks P2 - Reset Timers
@@ -38,36 +38,41 @@ export const List = ({ list }) => {
     return () => {
       unsubFilter();
     };
-  });
+  }),
+    [filter];
 
   // Daily reset
   useEffect(() => {
     dailyReset.current = setTimeout(() => {
-      resetDailies();
+      triggerReset();
     }, getDailyReset());
 
     return () => {
       clearTimeout(dailyReset.current);
     };
-  });
+  }, []);
 
   // Sunday to Monday reset (UTC)
   useEffect(() => {
-    weeklyResetSun.current = setTimeout(() => {}, getWeeklyReset(1));
+    weeklyResetSun.current = setTimeout(() => {
+      triggerReset();
+    }, getWeeklyReset(1));
 
     return () => {
       clearTimeout(weeklyResetSun.current);
     };
-  });
+  }, []);
 
   // Wednesday to Thursday reset (UTC)
   useEffect(() => {
-    weeklyResetWed.current = setTimeout(() => {}, getWeeklyReset(4));
+    weeklyResetWed.current = setTimeout(() => {
+      triggerReset();
+    }, getWeeklyReset(4));
 
     return () => {
       clearTimeout(weeklyResetWed.current);
     };
-  });
+  }, []);
 
   // Handlers
   const handleClick = (index) => {
@@ -105,7 +110,7 @@ export const List = ({ list }) => {
 };
 
 // For some reason the view doesn't refresh when the function is imported
-const resetDailies = () => {
+const triggerReset = () => {
   const characters = store.get('characters');
   const tempCharStore = [];
 
