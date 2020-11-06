@@ -27,14 +27,21 @@ fs.readdir(app.getPath('userData'), (err, files) => {
       active: 0,
       characters: [getTemplate('DEFAULT CHARACTER', null)],
       deleting: [0],
+      timer: new Date(),
     });
   }
 });
 
 const createWindow = () => {
+  /**
+   * Start-up checks
+   *  1. Check for updates for each character's image code
+   *  2. Reset bosses and quests when reset has passed
+   */
   updateAllChars();
+  if (hasReset()) triggerReset();
 
-  const hideMenu = true;
+  const hideMenu = false;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -72,6 +79,7 @@ app.on('ready', createWindow);
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
+  store.set('timer', new Date());
 });
 
 app.on('activate', () => {
@@ -99,4 +107,58 @@ const updateAllChars = async () => {
   });
 
   store.set(CHARACTERS, chars);
+};
+
+const triggerReset = () => {
+  const characters = store.get('characters');
+  const tempCharStore = [];
+
+  const dayOfWeek = new Date().getUTCDay();
+
+  for (let char of characters) {
+    // Reset daily bosses
+    char.bosses.daily = char.bosses.daily.map((value) =>
+      value === 1 ? 0 : value,
+    );
+
+    // Reset arcane river dailies
+    char.quests.arcane = char.quests.arcane.map((value) =>
+      value === 1 ? 0 : value,
+    );
+
+    // Reset ALL maple world quests
+    if (dayOfWeek === 1) {
+      char.quests.maple = char.quests.maple.map((value) =>
+        value === 1 ? 0 : value,
+      );
+    } else {
+      // Reset daily maple world quests
+      char.quests.maple = char.quests.maple.map((value, index) =>
+        value === 1 && index < 9 ? 0 : value,
+      );
+    }
+
+    // Reset weekly bosses
+    if (dayOfWeek === 4) {
+      char.bosses.weekly = char.bosses.weekly.map((value) =>
+        value === 1 ? 0 : value,
+      );
+    }
+
+    tempCharStore.push(char);
+  }
+
+  store.set('characters', tempCharStore);
+};
+
+const hasReset = () => {
+  const lastCheckedDate = new Date(store.get('timer'));
+
+  const year = lastCheckedDate.getUTCFullYear();
+  const month = lastCheckedDate.getUTCMonth();
+  const date = lastCheckedDate.getUTCDate();
+
+  const launchResetTime = new Date(Date.UTC(year, month, date, 0));
+
+  return new Date() > launchResetTime;
 };
