@@ -79,15 +79,18 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 const updateAllChars = async () => {
-  let chars = store.get(CHARACTERS);
+  const error = 'Invalid Character Name';
   const updateRequests = [];
 
+  let chars = store.get(CHARACTERS);
   for (let char of chars) updateRequests.push(await getCharCode(char.name));
 
   const newCodes = await Promise.all(updateRequests);
 
   chars = chars.map((char, index) => {
-    char.code = newCodes[index];
+    if (newCodes[index] && newCodes[index] !== error)
+      char.code = newCodes[index];
+
     return char;
   });
 
