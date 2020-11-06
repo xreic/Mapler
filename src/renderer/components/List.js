@@ -6,7 +6,7 @@ import Store from 'electron-store';
 import { ACTIVE, CHARACTERS } from './utils/variables';
 import { Task } from './Task';
 import { EditContext } from './context/EditContext';
-import { getDailyReset, getWeeklyReset } from './utils/resetTimer';
+import { getDailyReset, getWeeklyReset } from './utils/resetHelpers';
 import { useLocation } from '@reach/router';
 
 // Electron store
@@ -50,7 +50,7 @@ export const List = ({ list }) => {
     return () => {
       clearTimeout(dailyReset.current);
     };
-  }, []);
+  });
 
   // Sunday to Monday reset (UTC)
   useEffect(() => {
@@ -61,7 +61,7 @@ export const List = ({ list }) => {
     return () => {
       clearTimeout(weeklyResetSun.current);
     };
-  }, []);
+  });
 
   // Wednesday to Thursday reset (UTC)
   useEffect(() => {
@@ -72,7 +72,7 @@ export const List = ({ list }) => {
     return () => {
       clearTimeout(weeklyResetWed.current);
     };
-  }, []);
+  });
 
   // Handlers
   const handleClick = (index) => {
@@ -109,7 +109,10 @@ export const List = ({ list }) => {
   );
 };
 
-// For some reason the view doesn't refresh when the function is imported
+/**
+ * Exporting this from resetHelper.js would not trigger an update from the subscription
+ * Most likely a similar issue to the earlier CharacterList.js error
+ */
 const triggerReset = () => {
   const characters = store.get('characters');
   const tempCharStore = [];
