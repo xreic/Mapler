@@ -1,8 +1,8 @@
 // Dependencies
 import { app, BrowserWindow, nativeTheme } from 'electron';
 import Store from 'electron-store';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
 // Helpers
 import {
