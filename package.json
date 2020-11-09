@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "compile": "electron-webpack",
+    "dist": "npm run compile && electron-builder --x64 --windows portable"
   },
   "keywords": [],
   "author": {
@@ -36,6 +37,8 @@
     "copy-webpack-plugin": "^6.2.1",
     "css-loader": "^4.2.1",
     "electron": "10.1.2",
+    "electron-builder": "^22.9.1",
+    "electron-webpack": "^2.8.2",
     "file-loader": "^6.1.0",
     "move-file": "^2.0.0",
     "node-loader": "^1.0.1",
@@ -55,6 +58,7 @@
     "react-hot-loader": "^4.13.0",
     "react-icons": "^3.11.0",
     "react-transition-group": "^4.4.1",
+    "source-map-support": "^0.5.19",
     "tailwindcss": "^1.8.10"
   }
 }

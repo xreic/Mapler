@@ -9,7 +9,6 @@ import {
   getCharCode,
   getTemplate,
 } from '../renderer/components/utils/getCharCode';
-import { CHARACTERS } from '../renderer/components/utils/variables';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -94,7 +93,7 @@ const updateAllChars = async () => {
   const error = 'Invalid Character Name';
   const updateRequests = [];
 
-  let chars = store.get(CHARACTERS);
+  let chars = store.get('characters');
   for (let char of chars) updateRequests.push(await getCharCode(char.name));
 
   const newCodes = await Promise.all(updateRequests);
@@ -106,7 +105,7 @@ const updateAllChars = async () => {
     return char;
   });
 
-  store.set(CHARACTERS, chars);
+  store.set('characters', chars);
 };
 
 const triggerReset = () => {
