@@ -3,7 +3,6 @@ const path = require('path');
 const moveFile = require('move-file');
 
 module.exports = {
-  packagerConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
