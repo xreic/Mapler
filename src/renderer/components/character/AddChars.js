@@ -69,7 +69,7 @@ export const AddChars = () => {
     return (
       <>
         <button className="border border-red-500" onClick={goBack}>
-          <GrFormPreviousLink />
+          <GrFormPreviousLink className="m-auto" />
         </button>
         <form onSubmit={handleSubmit} className="flex w-full">
           <input
@@ -84,11 +84,11 @@ export const AddChars = () => {
           ></input>
           <button className="text-center border border-red-500">
             {isLoading ? (
-              <GrFormRefresh className="animate-spin" />
+              <GrFormRefresh className="m-auto animate-spin" />
             ) : charName == INVALID ? (
-              <GrFormClose />
+              <GrFormClose className="m-auto" />
             ) : (
-              <GrFormNextLink />
+              <GrFormNextLink className="m-auto" />
             )}
           </button>
         </form>

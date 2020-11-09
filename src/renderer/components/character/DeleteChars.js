@@ -34,7 +34,7 @@ export const DeleteChars = () => {
     <>
       {isDeleting && (
         <button className="border border-red-500" onClick={goBack}>
-          <GrFormPreviousLink />
+          <GrFormPreviousLink className="m-auto" />
         </button>
       )}
       <button
