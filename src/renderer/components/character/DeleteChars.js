@@ -33,12 +33,15 @@ export const DeleteChars = () => {
   return (
     <>
       {isDeleting && (
-        <button className="border border-red-500" onClick={goBack}>
+        <button
+          className="border border-red-500 focus:outline-none"
+          onClick={goBack}
+        >
           <GrFormPreviousLink className="m-auto" />
         </button>
       )}
       <button
-        className="flex-1 border border-red-500 h-26px"
+        className="flex-1 border border-red-500 h-26px focus:outline-none"
         onClick={() => {
           isDeleting ? handleDelete() : startDeleting();
         }}

@@ -44,7 +44,7 @@ export const CharacterList = () => {
   };
 
   return (
-    <div className="overflow-y-scroll px-2 py-2 h-289px">
+    <div className="overflow-y-scroll px-2 py-2 h-289px bg-gray-400">
       <div className="justify-items-center grid grid-cols-3 gap-2">
         {characters.map(
           (code, index) =>
@@ -52,7 +52,7 @@ export const CharacterList = () => {
               <img
                 key={code}
                 src={`http://msavatar1.nexon.net/Character/${code}.png`}
-                className={`rounded-full border border-red-500 ${
+                className={`rounded-full shadow-2xl ${
                   hideAddButton
                     ? deleting[index] && 'bg-green-500'
                     : active === index && 'bg-blue-500'

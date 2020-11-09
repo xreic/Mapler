@@ -11,6 +11,8 @@ import {
   GrFormAdd,
   GrFormClose,
 } from 'react-icons/gr';
+import { Button } from '../utils/Button';
+import { FormButton } from '../utils/FormButton';
 
 const INVALID = 'Invalid Character Name';
 
@@ -68,12 +70,18 @@ export const AddChars = () => {
   if (isAdding) {
     return (
       <>
-        <button className="border border-red-500" onClick={goBack}>
+        <FormButton action={goBack}>
           <GrFormPreviousLink className="m-auto" />
-        </button>
+        </FormButton>
+        {/* <button
+          className="border border-red-500 focus:outline-none"
+          onClick={goBack}
+        >
+          <GrFormPreviousLink className="m-auto" />
+        </button> */}
         <form onSubmit={handleSubmit} className="flex w-full">
           <input
-            className="flex-1 text-center border border-red-500"
+            className="flex-1 text-center focus:outline-none"
             placeholder="Character Code"
             maxLength={12}
             value={charName}
@@ -82,7 +90,7 @@ export const AddChars = () => {
             disabled={isLoading}
             spellCheck={false}
           ></input>
-          <button className="text-center border border-red-500">
+          <FormButton className="text-center focus:outline-none">
             {isLoading ? (
               <GrFormRefresh className="m-auto animate-spin" />
             ) : charName == INVALID ? (
@@ -90,18 +98,15 @@ export const AddChars = () => {
             ) : (
               <GrFormNextLink className="m-auto" />
             )}
-          </button>
+          </FormButton>
         </form>
       </>
     );
   }
 
   return (
-    <button
-      className="flex-1 border border-red-500 h-26px"
-      onClick={startAdding}
-    >
+    <Button action={startAdding}>
       <GrFormAdd className="m-auto" />
-    </button>
+    </Button>
   );
 };
