@@ -32,17 +32,14 @@ export const Task = ({ name, index, handleClick, filter }) => {
   if (!loading && !!importedImage.current) {
     return (
       <div
-        className={`rounded-md
-        ${colors[filter] || 'bg-blue-600'}
-        `}
+        className={`rounded-md ${colors[filter] || 'bg-blue-600'}`}
         onClick={() => handleClick(index)}
       >
         <img
           src={importedImage.current}
           alt={name}
-          className="rounded-full mx-auto shadow-2xl h-57px w-53px"
+          className="rounded-full mx-auto h-57px w-53px"
         />
-        {/* <p className="text-center text-xs">{name}</p> */}
       </div>
     );
   }
