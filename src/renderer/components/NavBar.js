@@ -81,7 +81,9 @@ const LowerNav = () => {
 const NavLink = ({ path, label, active }) => (
   <Link
     to={path}
-    className={`flex-1 text-center ${active ? 'bg-orange-200' : 'bg-gray-400'}`}
+    className={`flex-1 text-center ${
+      active ? 'bg-orange-200' : 'bg-gray-400'
+    } focus:outline-none`}
   >
     {label}
   </Link>

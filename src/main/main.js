@@ -40,7 +40,7 @@ const createWindow = () => {
   updateAllChars();
   if (hasReset()) triggerReset();
 
-  const hideMenu = false;
+  const hideMenu = true;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
