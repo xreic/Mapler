@@ -92,7 +92,7 @@ export const List = ({ list }) => {
   };
 
   return (
-    <div className="justify-items-stretch grid grid-cols-3 gap-2 bg-gray-500">
+    <div className="justify-items-stretch grid grid-cols-3 gap-2">
       {list.map(
         (item, index) =>
           (filter[index] !== 2 || isEditing) && (

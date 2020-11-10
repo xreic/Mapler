@@ -25,6 +25,12 @@ export const NavBar = () => {
 
 // Mini-components
 const UpperNav = () => {
+  const location = useLocation();
+  const [_, main] = location.pathname.split('/');
+
+  const activeIndex =
+    [BOSSES, QUESTS].indexOf(main) !== -1 ? [BOSSES, QUESTS].indexOf(main) : 2;
+
   const mainPaths = [
     { path: `/${BOSSES}/${DAILY}`, label: 'Bosses' },
     { path: `/${QUESTS}/${MAPLE}`, label: 'Quests' },
@@ -32,9 +38,14 @@ const UpperNav = () => {
   ];
 
   return (
-    <nav className="flex items-stretch">
-      {mainPaths.map(({ path, label }) => (
-        <NavLink key={label} path={path} label={label} />
+    <nav className="flex items-stretch border-b border-black divide-x divide-black">
+      {mainPaths.map(({ path, label }, index) => (
+        <NavLink
+          key={label}
+          path={path}
+          label={label}
+          active={index == activeIndex}
+        />
       ))}
     </nav>
   );
@@ -42,35 +53,22 @@ const UpperNav = () => {
 
 const LowerNav = () => {
   const location = useLocation();
-  const [_, main] = location.pathname.split('/');
+  const [_, main, sub] = location.pathname.split('/');
 
-  const subPaths = [
-    [
-      { path: `/${BOSSES}/${DAILY}`, label: `Daily` },
-      { path: `/${BOSSES}/${WEEKLY}`, label: `Weekly` },
-    ],
-    [
-      { path: `/${QUESTS}/${MAPLE}`, label: `Maple World` },
-      { path: `/${QUESTS}/${ARCANE}`, label: `Arcane River` },
-    ],
-  ];
+  const subPaths = getSubPaths(main);
 
-  if (main === `${BOSSES}`) {
+  if (subPaths) {
+    const newActive = [DAILY, MAPLE].indexOf(sub) !== -1 ? 0 : 1;
+
     return (
-      <nav className="flex items-stretch">
-        {subPaths[0].map(({ path, label }) => (
-          <NavLink key={label} path={path} label={label} />
-        ))}
-        <EditButton />
-      </nav>
-    );
-  }
-
-  if (main === `${QUESTS}`) {
-    return (
-      <nav className="flex items-stretch">
-        {subPaths[1].map(({ path, label }) => (
-          <NavLink key={label} path={path} label={label} />
+      <nav className="flex items-stretch border-b border-black divide-x divide-black">
+        {subPaths.map(({ path, label }, index) => (
+          <NavLink
+            key={label}
+            path={path}
+            label={label}
+            active={index == newActive}
+          />
         ))}
         <EditButton />
       </nav>
@@ -80,8 +78,11 @@ const LowerNav = () => {
   return <nav className="flex items-stretch"></nav>;
 };
 
-const NavLink = ({ path, label }) => (
-  <Link to={path} className="flex-1 text-center border border-red-500">
+const NavLink = ({ path, label, active }) => (
+  <Link
+    to={path}
+    className={`flex-1 text-center ${active ? 'bg-orange-200' : 'bg-gray-400'}`}
+  >
     {label}
   </Link>
 );
@@ -93,7 +94,7 @@ const EditButton = () => {
 
   return (
     <button
-      className="border border-red-500 w-26px h-26px"
+      className="w-26px h-26px bg-gray-400 focus:outline-none"
       onClick={handleClick}
     >
       {isEditing ? (
@@ -103,4 +104,19 @@ const EditButton = () => {
       )}
     </button>
   );
+};
+
+const getSubPaths = (mainPath) => {
+  const subPaths = {
+    BOSSES: [
+      { path: `/${BOSSES}/${DAILY}`, label: `Daily` },
+      { path: `/${BOSSES}/${WEEKLY}`, label: `Weekly` },
+    ],
+    QUESTS: [
+      { path: `/${QUESTS}/${MAPLE}`, label: `Maple World` },
+      { path: `/${QUESTS}/${ARCANE}`, label: `Arcane River` },
+    ],
+  };
+
+  return subPaths[mainPath.toUpperCase()];
 };
