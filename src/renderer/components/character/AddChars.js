@@ -1,6 +1,10 @@
 // Core
 import React, { useContext, useRef, useState } from 'react';
 
+// Components
+import { Button } from '../utils/Button';
+import { FormButton } from '../utils/FormButton';
+
 // Helpers
 import { getCharCode, isDupe, setStore } from '../utils/getCharCode';
 import { CharContext } from '../context/CharContext';
@@ -11,8 +15,6 @@ import {
   GrFormAdd,
   GrFormClose,
 } from 'react-icons/gr';
-import { Button } from '../utils/Button';
-import { FormButton } from '../utils/FormButton';
 
 const INVALID = 'Invalid Character Name';
 
@@ -60,7 +62,8 @@ export const AddChars = () => {
     setHideDelete(true);
   };
 
-  const goBack = () => {
+  const goBack = (e) => {
+    e.preventDefault();
     setIsAdding(false);
     setHideDelete(false);
   };
@@ -70,18 +73,22 @@ export const AddChars = () => {
   if (isAdding) {
     return (
       <>
-        <FormButton action={goBack}>
-          <GrFormPreviousLink className="m-auto" />
-        </FormButton>
-        {/* <button
-          className="border border-red-500 focus:outline-none"
-          onClick={goBack}
+        {/* Hacky way to make both button sizes the same */}
+        <form onSubmit={goBack} className="flex">
+          <FormButton>
+            <GrFormPreviousLink className="m-auto" />
+          </FormButton>
+        </form>
+
+        {/* The actual form */}
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full divide-x divide-black"
         >
-          <GrFormPreviousLink className="m-auto" />
-        </button> */}
-        <form onSubmit={handleSubmit} className="flex w-full">
           <input
-            className="flex-1 text-center focus:outline-none"
+            className={
+              'flex-1 text-center border-t border-black bg-gray-400 focus:outline-none'
+            }
             placeholder="Character Code"
             maxLength={12}
             value={charName}
@@ -90,7 +97,7 @@ export const AddChars = () => {
             disabled={isLoading}
             spellCheck={false}
           ></input>
-          <FormButton className="text-center focus:outline-none">
+          <FormButton>
             {isLoading ? (
               <GrFormRefresh className="m-auto animate-spin" />
             ) : charName == INVALID ? (

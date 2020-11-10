@@ -1,6 +1,10 @@
 // Core
 import React, { useContext, useState } from 'react';
 
+// Components
+import { Button } from '../utils/Button';
+import { FormButton } from '../utils/FormButton';
+
 // Helpers
 import { CharContext } from '../context/CharContext';
 import { activateDelete } from '../utils/getCharCode';
@@ -33,21 +37,17 @@ export const DeleteChars = () => {
   return (
     <>
       {isDeleting && (
-        <button
-          className="border border-red-500 focus:outline-none"
-          onClick={goBack}
-        >
+        <FormButton action={goBack}>
           <GrFormPreviousLink className="m-auto" />
-        </button>
+        </FormButton>
       )}
-      <button
-        className="flex-1 border border-red-500 h-26px focus:outline-none"
-        onClick={() => {
+      <Button
+        action={() => {
           isDeleting ? handleDelete() : startDeleting();
         }}
       >
         <GrFormSubtract className="m-auto" />
-      </button>
+      </Button>
     </>
   );
 };

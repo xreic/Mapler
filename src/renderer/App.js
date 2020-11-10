@@ -35,7 +35,7 @@ let history = createHistory(source);
 
 // Mini-components
 const View = ({ children }) => (
-  <div className="overflow-y-scroll px-2 py-2 h-289px">{children}</div>
+  <div className="overflow-y-scroll px-2 py-2 h-287px">{children}</div>
 );
 
 const App = () => {

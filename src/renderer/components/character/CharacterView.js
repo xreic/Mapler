@@ -10,7 +10,7 @@ import { AddChars } from './AddChars';
 export const CharacterView = () => (
   <CharProvider>
     <CharacterList />
-    <div className="flex">
+    <div className="flex divide-x divide-black">
       <DeleteChars />
       <AddChars />
     </div>

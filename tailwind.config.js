@@ -9,7 +9,7 @@ module.exports = {
       height: {
         '26px': '26px',
         '57px': '57px',
-        '289px': '289px',
+        '287px': '287px',
         '309px': '309px',
       },
       width: { '18px': '18px', '26px': '26px', '53px': '53px', '86px': '86px' },
