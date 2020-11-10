@@ -40,12 +40,13 @@ const createWindow = () => {
   updateAllChars();
   if (hasReset()) triggerReset();
 
-  const hideMenu = true;
+  const hideMenu = false;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 350,
     height: hideMenu ? 377 : 397,
+    resizable: !hideMenu,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,

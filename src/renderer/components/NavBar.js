@@ -34,7 +34,7 @@ const UpperNav = () => {
   const mainPaths = [
     { path: `/${BOSSES}/${DAILY}`, label: 'Bosses' },
     { path: `/${QUESTS}/${MAPLE}`, label: 'Quests' },
-    { path: '/', label: 'Character' },
+    { path: '/', label: 'Characters' },
   ];
 
   return (
