@@ -21,7 +21,7 @@ const store = new Store();
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
 fs.readdir(app.getPath('userData'), (err, files) => {
-  if (files.indexOf('config.json') === -1) {
+  if (!err && files.indexOf('config.json') === -1) {
     store.set({
       active: 0,
       characters: [getTemplate('DEFAULT CHARACTER', null)],
@@ -40,7 +40,7 @@ const createWindow = () => {
   updateAllChars();
   if (hasReset()) triggerReset();
 
-  const hideMenu = false;
+  const hideMenu = true;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -54,12 +54,11 @@ const createWindow = () => {
     show: false,
   });
 
-  hideMenu && mainWindow.setMenu(null);
-
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // DevTools and menu bar
+  hideMenu && mainWindow.setMenu(null);
+  !hideMenu && mainWindow.webContents.openDevTools();
 
   // Configurations
   nativeTheme.themeSource = 'light';

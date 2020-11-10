@@ -3,11 +3,15 @@ const path = require('path');
 const moveFile = require('move-file');
 
 module.exports = {
+  packagerConfig: { icon: 'static/icon', name: 'Mapler' },
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'mapler',
+        iconUrl: __dirname + '/static/icon.ico',
+        setupIcon: __dirname + '/static/icon.ico',
+        loadingGif: __dirname + '/loading.gif',
       },
     },
     {
@@ -29,7 +33,9 @@ module.exports = {
       const destPath = path.resolve(__dirname, '.webpack/renderer/main_window');
 
       const files = await fsPromises.readdir(srcPath);
-      const images = files.filter((file) => file.slice(-4) === 'webp');
+      const images = files.filter(
+        (file) => file.slice(-4) === 'webp' || file.slice(-4) === 'ico',
+      );
 
       images.forEach((image) =>
         (async () => {

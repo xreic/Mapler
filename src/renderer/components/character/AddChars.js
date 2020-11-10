@@ -89,7 +89,7 @@ export const AddChars = () => {
             className={
               'flex-1 text-center border-t border-black bg-gray-400 focus:outline-none'
             }
-            placeholder="Character Code"
+            placeholder="Character Name"
             maxLength={12}
             value={charName}
             ref={inputRef}
