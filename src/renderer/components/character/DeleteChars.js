@@ -19,7 +19,10 @@ export const DeleteChars = () => {
   const handleDelete = () => {
     const characters = activateDelete();
     setCharacters(characters.map(({ code }) => code));
-    goBack();
+
+    setTimeout(() => {
+      goBack();
+    }, 1);
   };
 
   const startDeleting = () => {
