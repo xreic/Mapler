@@ -76,5 +76,3 @@ exports.ARCANE = 'arcane';
 exports.ACTIVE = 'active';
 exports.CHARACTERS = 'characters';
 exports.DELETING = 'deleting';
-exports.TIMER = 'timer';
-exports.DEFAULT = 'DEFAULT CHARACTER';

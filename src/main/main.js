@@ -9,15 +9,9 @@ import {
   getCharCode,
   getTemplate,
 } from '../renderer/components/utils/getCharCode';
-import {
-  CHARACTERS,
-  DEFAULT,
-  TIMER,
-} from '../renderer/components/utils/variables';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
-  // eslint-disable-line global-require
   app.quit();
 }
 
@@ -26,23 +20,23 @@ const store = new Store();
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
 fs.readdir(app.getPath('userData'), (err, files) => {
-  if (!err && files.indexOf('config.json') === -1) {
+  if (files.indexOf('config.json') === -1) {
     store.set({
       active: 0,
-      characters: [getTemplate(DEFAULT, null)],
+      characters: [getTemplate('DEFAULT CHARACTER', null)],
       deleting: [0],
       timer: new Date(),
     });
   }
 });
 
-const createWindow = () => {
+const createWindow = async () => {
   /**
    * Start-up checks
    *  1. Check for updates for each character's image code
    *  2. Reset bosses and quests when reset has passed
    */
-  updateAllChars();
+  await updateAllChars();
   if (hasReset()) triggerReset();
 
   const hideMenu = true;
@@ -59,16 +53,18 @@ const createWindow = () => {
     show: false,
   });
 
+  // Configurations
+  nativeTheme.themeSource = 'light';
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // DevTools and menu bar
-  hideMenu && mainWindow.setMenu(null);
-  !hideMenu && mainWindow.webContents.openDevTools();
+  if (hideMenu) {
+    mainWindow.setMenu(null);
+  } else {
+    mainWindow.webContents.openDevTools();
+  }
 
-  // Configurations
-  nativeTheme.themeSource = 'light';
-
-  mainWindow.once('ready-to-show', () => {
+  mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
   });
 };
@@ -82,8 +78,8 @@ app.on('ready', createWindow);
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
+  store.set('timer', new Date());
   if (process.platform !== 'darwin') app.quit();
-  store.set(TIMER, new Date());
 });
 
 app.on('activate', () => {
@@ -98,8 +94,9 @@ const updateAllChars = async () => {
   const error = 'Invalid Character Name';
   const updateRequests = [];
 
-  let chars = store.get(CHARACTERS);
-  if (!chars) return;
+  let chars = store.get('characters');
+  if (chars[0]['name'] === 'DEFAULT CHARACTER') return;
+
   for (let char of chars) updateRequests.push(await getCharCode(char.name));
   const newCodes = await Promise.all(updateRequests);
 
@@ -110,11 +107,11 @@ const updateAllChars = async () => {
     return char;
   });
 
-  store.set(CHARACTERS, chars);
+  store.set('characters', chars);
 };
 
 const triggerReset = () => {
-  const characters = store.get(CHARACTERS);
+  const characters = store.get('characters');
   const tempCharStore = [];
 
   const dayOfWeek = new Date().getUTCDay();
@@ -152,11 +149,11 @@ const triggerReset = () => {
     tempCharStore.push(char);
   }
 
-  store.set(CHARACTERS, tempCharStore);
+  store.set('characters', tempCharStore);
 };
 
 const hasReset = () => {
-  const lastCheckedDate = new Date(store.get(TIMER));
+  const lastCheckedDate = new Date(store.get('timer'));
 
   const year = lastCheckedDate.getUTCFullYear();
   const month = lastCheckedDate.getUTCMonth();
@@ -164,5 +161,10 @@ const hasReset = () => {
 
   const launchResetTime = new Date(Date.UTC(year, month, date, 0));
 
-  return new Date() > launchResetTime;
+  if (new Date() >= launchResetTime) {
+    store.set('timer', new Date(Date.UTC(year, month, date + 1, 0)));
+    return true;
+  }
+
+  return false;
 };
