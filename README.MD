@@ -7,7 +7,8 @@ Download the latest release [here](https://github.com/xreic/Mapler/releases).
 ## Acknowledgements
 
 - [Nexon](https://maplestory.nexon.net/) - Assets, Rankings Page, API
-- [Maplestory Wiki](https://maplestory.fandom.com/wiki/MapleStory:Main_Page) - Assets
+- [Maplestory Wiki](https://maplestory.wiki/) - Assets
+- [Maplestory Fandom](https://maplestory.fandom.com/wiki/MapleStory:Main_Page) - Assets
 
 ## Contact
 
