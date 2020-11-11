@@ -9,6 +9,7 @@ import {
   getCharCode,
   getTemplate,
 } from '../renderer/components/utils/getCharCode';
+import { splitTime } from '../renderer/components/utils/resetHelpers';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -25,7 +26,6 @@ fs.readdir(app.getPath('userData'), (err, files) => {
       active: 0,
       characters: [getTemplate('DEFAULT CHARACTER', null)],
       deleting: [0],
-      timer: new Date(),
     });
   }
 });
@@ -78,7 +78,7 @@ app.on('ready', createWindow);
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  store.set('timer', new Date());
+  store.set('timer', nextResetDate());
   if (process.platform !== 'darwin') app.quit();
 });
 
@@ -95,7 +95,7 @@ const updateAllChars = async () => {
   const updateRequests = [];
 
   let chars = store.get('characters');
-  if (chars[0]['name'] === 'DEFAULT CHARACTER') return;
+  if (!chars || chars[0]['name'] === 'DEFAULT CHARACTER') return;
 
   for (let char of chars) updateRequests.push(await getCharCode(char.name));
   const newCodes = await Promise.all(updateRequests);
@@ -153,18 +153,26 @@ const triggerReset = () => {
 };
 
 const hasReset = () => {
-  const lastCheckedDate = new Date(store.get('timer'));
+  const lastCheckedDate = store.get('timer');
+  const now = new Date();
+  const [year, month, date, hours] = splitTime(now);
 
-  const year = lastCheckedDate.getUTCFullYear();
-  const month = lastCheckedDate.getUTCMonth();
-  const date = lastCheckedDate.getUTCDate();
-
-  const launchResetTime = new Date(Date.UTC(year, month, date, 0));
-
-  if (new Date() >= launchResetTime) {
-    store.set('timer', new Date(Date.UTC(year, month, date + 1, 0)));
-    return true;
+  if (!lastCheckedDate) {
+    store.set('timer', nextResetDate());
+  } else {
+    const nowUTC = new Date(Date.UTC(year, month, date, hours));
+    if (nowUTC >= new Date(lastCheckedDate)) {
+      store.set('timer', nextResetDate());
+      return true;
+    }
   }
 
   return false;
+};
+
+const nextResetDate = () => {
+  const now = new Date();
+  const [year, month, date] = splitTime(now);
+
+  return new Date(Date.UTC(year, month, date + 1, 0));
 };

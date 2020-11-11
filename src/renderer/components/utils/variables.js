@@ -35,7 +35,7 @@ exports.WEEKLY_BOSSES = [
   'Gloom',
   'Verus Hilla',
   'Darknell',
-  'Black Mage',
+  // 'Black Mage',
   'Princess No',
   'Will',
 ];
