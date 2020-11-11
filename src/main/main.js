@@ -9,6 +9,11 @@ import {
   getCharCode,
   getTemplate,
 } from '../renderer/components/utils/getCharCode';
+import {
+  CHARACTERS,
+  DEFAULT,
+  TIMER,
+} from '../renderer/components/utils/variables';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -24,7 +29,7 @@ fs.readdir(app.getPath('userData'), (err, files) => {
   if (!err && files.indexOf('config.json') === -1) {
     store.set({
       active: 0,
-      characters: [getTemplate('DEFAULT CHARACTER', null)],
+      characters: [getTemplate(DEFAULT, null)],
       deleting: [0],
       timer: new Date(),
     });
@@ -40,7 +45,7 @@ const createWindow = () => {
   updateAllChars();
   if (hasReset()) triggerReset();
 
-  const hideMenu = true;
+  const hideMenu = false;
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -78,7 +83,7 @@ app.on('ready', createWindow);
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
-  store.set('timer', new Date());
+  store.set(TIMER, new Date());
 });
 
 app.on('activate', () => {
@@ -93,9 +98,9 @@ const updateAllChars = async () => {
   const error = 'Invalid Character Name';
   const updateRequests = [];
 
-  let chars = store.get('characters');
+  let chars = store.get(CHARACTERS);
+  if (!chars) return;
   for (let char of chars) updateRequests.push(await getCharCode(char.name));
-
   const newCodes = await Promise.all(updateRequests);
 
   chars = chars.map((char, index) => {
@@ -105,11 +110,11 @@ const updateAllChars = async () => {
     return char;
   });
 
-  store.set('characters', chars);
+  store.set(CHARACTERS, chars);
 };
 
 const triggerReset = () => {
-  const characters = store.get('characters');
+  const characters = store.get(CHARACTERS);
   const tempCharStore = [];
 
   const dayOfWeek = new Date().getUTCDay();
@@ -147,11 +152,11 @@ const triggerReset = () => {
     tempCharStore.push(char);
   }
 
-  store.set('characters', tempCharStore);
+  store.set(CHARACTERS, tempCharStore);
 };
 
 const hasReset = () => {
-  const lastCheckedDate = new Date(store.get('timer'));
+  const lastCheckedDate = new Date(store.get(TIMER));
 
   const year = lastCheckedDate.getUTCFullYear();
   const month = lastCheckedDate.getUTCMonth();

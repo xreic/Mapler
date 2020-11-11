@@ -63,18 +63,12 @@ export const activateDelete = () => {
   const deleteList = store.get(DELETING);
 
   let characters = store.get(CHARACTERS);
-
   if (!deleteList.some((item) => item === 1)) return characters;
 
   characters = characters.filter((_, index) => !deleteList[index]);
 
-  let active = store.get(ACTIVE);
-  deleteList.forEach((item, index) => {
-    if (item && index <= active) active -= 1;
-  });
-
   store.set({
-    active: active >= 0 ? active : 0,
+    active: 0,
     characters: characters.length
       ? characters
       : [getTemplate('DEFAULT CHARACTER', null)],
