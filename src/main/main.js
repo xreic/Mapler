@@ -23,6 +23,7 @@ const store = new Store();
 fs.readdir(app.getPath('userData'), (err, files) => {
   if (files.indexOf('config.json') === -1) {
     store.set({
+      position: null,
       active: 0,
       characters: [getTemplate('DEFAULT CHARACTER', null)],
       deleting: [0],
@@ -39,9 +40,8 @@ const createWindow = async () => {
   await updateAllChars();
   if (hasReset()) triggerReset();
 
+  // Create the browser window
   const hideMenu = true;
-
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 350,
     height: hideMenu ? 367 : 397,
@@ -57,15 +57,32 @@ const createWindow = async () => {
   nativeTheme.themeSource = 'light';
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // DevTools and menu bar
-  if (hideMenu) {
-    mainWindow.setMenu(null);
-  } else {
-    mainWindow.webContents.openDevTools();
-  }
+  /**
+   * Hide, show, set, etc
+   *  1. Menu bar
+   *  2. Dev Tools
+   *  3. Move the window to the last closed position
+   */
+  hideMenu ? mainWindow.setMenu(null) : mainWindow.webContents.openDevTools();
 
+  const winPosition = store.get('position');
+  winPosition.length && mainWindow.setPosition(winPosition[0], winPosition[1]);
+
+  /**
+   * Event Listeners
+   *  1. did-finish-load
+   *      Shows the window when the DOM has been painted
+   *  2. close
+   *      Stores the position right before the program has been closed
+   *      Sets the next reset date
+   */
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
+  });
+
+  mainWindow.on('close', () => {
+    store.set('timer', nextResetDate());
+    store.set('position', mainWindow.getPosition());
   });
 };
 
@@ -78,7 +95,6 @@ app.on('ready', createWindow);
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  store.set('timer', nextResetDate());
   if (process.platform !== 'darwin') app.quit();
 });
 

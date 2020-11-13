@@ -3,15 +3,15 @@ const path = require('path');
 const moveFile = require('move-file');
 
 module.exports = {
-  packagerConfig: { icon: 'icon', name: 'Mapler' },
+  packagerConfig: { icon: 'static/build/icon', name: 'Mapler' },
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'mapler',
-        iconUrl: __dirname + '/icon.ico',
-        setupIcon: __dirname + '/icon.ico',
-        loadingGif: __dirname + '/loading.gif',
+        iconUrl: __dirname + '/static/build/icon.ico',
+        setupIcon: __dirname + '/static/build/icon.ico',
+        loadingGif: __dirname + '/static/build/loading.gif',
       },
     },
     {
