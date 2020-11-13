@@ -41,7 +41,7 @@ const createWindow = async () => {
   if (hasReset()) triggerReset();
 
   // Create the browser window
-  const hideMenu = true;
+  const hideMenu = false;
   const mainWindow = new BrowserWindow({
     width: 350,
     height: hideMenu ? 367 : 397,
@@ -171,7 +171,7 @@ const triggerReset = () => {
 const hasReset = () => {
   const lastCheckedDate = store.get('timer');
   const now = new Date();
-  const [year, month, date, hours] = splitTime(now);
+  const { year, month, date, hours } = splitTime(now);
 
   if (!lastCheckedDate) {
     store.set('timer', nextResetDate());
@@ -188,7 +188,7 @@ const hasReset = () => {
 
 const nextResetDate = () => {
   const now = new Date();
-  const [year, month, date] = splitTime(now);
+  const { year, month, date } = splitTime(now);
 
   return new Date(Date.UTC(year, month, date + 1, 0));
 };

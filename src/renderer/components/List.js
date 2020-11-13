@@ -5,6 +5,7 @@ import Store from 'electron-store';
 // Helpers, Components
 import { ACTIVE, CHARACTERS } from './utils/variables';
 import { Task } from './Task';
+import { Ursus } from './Ursus';
 import { EditContext } from './context/EditContext';
 import { getDailyReset, getWeeklyReset } from './utils/resetHelpers';
 import { useLocation } from '@reach/router';
@@ -95,7 +96,8 @@ export const List = ({ list }) => {
     <div className="justify-items-stretch grid grid-cols-3 gap-2">
       {list.map(
         (item, index) =>
-          (filter[index] !== 2 || isEditing) && (
+          (filter[index] !== 2 || isEditing) &&
+          (item !== 'Ursus' ? (
             <Task
               key={item}
               name={item}
@@ -103,7 +105,15 @@ export const List = ({ list }) => {
               handleClick={handleClick}
               filter={filter[index]}
             />
-          ),
+          ) : (
+            <Ursus
+              key={item}
+              name={item}
+              index={index}
+              handleClick={handleClick}
+              filter={filter[index]}
+            />
+          )),
       )}
     </div>
   );

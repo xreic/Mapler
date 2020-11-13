@@ -16,14 +16,6 @@ import {
 } from './variables';
 
 const store = new Store();
-const agent = new https.Agent({
-  keepAlive: true,
-  keepAliveMsecs: 1000,
-  maxSockets: 256,
-  maxTotalSockets: 256,
-  scheduling: 'lifo',
-  timeout: 2000,
-});
 
 /**
  * Returns a boolean whether or not the character is stored already
@@ -120,6 +112,15 @@ export const getCharCode = async (charName) => {
     search: true,
     rebootIndex: 1,
   };
+
+  const agent = new https.Agent({
+    keepAlive: true,
+    keepAliveMsecs: 1000,
+    maxSockets: 256,
+    maxTotalSockets: 256,
+    scheduling: 'lifo',
+    timeout: 2000,
+  });
 
   try {
     const rawData = await needle('get', url, params, {

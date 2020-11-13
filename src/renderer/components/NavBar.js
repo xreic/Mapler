@@ -39,14 +39,13 @@ const UpperNav = () => {
 
   return (
     <nav className="flex items-stretch border-b border-black divide-x divide-black">
-      {mainPaths.map(({ path, label }, index) => (
-        <NavLink
-          key={label}
-          path={path}
-          label={label}
-          active={index == activeIndex}
-        />
-      ))}
+      {mainPaths.map(({ path, label }, index) =>
+        index == activeIndex ? (
+          <SelectedNavLink key={label} label={label} />
+        ) : (
+          <NavLink key={label} path={path} label={label} />
+        ),
+      )}
     </nav>
   );
 };
@@ -62,14 +61,13 @@ const LowerNav = () => {
 
     return (
       <nav className="flex items-stretch border-b border-black divide-x divide-black">
-        {subPaths.map(({ path, label }, index) => (
-          <NavLink
-            key={label}
-            path={path}
-            label={label}
-            active={index == newActive}
-          />
-        ))}
+        {subPaths.map(({ path, label }, index) =>
+          index == newActive ? (
+            <SelectedNavLink key={label} label={label} />
+          ) : (
+            <NavLink key={label} path={path} label={label} />
+          ),
+        )}
         <EditButton />
       </nav>
     );
@@ -78,15 +76,16 @@ const LowerNav = () => {
   return <nav className="flex items-stretch"></nav>;
 };
 
-const NavLink = ({ path, label, active }) => (
-  <Link
-    to={path}
-    className={`flex-1 text-center ${
-      active ? 'bg-orange-200' : 'bg-gray-400'
-    } focus:outline-none`}
-  >
+const NavLink = ({ path, label }) => (
+  <Link to={path} className="flex-1 text-center bg-gray-400 focus:outline-none">
     {label}
   </Link>
+);
+
+const SelectedNavLink = ({ label }) => (
+  <div className="flex-1 text-center bg-orange-200 focus:outline-none">
+    {label}
+  </div>
 );
 
 const EditButton = () => {
