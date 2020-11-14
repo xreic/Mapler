@@ -41,7 +41,7 @@ const createWindow = async () => {
   if (hasReset()) triggerReset();
 
   // Create the browser window
-  const hideMenu = false;
+  const hideMenu = true;
   const mainWindow = new BrowserWindow({
     width: 350,
     height: hideMenu ? 367 : 397,
