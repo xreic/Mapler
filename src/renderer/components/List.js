@@ -5,7 +5,7 @@ import Store from 'electron-store';
 // Helpers, Components
 import { ACTIVE, CHARACTERS } from './utils/variables';
 import { Task } from './Task';
-import { Ursus } from './Ursus';
+// import { Ursus } from './Ursus';
 import { EditContext } from './context/EditContext';
 import { getDailyReset, getWeeklyReset } from './utils/resetHelpers';
 import { useLocation } from '@reach/router';
