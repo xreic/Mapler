@@ -11,7 +11,7 @@ import {
 // Components
 import { EditProvider } from './components/context/EditContext';
 import { Transition } from './components/utils/Transition';
-import { NavBar } from './components/NavBar';
+import { NavBar } from './components/navigation/NavBar';
 import { CharacterView } from './components/character/CharacterView';
 import { List } from './components/List';
 

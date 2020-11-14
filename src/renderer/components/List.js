@@ -96,8 +96,8 @@ export const List = ({ list }) => {
     <div className="justify-items-stretch grid grid-cols-3 gap-2">
       {list.map(
         (item, index) =>
-          (filter[index] !== 2 || isEditing) &&
-          (item !== 'Ursus' ? (
+          (filter[index] !== 2 || isEditing) && (
+            // (item !== 'Ursus' ? (
             <Task
               key={item}
               name={item}
@@ -105,15 +105,16 @@ export const List = ({ list }) => {
               handleClick={handleClick}
               filter={filter[index]}
             />
-          ) : (
-            <Ursus
-              key={item}
-              name={item}
-              index={index}
-              handleClick={handleClick}
-              filter={filter[index]}
-            />
-          )),
+          ),
+        // ) : (
+        //   <Ursus
+        //     key={item}
+        //     name={item}
+        //     index={index}
+        //     handleClick={handleClick}
+        //     filter={filter[index]}
+        //   />
+        // )),
       )}
     </div>
   );

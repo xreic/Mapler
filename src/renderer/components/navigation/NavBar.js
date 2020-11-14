@@ -1,10 +1,12 @@
 // Core
-import React, { useContext } from 'react';
-import { Link, useLocation } from '@reach/router';
+import React from 'react';
+import { useLocation } from '@reach/router';
+
+// Components
+import { NavLink, SelectedNavLink } from './NavLinks';
+import { EditButton } from './EditButton';
 
 // Helpers
-import { EditContext } from './context/EditContext';
-import { GrEdit, GrCheckmark } from 'react-icons/gr';
 import {
   BOSSES,
   QUESTS,
@@ -12,7 +14,7 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-} from './utils/variables';
+} from '../utils/variables';
 
 export const NavBar = () => {
   return (
@@ -74,37 +76,6 @@ const LowerNav = () => {
   }
 
   return <nav className="flex items-stretch"></nav>;
-};
-
-const NavLink = ({ path, label }) => (
-  <Link to={path} className="flex-1 text-center bg-gray-400 focus:outline-none">
-    {label}
-  </Link>
-);
-
-const SelectedNavLink = ({ label }) => (
-  <div className="flex-1 text-center bg-orange-200 focus:outline-none">
-    {label}
-  </div>
-);
-
-const EditButton = () => {
-  const { isEditing, setIsEditing } = useContext(EditContext);
-
-  const handleClick = () => setIsEditing(!isEditing);
-
-  return (
-    <button
-      className="w-26px h-26px bg-gray-400 focus:outline-none"
-      onClick={handleClick}
-    >
-      {isEditing ? (
-        <GrCheckmark className="m-auto" />
-      ) : (
-        <GrEdit className="m-auto" />
-      )}
-    </button>
-  );
 };
 
 const getSubPaths = (mainPath) => {
