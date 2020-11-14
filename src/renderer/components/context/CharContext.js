@@ -12,9 +12,6 @@ export const CharProvider = ({ children }) => {
   const [hideAddButton, setHideAdd] = useState(false);
   const [hideDeleteButton, setHideDelete] = useState(false);
 
-  // Character editing
-  const [isEditing, setIsEditing] = useState(false);
-
   // Characters list
   const [characters, setCharacters] = useState(
     store.get(CHARACTERS).map(({ code }) => code),
@@ -36,8 +33,6 @@ export const CharProvider = ({ children }) => {
         setHideAdd,
         hideDeleteButton,
         setHideDelete,
-        isEditing,
-        setIsEditing,
         characters,
         setCharacters,
       }}
