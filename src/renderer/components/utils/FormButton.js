@@ -1,9 +1,10 @@
 import React from 'react';
 
-export const FormButton = ({ action, children }) => (
+export const FormButton = ({ action, loading, children }) => (
   <button
-    className="text-center border-t border-black bg-gray-400 w-53px w-100% h-26px focus:outline-none"
+    className="text-center bg-gray-400 w-53px w-100% h-26px focus:outline-none"
     onClick={action && action}
+    disabled={!!loading}
   >
     {children}
   </button>

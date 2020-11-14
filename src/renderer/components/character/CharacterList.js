@@ -14,7 +14,7 @@ export const CharacterList = () => {
    * Hooks P1: Initial state
    * View switching and data hooks
    */
-  const { hideAddButton, characters } = useContext(CharContext);
+  const { hideAddButton, isEditing, characters } = useContext(CharContext);
   const [active, setActive] = useState(store.get(ACTIVE));
   const [deleting, setDeleting] = useState(store.get(DELETING));
 
@@ -44,7 +44,11 @@ export const CharacterList = () => {
   };
 
   return (
-    <div className="overflow-y-scroll px-2 py-2 h-287px bg-gray-500">
+    <div
+      className={`overflow-y-scroll px-2 py-2 ${
+        isEditing ? 'h-262px' : 'h-287px'
+      } bg-gray-500`}
+    >
       <div className="justify-items-center grid grid-cols-3 gap-2">
         {characters.map(
           (code, index) =>

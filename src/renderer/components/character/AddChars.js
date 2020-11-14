@@ -35,6 +35,10 @@ export const AddChars = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('====================================');
+    console.log('click');
+    console.log('====================================');
+
     if (isLoading || isDupe(charName)) return;
     if (charName == INVALID) {
       setCharName('');
@@ -73,7 +77,7 @@ export const AddChars = () => {
   if (isAdding) {
     return (
       <>
-        {/* Hacky way to make both button sizes the same */}
+        {/* Hacky way to make both far left and right button sizes the same */}
         <form onSubmit={goBack} className="flex">
           <FormButton>
             <GrFormPreviousLink className="m-auto" />
@@ -86,9 +90,7 @@ export const AddChars = () => {
           className="flex w-full divide-x divide-black"
         >
           <input
-            className={
-              'flex-1 text-center border-t border-black bg-gray-400 focus:outline-none'
-            }
+            className={'flex-1 text-center bg-gray-400 focus:outline-none'}
             placeholder="Character Name"
             maxLength={12}
             value={charName}
@@ -97,7 +99,7 @@ export const AddChars = () => {
             disabled={isLoading}
             spellCheck={false}
           ></input>
-          <FormButton>
+          <FormButton loading={isLoading}>
             {isLoading ? (
               <GrFormRefresh className="m-auto animate-spin" />
             ) : charName == INVALID ? (

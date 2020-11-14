@@ -75,7 +75,7 @@ const LowerNav = () => {
     );
   }
 
-  return <nav className="flex items-stretch"></nav>;
+  return null;
 };
 
 const getSubPaths = (mainPath) => {

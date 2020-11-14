@@ -97,7 +97,6 @@ export const setStore = (charName, charCode) => {
   });
 };
 
-// TODO: Add abort functionality
 /**
  * Performs a network requests against the Maplestory rankings page to retrieve an image the desired character
  *
@@ -137,4 +136,27 @@ export const getCharCode = async (charName) => {
   } catch (err) {
     return false;
   }
+};
+
+/**
+ * Performs a network requests against the Maplestory rankings page to retrieve the images of all characters
+ */
+export const updateAllChars = async () => {
+  const error = 'Invalid Character Name';
+  const updateRequests = [];
+
+  let chars = store.get('characters');
+  if (!chars || chars[0]['name'] === 'DEFAULT CHARACTER') return;
+
+  for (let char of chars) updateRequests.push(await getCharCode(char.name));
+  const newCodes = await Promise.all(updateRequests);
+
+  chars = chars.map((char, index) => {
+    if (newCodes[index] && newCodes[index] !== error)
+      char.code = newCodes[index];
+
+    return char;
+  });
+
+  store.set('characters', chars);
 };

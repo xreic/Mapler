@@ -1,18 +1,34 @@
 // Core
-import React from 'react';
+import React, { useContext } from 'react';
 
 // Components
-import { CharProvider } from '../context/CharContext';
+import { CharProvider, CharContext } from '../context/CharContext';
 import { CharacterList } from './CharacterList';
-import { DeleteChars } from './DeleteChars';
+import { EditChars } from './EditChars';
 import { AddChars } from './AddChars';
+import { DeleteChars } from './DeleteChars';
 
 export const CharacterView = () => (
   <CharProvider>
-    <CharacterList />
-    <div className="flex divide-x divide-black">
-      <DeleteChars />
-      <AddChars />
+    <div className="divide-y divide-black">
+      <EditChars />
+      <CharacterList />
+      <AddRemove />
     </div>
   </CharProvider>
 );
+
+const AddRemove = () => {
+  const { isEditing } = useContext(CharContext);
+
+  if (isEditing) {
+    return (
+      <div className="flex divide-x divide-black">
+        <DeleteChars />
+        <AddChars />
+      </div>
+    );
+  }
+
+  return null;
+};

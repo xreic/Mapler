@@ -8,8 +8,14 @@ const store = new Store({ watch: true });
 export const CharContext = createContext({});
 
 export const CharProvider = ({ children }) => {
+  // Add and remove characters
   const [hideAddButton, setHideAdd] = useState(false);
   const [hideDeleteButton, setHideDelete] = useState(false);
+
+  // Character editing
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Characters list
   const [characters, setCharacters] = useState(
     store.get(CHARACTERS).map(({ code }) => code),
   );
@@ -30,6 +36,8 @@ export const CharProvider = ({ children }) => {
         setHideAdd,
         hideDeleteButton,
         setHideDelete,
+        isEditing,
+        setIsEditing,
         characters,
         setCharacters,
       }}
