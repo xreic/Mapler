@@ -80,7 +80,7 @@ const Ursus = ({ isGoldenTime }) => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [isGoldenTime]);
 
   return (
     <div
