@@ -46,7 +46,7 @@ export const View = ({ children }) => {
       {sub === MAPLE && !isLoading && <Ursus isGoldenTime={isGoldenTime} />}
       <div
         className={`overflow-y-scroll px-2 py-2 bg-gray-500 ${
-          sub === MAPLE ? 'h-269px' : 'h-287px'
+          sub === MAPLE && !isLoading ? 'h-269px' : 'h-287px'
         } `}
       >
         {children}
