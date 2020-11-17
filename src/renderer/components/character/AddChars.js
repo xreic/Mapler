@@ -35,10 +35,6 @@ export const AddChars = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('====================================');
-    console.log('click');
-    console.log('====================================');
-
     if (isLoading || isDupe(charName)) return;
     if (charName == INVALID) {
       setCharName('');

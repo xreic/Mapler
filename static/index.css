@@ -16,15 +16,17 @@ body {
 
 .fade {
   position: absolute;
+  left: 15px;
+  right: 15px;
 }
 
 .fade-enter {
-  opacity: 0.65;
+  opacity: 0.5;
 }
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 400ms;
+  transition: opacity 500ms;
 }
 
 .fade-exit {
@@ -32,6 +34,6 @@ body {
 }
 
 .fade-exit-active {
-  opacity: 0.65;
-  transition: opacity 400ms;
+  opacity: 0.5;
+  transition: opacity 500ms;
 }

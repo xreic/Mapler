@@ -14,6 +14,7 @@ import { Transition } from './components/utils/Transition';
 import { NavBar } from './components/navigation/NavBar';
 import { CharacterView } from './components/character/CharacterView';
 import { List } from './components/List';
+import { View } from './components/View';
 
 // Helpers
 import {
@@ -32,13 +33,6 @@ import {
 // Reach Router
 let source = createMemorySource('/main_window');
 let history = createHistory(source);
-
-// Mini-components
-const View = ({ children }) => (
-  <div className="overflow-y-scroll px-2 py-2 h-287px bg-gray-500">
-    {children}
-  </div>
-);
 
 const App = () => {
   // TODO: Remove later for drag-n-move character arrangement (Future feature)

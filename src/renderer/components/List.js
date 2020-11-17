@@ -5,7 +5,6 @@ import Store from 'electron-store';
 // Helpers, Components
 import { ACTIVE, CHARACTERS } from './utils/variables';
 import { Task } from './Task';
-// import { Ursus } from './Ursus';
 import { EditContext } from './context/EditContext';
 import { getDailyReset, getWeeklyReset } from './utils/resetHelpers';
 import { useLocation } from '@reach/router';
@@ -24,12 +23,7 @@ export const List = ({ list }) => {
     store.get(CHARACTERS)[store.get(ACTIVE)][main][sub],
   );
 
-  // Hooks P2 - Reset Timers
-  const dailyReset = useRef(null);
-  const weeklyResetSun = useRef(null);
-  const weeklyResetWed = useRef(null);
-
-  // Hooks P3
+  // Hooks P2
   // Store subscription
   useEffect(() => {
     const unsubFilter = store.onDidChange(CHARACTERS, (charList, _) => {
@@ -44,34 +38,34 @@ export const List = ({ list }) => {
 
   // Daily reset
   useEffect(() => {
-    dailyReset.current = setTimeout(() => {
+    const dailyTimer = setTimeout(() => {
       triggerReset();
     }, getDailyReset());
 
     return () => {
-      clearTimeout(dailyReset.current);
+      clearTimeout(dailyTimer);
     };
   });
 
   // Sunday to Monday reset (UTC)
   useEffect(() => {
-    weeklyResetSun.current = setTimeout(() => {
+    const sundayTimer = setTimeout(() => {
       triggerReset();
     }, getWeeklyReset(1));
 
     return () => {
-      clearTimeout(weeklyResetSun.current);
+      clearTimeout(sundayTimer);
     };
   });
 
   // Wednesday to Thursday reset (UTC)
   useEffect(() => {
-    weeklyResetWed.current = setTimeout(() => {
+    const wednesdayTimer = setTimeout(() => {
       triggerReset();
     }, getWeeklyReset(4));
 
     return () => {
-      clearTimeout(weeklyResetWed.current);
+      clearTimeout(wednesdayTimer);
     };
   });
 
@@ -97,7 +91,6 @@ export const List = ({ list }) => {
       {list.map(
         (item, index) =>
           (filter[index] !== 2 || isEditing) && (
-            // (item !== 'Ursus' ? (
             <Task
               key={item}
               name={item}
@@ -106,15 +99,6 @@ export const List = ({ list }) => {
               filter={filter[index]}
             />
           ),
-        // ) : (
-        //   <Ursus
-        //     key={item}
-        //     name={item}
-        //     index={index}
-        //     handleClick={handleClick}
-        //     filter={filter[index]}
-        //   />
-        // )),
       )}
     </div>
   );
