@@ -1,7 +1,7 @@
 # Mapler
 
-Currently built for Windows only.\
-Mapler is a desktop program to help keep track of Maplestory dailies and weeklies.\
+Currently built for Windows only. \
+Mapler is a desktop program to help keep track of Maplestory dailies and weeklies. \
 Download the latest release [here](https://github.com/xreic/Mapler/releases).
 
 ## Acknowledgements
@@ -12,8 +12,8 @@ Download the latest release [here](https://github.com/xreic/Mapler/releases).
 
 ## Contact
 
-Submit all issues to https://github.com/xreic/Mapler/issues\
-If you want to help me package/build for another operating system, go for it\
+Submit all issues to https://github.com/xreic/Mapler/issues. \
+If you want to help me package/build for another operating system, go for it. \
 
 ## Development
 
