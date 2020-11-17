@@ -28,8 +28,9 @@ export const View = ({ children }) => {
       setIsLoading(false);
 
       let nextGoldenTime;
-      while (!nextGoldenTime)
+      do {
         nextGoldenTime = await getGoldenTime(checkIfGoldenTime ? 1 : 0);
+      } while (nextGoldenTime === 'Bad Response');
 
       const timer = setTimeout(() => {
         setIsGoldenTime(!checkIfGoldenTime);
@@ -62,7 +63,6 @@ const Ursus = ({ isGoldenTime }) => {
 
   useEffect(async () => {
     let nextGoldenTime;
-
     do {
       nextGoldenTime = await getGoldenTime(isGoldenTime ? 1 : 0);
     } while (nextGoldenTime === 'Bad Response');
