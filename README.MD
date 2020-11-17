@@ -13,7 +13,7 @@ Download the latest release [here](https://github.com/xreic/Mapler/releases).
 ## Contact
 
 Submit all issues to https://github.com/xreic/Mapler/issues. \
-If you want to help me package/build for another operating system, go for it. \
+If you want to help me package/build for another operating system, go for it.
 
 ## Development
 
