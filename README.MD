@@ -19,11 +19,11 @@ If you want to help me package/build for another operating system, go for it.
 
 ### Tech
 
-- Electron
+- Electron (Electron, Electron-Forge, Electron-Store)
 - React
-- Electron Store
 - Needle
 - Cheerio
+- TailwindCSS
 
 ### Requirements
 
