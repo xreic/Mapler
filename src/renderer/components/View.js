@@ -19,7 +19,6 @@ export const View = ({ children }) => {
   useEffect(async () => {
     if (sub === MAPLE) {
       let checkIfGoldenTime;
-
       do {
         checkIfGoldenTime = await ursusGoldenTime();
       } while (checkIfGoldenTime === 'Bad Response');
@@ -34,7 +33,7 @@ export const View = ({ children }) => {
 
       const timer = setTimeout(() => {
         setIsGoldenTime(!checkIfGoldenTime);
-      }, parseInt(nextGoldenTime - new Date()));
+      }, parseInt(nextGoldenTime - new Date()) + 200);
 
       return () => {
         clearTimeout(timer);

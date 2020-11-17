@@ -1,7 +1,7 @@
 // Dependencies
 import { app, BrowserWindow, nativeTheme } from 'electron';
 import Store from 'electron-store';
-import fs from 'fs';
+import { readdir } from 'fs';
 import path from 'path';
 
 // Helpers
@@ -20,7 +20,7 @@ if (require('electron-squirrel-startup')) {
 const store = new Store();
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
-fs.readdir(app.getPath('userData'), (err, files) => {
+readdir(app.getPath('userData'), (err, files) => {
   if (files.indexOf('config.json') === -1) {
     store.set({
       position: null,
@@ -45,8 +45,8 @@ const createWindow = async () => {
   if (!!process.argv[2]) hideMenu = process.argv[2] === 'prod';
 
   const mainWindow = new BrowserWindow({
-    width: 350,
-    height: hideMenu ? 367 : 397,
+    width: hideMenu ? 350 : 1337,
+    height: hideMenu ? 367 : 1337,
     resizable: !hideMenu,
     webPreferences: {
       enableRemoteModule: true,
