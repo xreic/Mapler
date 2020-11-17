@@ -1,11 +1,12 @@
 {
   "name": "mapler",
   "productName": "Mapler",
-  "version": "0.9.1-alpha",
+  "version": "0.9.2-alpha",
   "description": "Tracker app for mushroom game",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "electron-forge start -- prod",
+    "start:dev": "electron-forge start -- dev",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish"

@@ -41,7 +41,9 @@ const createWindow = async () => {
   if (hasReset()) triggerReset();
 
   // Create the browser window
-  const hideMenu = false;
+  let hideMenu = true;
+  if (!!process.argv[2]) hideMenu = process.argv[2] === 'prod';
+
   const mainWindow = new BrowserWindow({
     width: 350,
     height: hideMenu ? 367 : 397,
