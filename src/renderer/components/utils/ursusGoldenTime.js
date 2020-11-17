@@ -12,10 +12,18 @@ export const ursusGoldenTime = async () => {
     const times = await getUrsusTimes();
     if (!times) return 'Bad Response';
 
-    const hours = new Date().getUTCHours();
+    const now = new Date();
+    const { year, month, date } = splitTime(now);
 
     for (let time of times) {
-      if (time[0]['hours'] <= hours && hours < time[1]['hours']) return true;
+      const startTime = new Date(
+        Date.UTC(year, month, date, time[0]['hours'], time[0]['minutes']),
+      );
+      const endTime = new Date(
+        Date.UTC(year, month, date, time[1]['hours'], time[1]['minutes']),
+      );
+
+      if (startTime <= now && now <= endTime) return true;
     }
 
     return false;
@@ -34,11 +42,20 @@ export const getGoldenTime = async (section) => {
     if (!times) return 'Bad Response';
 
     const now = new Date();
-    const { year, month, date, hours } = splitTime(now);
+    const { year, month, date } = splitTime(now);
 
     for (let time of times) {
-      if (time[0]['hours'] <= hours && hours < time[1]['hours'])
-        return new Date(Date.UTC(year, month, date, time[section]['hours']));
+      const scheduledTime = new Date(
+        Date.UTC(
+          year,
+          month,
+          date,
+          time[section]['hours'],
+          time[section]['minutes'],
+        ),
+      );
+
+      if (now < scheduledTime) return scheduledTime;
     }
 
     return new Date(
@@ -50,9 +67,11 @@ export const getGoldenTime = async (section) => {
 };
 
 const getUrsusTimes = async () => {
-  const API = 'https://xreic.github.io/api/ursus.json';
   try {
-    const { body } = await needle('get', API);
+    const { body } = await needle(
+      'get',
+      'https://xreic.github.io/api/ursus.json',
+    );
     return body;
   } catch (err) {
     return false;

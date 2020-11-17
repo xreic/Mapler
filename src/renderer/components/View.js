@@ -1,7 +1,11 @@
 // Core
 import React, { useEffect, useState } from 'react';
 import { useLocation } from '@reach/router';
-import { differenceInHours, differenceInMinutes } from 'date-fns';
+import {
+  differenceInHours,
+  differenceInMinutes,
+  differenceInSeconds,
+} from 'date-fns';
 
 // Helpers
 import { ursusGoldenTime, getGoldenTime } from './utils/ursusGoldenTime';
@@ -33,13 +37,13 @@ export const View = ({ children }) => {
 
       const timer = setTimeout(() => {
         setIsGoldenTime(!checkIfGoldenTime);
-      }, parseInt(nextGoldenTime - new Date()) + 200);
+      }, parseInt(nextGoldenTime - new Date()) + 1);
 
       return () => {
         clearTimeout(timer);
       };
     }
-  }, []);
+  }, [isGoldenTime]);
 
   return (
     <>
@@ -67,12 +71,12 @@ const Ursus = ({ isGoldenTime }) => {
     } while (nextGoldenTime === 'Bad Response');
 
     setGoldenTime(nextGoldenTime);
-  }, []);
+  }, [isGoldenTime]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 1000);
     return () => {
       clearInterval(interval);
     };
@@ -87,6 +91,10 @@ const Ursus = ({ isGoldenTime }) => {
       Ursus Golden Time {isGoldenTime ? 'ends' : 'starts'} in:{' '}
       {differenceInHours(goldenTime, currentTime).toString().padStart(2, '0')}:
       {(differenceInMinutes(goldenTime, currentTime) % 60)
+        .toString()
+        .padStart(2, '0')}
+      :
+      {(differenceInSeconds(goldenTime, currentTime) % 60)
         .toString()
         .padStart(2, '0')}
     </div>
