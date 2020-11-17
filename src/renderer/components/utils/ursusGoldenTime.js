@@ -10,7 +10,7 @@ import { splitTime } from './resetHelpers';
 export const ursusGoldenTime = async () => {
   try {
     const times = await getUrsusTimes();
-    if (!times) return false;
+    if (!times) return 'Bad Response';
 
     const hours = new Date().getUTCHours();
 
@@ -31,7 +31,7 @@ export const ursusGoldenTime = async () => {
 export const getGoldenTime = async (section) => {
   try {
     const times = await getUrsusTimes();
-    if (!times) return false;
+    if (!times) return 'Bad Response';
 
     const now = new Date();
     const { year, month, date, hours } = splitTime(now);
