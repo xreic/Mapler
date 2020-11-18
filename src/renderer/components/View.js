@@ -60,6 +60,7 @@ const Ursus = ({ isGoldenTime }) => {
   const [goldenTime, setGoldenTime] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Hook that retrieves the next Ursus Golden Time
   useEffect(async () => {
     let nextGoldenTime;
     do {
@@ -69,10 +70,14 @@ const Ursus = ({ isGoldenTime }) => {
     setGoldenTime(nextGoldenTime);
   }, [isGoldenTime]);
 
+  /**
+   * Hook to update the countdown
+   * Update occurs every 30 seconds
+   */
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000);
+    }, 30000);
     return () => {
       clearInterval(interval);
     };
