@@ -18,19 +18,24 @@ export const View = ({ children }) => {
   // Hooks P2
   useEffect(async () => {
     if (sub === MAPLE) {
+      // Verifies if it is Ursus Golden Time (UGT) or not
       let checkIfGoldenTime;
       do {
         checkIfGoldenTime = await ursusGoldenTime();
       } while (checkIfGoldenTime === 'Bad Response');
 
       setIsGoldenTime(checkIfGoldenTime);
+
+      // Allows for the Ursus component to be loaded
       setIsLoading(false);
 
+      // Retrieves the next UGT to determine when to trigger a re-render
       let nextGoldenTime;
       do {
         nextGoldenTime = await getGoldenTime(checkIfGoldenTime ? 1 : 0);
       } while (nextGoldenTime === 'Bad Response');
 
+      // Set timeout to trigger a re-render with the next state of isGoldenTime
       const timer = setTimeout(() => {
         setIsGoldenTime(!checkIfGoldenTime);
       }, parseInt(nextGoldenTime - new Date()) + 1);
@@ -60,7 +65,7 @@ const Ursus = ({ isGoldenTime }) => {
   const [goldenTime, setGoldenTime] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Hook that retrieves the next Ursus Golden Time
+  // Hook that retrieves the next UGT
   useEffect(async () => {
     let nextGoldenTime;
     do {
