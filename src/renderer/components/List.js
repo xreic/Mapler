@@ -1,13 +1,15 @@
 // Core
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useLocation } from '@reach/router';
 import Store from 'electron-store';
 
-// Helpers, Components
-import { ACTIVE, CHARACTERS } from './utils/variables';
+// Components
 import { Task } from './Task';
+
+// Helpers
 import { EditContext } from './context/EditContext';
 import { getDailyReset, getWeeklyReset } from './utils/resetHelpers';
-import { useLocation } from '@reach/router';
+import { ACTIVE, CHARACTERS } from './utils/variables';
 
 // Electron store
 const store = new Store({ watch: true });
@@ -109,7 +111,7 @@ export const List = ({ list }) => {
  * Most likely a similar issue to the earlier CharacterList.js error
  */
 const triggerReset = () => {
-  const characters = store.get('characters');
+  const characters = store.get(CHARACTERS);
   const tempCharStore = [];
 
   const dayOfWeek = new Date().getUTCDay();

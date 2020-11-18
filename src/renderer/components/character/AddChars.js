@@ -6,17 +6,16 @@ import { Button } from '../utils/Button';
 import { FormButton } from '../utils/FormButton';
 
 // Helpers
-import { getCharCode, isDupe, setStore } from '../utils/getCharCode';
 import { CharContext } from '../context/CharContext';
+import { getCharCode, isDupe, setStore } from '../utils/getCharCode';
+import { INVALID_CHAR } from '../utils/variables';
 import {
   GrFormPreviousLink,
   GrFormNextLink,
   GrFormRefresh,
   GrFormAdd,
-  GrFormClose,
+  GrErase,
 } from 'react-icons/gr';
-
-const INVALID = 'Invalid Character Name';
 
 export const AddChars = () => {
   // View Hooks
@@ -35,8 +34,16 @@ export const AddChars = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    /**
+     * Sanity Checks
+     *  1. Immediately exit, if
+     *    1. an ongoing request is going
+     *    2. character is already bring tracked
+     *
+     *  2. Clears the input field, if invalid
+     */
     if (isLoading || isDupe(charName)) return;
-    if (charName == INVALID) {
+    if (charName == INVALID_CHAR) {
       setCharName('');
       return;
     }
@@ -46,8 +53,8 @@ export const AddChars = () => {
 
     while (!charCode) charCode = await getCharCode(charName);
 
-    if (charCode == INVALID) {
-      setCharName(INVALID);
+    if (charCode == INVALID_CHAR) {
+      setCharName(INVALID_CHAR);
     } else if (charCode) {
       setStore(charName, charCode);
       setCharName('');
@@ -92,14 +99,14 @@ export const AddChars = () => {
             value={charName}
             ref={inputRef}
             onChange={handleChange}
-            disabled={isLoading}
+            disabled={isLoading || charName === INVALID_CHAR}
             spellCheck={false}
           ></input>
           <FormButton loading={isLoading}>
             {isLoading ? (
               <GrFormRefresh className="m-auto animate-spin" />
-            ) : charName == INVALID ? (
-              <GrFormClose className="m-auto" />
+            ) : charName == INVALID_CHAR ? (
+              <GrErase className="m-auto" />
             ) : (
               <GrFormNextLink className="m-auto" />
             )}

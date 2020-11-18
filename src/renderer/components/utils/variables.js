@@ -76,3 +76,5 @@ exports.ARCANE = 'arcane';
 exports.ACTIVE = 'active';
 exports.CHARACTERS = 'characters';
 exports.DELETING = 'deleting';
+
+exports.INVALID_CHAR = 'Invalid Character Name';
