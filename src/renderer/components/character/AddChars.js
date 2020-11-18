@@ -48,11 +48,12 @@ export const AddChars = () => {
       return;
     }
 
+    // Disable changing the input field and request button
     setIsLoading(true);
+
+    // Get and parse data
     let charCode;
-
     while (!charCode) charCode = await getCharCode(charName);
-
     if (charCode == INVALID_CHAR) {
       setCharName(INVALID_CHAR);
     } else if (charCode) {
@@ -60,6 +61,10 @@ export const AddChars = () => {
       setCharName('');
     }
 
+    /**
+     * Enable changing the input field and request button
+     * Place focus onto the input field
+     */
     setIsLoading(false);
     inputRef.current.focus();
   };
