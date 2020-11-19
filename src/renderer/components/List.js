@@ -8,6 +8,7 @@ import { Task } from './Task';
 
 // Helpers
 import { EditContext } from './context/EditContext';
+import { getNextReset, triggerReset } from './utils/resetHelpers';
 import { ACTIVE, CHARACTERS } from './utils/variables';
 
 // Electron store
@@ -32,6 +33,19 @@ export const List = ({ list }) => {
 
     return () => {
       unsubFilter();
+    };
+  }, [filter]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const chars = store.get(CHARACTERS);
+      const resetChars = triggerReset(chars);
+      store.set(CHARACTERS, resetChars);
+      setFilter(resetChars[store.get(ACTIVE)][main][sub]);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
     };
   }, [filter]);
 

@@ -2,16 +2,21 @@
 import React from 'react';
 
 // Components
+import { CharProvider } from '../context/CharContext';
 import { CharacterList } from './CharacterList';
 import { AddChars } from './AddChars';
 import { DeleteChars } from './DeleteChars';
 import { RefreshChars } from './RefreshChars';
 
 export const CharacterView = () => (
-  <div className="divide-y divide-black">
-    <CharacterList />
-    <AddRemoveRefresh />
-  </div>
+  <>
+    <CharProvider>
+      <div className="divide-y divide-black">
+        <CharacterList />
+        <AddRemoveRefresh />
+      </div>
+    </CharProvider>
+  </>
 );
 
 const AddRemoveRefresh = () => (
