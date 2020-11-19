@@ -44,10 +44,10 @@ const App = () => {
   return (
     <LocationProvider history={history}>
       <div className="select-none" onDragStart={handleDrag}>
-        <CharProvider>
-          <EditProvider>
-            <NavBar />
+        <EditProvider>
+          <NavBar />
 
+          <CharProvider>
             <Transition>
               <Router primary={false}>
                 {/* Character View */}
@@ -66,8 +66,8 @@ const App = () => {
                 </View>
               </Router>
             </Transition>
-          </EditProvider>
-        </CharProvider>
+          </CharProvider>
+        </EditProvider>
       </div>
     </LocationProvider>
   );

@@ -9,7 +9,10 @@ import {
   getTemplate,
   updateAllChars,
 } from '../renderer/components/utils/getCharCode';
-import { splitTime } from '../renderer/components/utils/resetHelpers';
+import {
+  splitTime,
+  triggerReset,
+} from '../renderer/components/utils/resetHelpers';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -38,7 +41,10 @@ const createWindow = async () => {
    *  2. Reset bosses and quests when reset has passed
    */
   await updateAllChars();
-  if (hasReset()) triggerReset();
+  if (hasReset()) {
+    const chars = store.get('characters');
+    store.set('characters', triggerReset(chars));
+  }
 
   // Create the browser window
   let hideMenu = true;
@@ -108,48 +114,6 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-const triggerReset = () => {
-  const preResetChars = store.get('characters');
-  const resetChars = [];
-
-  const dayOfWeek = new Date().getUTCDay();
-
-  for (let char of preResetChars) {
-    // Reset daily bosses
-    char.bosses.daily = char.bosses.daily.map((value) =>
-      value === 1 ? 0 : value,
-    );
-
-    // Reset arcane river dailies
-    char.quests.arcane = char.quests.arcane.map((value) =>
-      value === 1 ? 0 : value,
-    );
-
-    // Reset ALL maple world quests
-    if (dayOfWeek === 1) {
-      char.quests.maple = char.quests.maple.map((value) =>
-        value === 1 ? 0 : value,
-      );
-    } else {
-      // Reset daily maple world quests
-      char.quests.maple = char.quests.maple.map((value, index) =>
-        value === 1 && index < 9 ? 0 : value,
-      );
-    }
-
-    // Reset weekly bosses
-    if (dayOfWeek === 4) {
-      char.bosses.weekly = char.bosses.weekly.map((value) =>
-        value === 1 ? 0 : value,
-      );
-    }
-
-    resetChars.push(char);
-  }
-
-  store.set('characters', resetChars);
-};
-
 const hasReset = () => {
   const lastCheckedDate = store.get('timer');
 
