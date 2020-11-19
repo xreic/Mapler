@@ -152,13 +152,14 @@ const triggerReset = () => {
 
 const hasReset = () => {
   const lastCheckedDate = store.get('timer');
+
   const now = new Date();
-  const { year, month, date, hours } = splitTime(now);
+  const { year, month, date, hours, minutes } = splitTime(now);
 
   if (!lastCheckedDate) {
     store.set('timer', nextResetDate());
   } else {
-    const nowUTC = new Date(Date.UTC(year, month, date, hours));
+    const nowUTC = new Date(Date.UTC(year, month, date, hours, minutes));
     if (nowUTC >= new Date(lastCheckedDate)) {
       store.set('timer', nextResetDate());
       return true;

@@ -2,9 +2,9 @@
 import React, { useContext, useState } from 'react';
 
 // Helpers
-import { GrFormRefresh } from 'react-icons/gr';
 import { CharContext } from '../context/CharContext';
 import { updateAllChars } from '../utils/getCharCode';
+import { GrFormRefresh } from 'react-icons/gr';
 
 export const RefreshChars = () => {
   const { hideAddButton, hideDeleteButton } = useContext(CharContext);
