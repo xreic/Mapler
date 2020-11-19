@@ -56,7 +56,7 @@ const createWindow = async () => {
   });
 
   // Configurations
-  nativeTheme.themeSource = 'light';
+  nativeTheme.themeSource = 'dark';
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   /**
@@ -109,12 +109,12 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 const triggerReset = () => {
-  const characters = store.get('characters');
-  const tempCharStore = [];
+  const preResetChars = store.get('characters');
+  const resetChars = [];
 
   const dayOfWeek = new Date().getUTCDay();
 
-  for (let char of characters) {
+  for (let char of preResetChars) {
     // Reset daily bosses
     char.bosses.daily = char.bosses.daily.map((value) =>
       value === 1 ? 0 : value,
@@ -144,10 +144,10 @@ const triggerReset = () => {
       );
     }
 
-    tempCharStore.push(char);
+    resetChars.push(char);
   }
 
-  store.set('characters', tempCharStore);
+  store.set('characters', resetChars);
 };
 
 const hasReset = () => {

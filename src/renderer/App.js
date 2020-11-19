@@ -9,6 +9,7 @@ import {
 } from '@reach/router';
 
 // Components
+import { CharProvider } from './components/context/CharContext';
 import { EditProvider } from './components/context/EditContext';
 import { Transition } from './components/utils/Transition';
 import { NavBar } from './components/navigation/NavBar';
@@ -43,28 +44,30 @@ const App = () => {
   return (
     <LocationProvider history={history}>
       <div className="select-none" onDragStart={handleDrag}>
-        <EditProvider>
-          <NavBar />
+        <CharProvider>
+          <EditProvider>
+            <NavBar />
 
-          <Transition>
-            <Router primary={false}>
-              {/* Character View */}
-              <CharacterView path="/" default />
+            <Transition>
+              <Router primary={false}>
+                {/* Character View */}
+                <CharacterView path="/" default />
 
-              {/* Bosses View */}
-              <View path={`/${BOSSES}`}>
-                <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
-                <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
-              </View>
+                {/* Bosses View */}
+                <View path={`/${BOSSES}`}>
+                  <List path={`/${DAILY}`} list={DAILY_BOSSES} default />
+                  <List path={`/${WEEKLY}`} list={WEEKLY_BOSSES} />
+                </View>
 
-              {/* Quests View */}
-              <View path={`/${QUESTS}`}>
-                <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
-                <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
-              </View>
-            </Router>
-          </Transition>
-        </EditProvider>
+                {/* Quests View */}
+                <View path={`/${QUESTS}`}>
+                  <List path={`/${MAPLE}`} list={MAPLE_WORLD_QUESTS} default />
+                  <List path={`/${ARCANE}`} list={ARCANE_RIVER_QUESTS} />
+                </View>
+              </Router>
+            </Transition>
+          </EditProvider>
+        </CharProvider>
       </div>
     </LocationProvider>
   );

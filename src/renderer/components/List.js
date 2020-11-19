@@ -8,7 +8,6 @@ import { Task } from './Task';
 
 // Helpers
 import { EditContext } from './context/EditContext';
-import { getDailyReset, getWeeklyReset } from './utils/resetHelpers';
 import { ACTIVE, CHARACTERS } from './utils/variables';
 
 // Electron store
@@ -37,39 +36,6 @@ export const List = ({ list }) => {
     };
   }),
     [filter];
-
-  // Daily reset
-  useEffect(() => {
-    const dailyTimer = setTimeout(() => {
-      triggerReset();
-    }, getDailyReset());
-
-    return () => {
-      clearTimeout(dailyTimer);
-    };
-  });
-
-  // Sunday to Monday reset (UTC)
-  useEffect(() => {
-    const sundayTimer = setTimeout(() => {
-      triggerReset();
-    }, getWeeklyReset(1));
-
-    return () => {
-      clearTimeout(sundayTimer);
-    };
-  });
-
-  // Wednesday to Thursday reset (UTC)
-  useEffect(() => {
-    const wednesdayTimer = setTimeout(() => {
-      triggerReset();
-    }, getWeeklyReset(4));
-
-    return () => {
-      clearTimeout(wednesdayTimer);
-    };
-  });
 
   // Handlers
   const handleClick = (index) => {
@@ -104,50 +70,4 @@ export const List = ({ list }) => {
       )}
     </div>
   );
-};
-
-/**
- * Exporting this from resetHelper.js would not trigger an update from the subscription
- * Most likely a similar issue to the earlier CharacterList.js error
- */
-const triggerReset = () => {
-  const characters = store.get(CHARACTERS);
-  const tempCharStore = [];
-
-  const dayOfWeek = new Date().getUTCDay();
-
-  for (let char of characters) {
-    // Reset daily bosses
-    char.bosses.daily = char.bosses.daily.map((value) =>
-      value === 1 ? 0 : value,
-    );
-
-    // Reset arcane river dailies
-    char.quests.arcane = char.quests.arcane.map((value) =>
-      value === 1 ? 0 : value,
-    );
-
-    // Reset ALL maple world quests
-    if (dayOfWeek === 1) {
-      char.quests.maple = char.quests.maple.map((value) =>
-        value === 1 ? 0 : value,
-      );
-    } else {
-      // Reset daily maple world quests
-      char.quests.maple = char.quests.maple.map((value, index) =>
-        value === 1 && index < 9 ? 0 : value,
-      );
-    }
-
-    // Reset weekly bosses
-    if (dayOfWeek === 4) {
-      char.bosses.weekly = char.bosses.weekly.map((value) =>
-        value === 1 ? 0 : value,
-      );
-    }
-
-    tempCharStore.push(char);
-  }
-
-  store.set('characters', tempCharStore);
 };

@@ -6,20 +6,10 @@ export const splitTime = (date) => ({
   minutes: date.getUTCMinutes(),
 });
 
-export const getDailyReset = () => {
+export const getNextReset = () => {
   const now = new Date();
   const { year, month, date } = splitTime(now);
   const reset = new Date(Date.UTC(year, month, date + 1, 0));
-
-  return parseInt(reset - now);
-};
-
-export const getWeeklyReset = (resetDay) => {
-  const now = new Date();
-  const { year, month, date } = splitTime(now);
-  const reset = new Date(
-    Date.UTC(year, month, date + (6 + resetDay - now.getDay()), 0),
-  );
 
   return parseInt(reset - now);
 };
