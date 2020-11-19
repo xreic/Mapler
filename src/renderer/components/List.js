@@ -25,7 +25,6 @@ export const List = ({ list }) => {
   );
 
   // Hooks P2
-  // Store subscription
   useEffect(() => {
     const unsubFilter = store.onDidChange(CHARACTERS, (charList, _) => {
       setFilter(charList[active][main][sub]);
@@ -34,8 +33,7 @@ export const List = ({ list }) => {
     return () => {
       unsubFilter();
     };
-  }),
-    [filter];
+  }, [filter]);
 
   // Handlers
   const handleClick = (index) => {
