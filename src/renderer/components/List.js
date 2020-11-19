@@ -42,7 +42,7 @@ export const List = ({ list }) => {
       const resetChars = triggerReset(chars);
       store.set(CHARACTERS, resetChars);
       setFilter(resetChars[store.get(ACTIVE)][main][sub]);
-    }, 2000);
+    }, getNextReset() + 1);
 
     return () => {
       clearTimeout(timer);
