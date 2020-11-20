@@ -22,7 +22,10 @@ export const CharacterView = () => (
 const AddRemoveRefresh = () => (
   <div className="flex divide-x divide-black">
     <DeleteChars />
-    <RefreshChars />
+    {/*
+      Hiding for now feels like an unnecessary function
+      <RefreshChars />
+    */}
     <AddChars />
   </div>
 );
