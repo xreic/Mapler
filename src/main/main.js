@@ -75,7 +75,7 @@ const createWindow = async () => {
   hideMenu ? mainWindow.setMenu(null) : mainWindow.webContents.openDevTools();
 
   const winPosition = store.get('position');
-  winPosition.length && mainWindow.setPosition(winPosition[0], winPosition[1]);
+  if (winPosition) mainWindow.setPosition(winPosition[0], winPosition[1]);
 
   /**
    * Event Listeners
