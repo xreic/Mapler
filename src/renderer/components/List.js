@@ -47,7 +47,8 @@ export const List = ({ list }) => {
         'get',
         'https://xreic.github.io/api/event.json',
       );
-      setIsEvent(body);
+
+      setIsEvent(body.isEvent);
     }
 
     setIsLoading(false);
@@ -105,7 +106,7 @@ export const List = ({ list }) => {
          *
          */
         if (filter[index] !== 2 || isEditing) {
-          if (sub !== MAPLE) {
+          if (sub !== MAPLE || isEvent) {
             return (
               <Task
                 key={item}
@@ -115,19 +116,11 @@ export const List = ({ list }) => {
                 filter={filter[index]}
               />
             );
-          } else if (isEvent) {
+          }
+
+          if (index < 14) {
             // Implied that sub === MAPLE is true
-            return (
-              <Task
-                key={item}
-                name={item}
-                index={index}
-                handleClick={handleClick}
-                filter={filter[index]}
-              />
-            );
-          } else if (index < 14) {
-            // Implied that sub === MAPLE is true
+            // Implied that isEvent is false
             return (
               <Task
                 key={item}
