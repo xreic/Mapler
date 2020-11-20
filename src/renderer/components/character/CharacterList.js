@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
 // Helpers
+// import { SettingsContext } from '../context/SettingsContext';
 import { CharContext } from '../context/CharContext';
 import { ACTIVE, DELETING } from '../utils/variables';
 
@@ -14,6 +15,7 @@ export const CharacterList = () => {
    * Hooks P1: Initial state
    * View switching and data hooks
    */
+  // const { isSettingsOpen } = useContext(SettingsContext);
   const { hideAddButton, characters } = useContext(CharContext);
   const [active, setActive] = useState(store.get(ACTIVE));
   const [deleting, setDeleting] = useState(store.get(DELETING));

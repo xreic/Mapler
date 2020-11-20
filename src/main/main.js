@@ -26,6 +26,7 @@ const store = new Store();
 readdir(app.getPath('userData'), (err, files) => {
   if (files.indexOf('config.json') === -1) {
     store.set({
+      region: 0, // Default the region to GMS
       position: null,
       active: 0,
       characters: [getTemplate('DEFAULT CHARACTER', null)],

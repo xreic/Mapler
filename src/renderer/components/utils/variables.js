@@ -1,3 +1,5 @@
+exports.REGIONS = ['GMS', 'KMS', 'MSEA'];
+
 exports.DAILY_BOSSES = [
   'Balrog',
   'Zakum',
@@ -75,6 +77,7 @@ exports.WEEKLY = 'weekly';
 exports.MAPLE = 'maple';
 exports.ARCANE = 'arcane';
 
+exports.REGION = 'region';
 exports.ACTIVE = 'active';
 exports.CHARACTERS = 'characters';
 exports.DELETING = 'deleting';
