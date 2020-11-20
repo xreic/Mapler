@@ -55,6 +55,8 @@ exports.MAPLE_WORLD_QUESTS = [
   'Dark World Tree',
   'Mu Lung Dojo',
   'Kritias',
+  'Coin',
+  'CoinBoss',
 ];
 
 exports.ARCANE_RIVER_QUESTS = [
