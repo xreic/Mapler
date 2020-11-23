@@ -84,6 +84,9 @@ export default merge(baseConfig, {
             loader: 'style-loader',
           },
           {
+            loader: 'postcss-loader',
+          },
+          {
             loader: 'css-loader',
             options: {
               modules: {
@@ -191,6 +194,10 @@ export default merge(baseConfig, {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: 'url-loader',
+      },
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
+        use: 'file-loader',
       },
     ],
   },
