@@ -26,14 +26,18 @@ lib-cov
 coverage
 *.lcov
 
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
 # nyc test coverage
 .nyc_output
 
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
+# Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+.eslintcache
 
 # Dependency directories
 node_modules/
@@ -88,8 +92,30 @@ typings/
 # Webpack
 .webpack/
 
+# OSX
+.DS_Store
+
 # Electron-Forge
 out/
 
 #Electron-Builder
 dist/
+
+# App packaged
+release
+app/main.prod.js
+app/main.prod.js.map
+app/renderer.prod.js
+app/renderer.prod.js.map
+app/style.css
+app/style.css.map
+dist
+dll
+main.js
+main.js.map
+
+.idea
+npm-debug.log.*
+*.css.d.ts
+*.sass.d.ts
+*.scss.d.ts
