@@ -2,8 +2,8 @@
 import React, { useContext, useState } from 'react';
 
 // Components
-import { Button } from '../../utils/Button';
-import { FormButton } from '../../utils/FormButton';
+import { Button } from '../Button';
+import { FormButton } from '../FormButton';
 
 // Helpers
 import { CharContext } from '../context/CharContext';

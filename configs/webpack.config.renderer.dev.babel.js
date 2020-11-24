@@ -70,12 +70,18 @@ export default merge(baseConfig, {
             loader: 'style-loader',
           },
           {
-            loader: 'postcss-loader',
-          },
-          {
             loader: 'css-loader',
             options: {
               sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                parser: 'postcss',
+                plugins: [require('tailwindcss'), require('autoprefixer')],
+              },
             },
           },
         ],
@@ -85,9 +91,6 @@ export default merge(baseConfig, {
         use: [
           {
             loader: 'style-loader',
-          },
-          {
-            loader: 'postcss-loader',
           },
           {
             loader: 'css-loader',

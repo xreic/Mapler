@@ -10,7 +10,7 @@ import { Task } from './Task';
 // Helpers
 import { EditContext } from './context/EditContext';
 import { getNextReset, triggerReset } from '../utils/resetHelpers';
-import { ACTIVE, CHARACTERS, MAPLE } from '../utils/variables';
+import { ACTIVE, CHARACTERS, MAPLE } from '../constants/variables';
 
 // Electron store
 const store = new Store({ watch: true });

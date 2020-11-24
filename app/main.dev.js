@@ -13,12 +13,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { app, BrowserWindow } from 'electron';
-import { autoUpdater } from 'electron-updater';
+// import { autoUpdater } from 'electron-updater';
 import Store from 'electron-store';
 import log from 'electron-log';
 import path from 'path';
 import { readdir } from 'fs';
-import MenuBuilder from './other/menu';
 
 // Helpers
 import { getTemplate, updateAllChars } from './utils/getCharCode';
@@ -30,19 +29,19 @@ import {
 } from './utils/resetHelpers';
 import { CHARACTERS, POSITION, TIMER } from './constants/variables';
 
-export default class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
+// Electron store
+const store = new Store();
+
+// export default class AppUpdater {
+//   constructor() {
+//     log.transports.file.level = 'info';
+//     autoUpdater.logger = log;
+//     autoUpdater.checkForUpdatesAndNotify();
+//   }
+// }
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
 readdir(app.getPath('userData'), (err, files) => {
-  // Electron store
-  const store = new Store();
-
   if (files.indexOf('config.json') === -1) {
     store.set({
       // region: 0, // Default the region to GMS
@@ -158,10 +157,6 @@ const createWindow = async () => {
     store.set(POSITION, mainWindow.getPosition());
     mainWindow = null;
   });
-
-  //// Menu
-  // const menuBuilder = new MenuBuilder(mainWindow);
-  // menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line

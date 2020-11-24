@@ -1,3 +1,7 @@
+// Core
+import Store from 'electron-store';
+
+// Helpers
 import { TIMER } from '../constants/variables';
 
 export const splitTime = (date) => ({
@@ -57,6 +61,7 @@ export const triggerReset = (preResetChars) => {
 };
 
 export const hasReset = () => {
+  const store = new Store();
   const lastCheckedDate = store.get(TIMER);
 
   const now = new Date();

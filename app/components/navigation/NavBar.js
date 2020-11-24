@@ -14,7 +14,7 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-} from '../utils/variables';
+} from '../../constants/variables';
 
 export const NavBar = () => {
   return (
@@ -46,7 +46,7 @@ const UpperNav = () => {
           <SelectedNavLink key={label} label={label} />
         ) : (
           <NavLink key={label} path={path} label={label} />
-        ),
+        )
       )}
     </nav>
   );
@@ -68,7 +68,7 @@ const LowerNav = () => {
             <SelectedNavLink key={label} label={label} />
           ) : (
             <NavLink key={label} path={path} label={label} />
-          ),
+          )
         )}
         <EditButton />
       </nav>

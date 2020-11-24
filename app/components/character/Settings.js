@@ -4,10 +4,10 @@ import Store from 'electron-store';
 
 // Components
 import { SettingsContext } from '../context/SettingsContext';
-import { Button } from '../../utils/Button';
+import { Button } from '../Button';
 
 // Helper
-import { REGION, REGIONS } from '../../utils/variables';
+import { REGION, REGIONS } from '../../constants/variables';
 import { MdSettings } from 'react-icons/md';
 
 const store = new Store();

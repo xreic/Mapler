@@ -2,13 +2,13 @@
 import React, { useContext, useRef, useState } from 'react';
 
 // Components
-import { Button } from '../../utils/Button';
-import { FormButton } from '../../utils/FormButton';
+import { Button } from '../Button';
+import { FormButton } from '../FormButton';
 
 // Helpers
 import { CharContext } from '../context/CharContext';
 import { getCharCode, isDupe, setStore } from '../../utils/getCharCode';
-import { INVALID_CHAR } from '../../utils/variables';
+import { INVALID_CHAR } from '../../constants/variables';
 import {
   GrFormPreviousLink,
   GrFormNextLink,

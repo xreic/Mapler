@@ -58,6 +58,12 @@ export default merge(baseConfig, {
           },
           {
             loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                parser: 'postcss',
+                plugins: [require('tailwindcss'), require('autoprefixer')],
+              },
+            },
           },
         ],
       },

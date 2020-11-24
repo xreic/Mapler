@@ -5,7 +5,7 @@ import { differenceInHours, differenceInMinutes } from 'date-fns';
 
 // Helpers
 import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime';
-import { MAPLE } from '../utils/variables';
+import { MAPLE } from '../constants/variables';
 
 export const View = ({ children }) => {
   const location = useLocation();
