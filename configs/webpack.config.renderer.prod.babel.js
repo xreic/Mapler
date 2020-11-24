@@ -29,7 +29,7 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(__dirname, '..', 'app/index.tsx'),
+    path.join(__dirname, '..', 'app/index.jsx'),
   ],
 
   output: {
@@ -56,6 +56,9 @@ export default merge(baseConfig, {
               sourceMap: true,
             },
           },
+          {
+            loader: 'postcss-loader',
+          },
         ],
       },
       // Pipe other styles through css modules and append to style.css
@@ -73,6 +76,9 @@ export default merge(baseConfig, {
               },
               sourceMap: true,
             },
+          },
+          {
+            loader: 'postcss-loader',
           },
         ],
       },

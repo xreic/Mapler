@@ -13,7 +13,7 @@ import {
   WEEKLY_BOSSES,
   MAPLE_WORLD_QUESTS,
   ARCANE_RIVER_QUESTS,
-} from './variables';
+} from '../constants/variables';
 
 const store = new Store();
 

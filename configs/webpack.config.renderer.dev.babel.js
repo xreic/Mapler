@@ -53,7 +53,7 @@ export default merge(baseConfig, {
     ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    require.resolve('../app/index.tsx'),
+    require.resolve('../app/index.jsx'),
   ],
 
   output: {
@@ -68,6 +68,9 @@ export default merge(baseConfig, {
         use: [
           {
             loader: 'style-loader',
+          },
+          {
+            loader: 'postcss-loader',
           },
           {
             loader: 'css-loader',

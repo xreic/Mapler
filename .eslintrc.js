@@ -12,8 +12,5 @@ module.exports = {
         config: require.resolve('./configs/webpack.config.eslint.js'),
       },
     },
-    // 'import/parsers': {
-    //   '@typescript-eslint/parser': ['.ts', '.tsx'],
-    // },
   },
 };

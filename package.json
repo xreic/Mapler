@@ -52,8 +52,7 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "Mapler",
     "files": [
       "dist/",
       "node_modules/",
@@ -96,13 +95,7 @@
     },
     "extraResources": [
       "./resources/**"
-    ],
-    "publish": {
-      "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate",
-      "private": false
-    }
+    ]
   },
   "repository": {
     "type": "git",

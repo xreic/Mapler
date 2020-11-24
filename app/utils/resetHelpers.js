@@ -1,4 +1,4 @@
-import { TIMER } from './variables';
+import { TIMER } from '../constants/variables';
 
 export const splitTime = (date) => ({
   year: date.getUTCFullYear(),

@@ -18,7 +18,7 @@ import Store from 'electron-store';
 import log from 'electron-log';
 import path from 'path';
 import { readdir } from 'fs';
-import MenuBuilder from './menu';
+import MenuBuilder from './other/menu';
 
 // Helpers
 import { getTemplate, updateAllChars } from './utils/getCharCode';
@@ -28,7 +28,7 @@ import {
   splitTime,
   triggerReset,
 } from './utils/resetHelpers';
-import { CHARACTERS, POSITION, TIMER } from './utils/variables';
+import { CHARACTERS, POSITION, TIMER } from './constants/variables';
 
 export default class AppUpdater {
   constructor() {
