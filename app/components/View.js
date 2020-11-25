@@ -1,11 +1,25 @@
 // Core
 import React, { useEffect, useState } from 'react';
 import { useLocation } from '@reach/router';
-import { differenceInHours, differenceInMinutes } from 'date-fns';
+import { createUseStyles } from 'react-jss';
+
+// Component
+import { Ursus } from './Ursus';
 
 // Helpers
 import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime';
 import { MAPLE } from '../constants/variables';
+
+const useStyle = createUseStyles({
+  taskContainer: ({ shrink }) => ({
+    overflowY: 'hidden',
+    padding: '0.5rem',
+    height: shrink ? '269px' : '287px',
+    BgOpacity: 1,
+    backgroundColor: '#a0aec0',
+    backgroundColor: 'rgba(160, 174, 192, var(--bg-opacity))',
+  }),
+});
 
 export const View = ({ children }) => {
   const location = useLocation();
@@ -46,59 +60,12 @@ export const View = ({ children }) => {
     }
   }, [isGoldenTime]);
 
+  const { taskContainer } = useStyle({ shrink: sub === MAPLE && !isLoading });
+
   return (
     <>
       {sub === MAPLE && !isLoading && <Ursus isGoldenTime={isGoldenTime} />}
-      <div
-        className={`overflow-y-scroll px-2 py-2 bg-gray-500 ${
-          sub === MAPLE && !isLoading ? 'h-269px' : 'h-287px'
-        } `}
-      >
-        {children}
-      </div>
+      <div className={taskContainer}>{children}</div>
     </>
-  );
-};
-
-const Ursus = ({ isGoldenTime }) => {
-  // Timer Hooks
-  const [goldenTime, setGoldenTime] = useState(new Date());
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  // Hook that retrieves the next UGT
-  useEffect(async () => {
-    let nextGoldenTime;
-    do {
-      nextGoldenTime = await getGoldenTime(isGoldenTime ? 1 : 0);
-    } while (nextGoldenTime === 'Bad Response');
-
-    setGoldenTime(nextGoldenTime);
-  }, [isGoldenTime]);
-
-  /**
-   * Hook to update the countdown
-   * Update occurs every 30 seconds
-   */
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 30000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isGoldenTime]);
-
-  return (
-    <div
-      className={`text-center text-xs ${
-        isGoldenTime ? 'bg-yellow-400' : 'bg-gray-500'
-      }`}
-    >
-      Ursus Golden Time {isGoldenTime ? 'ends' : 'starts'} in:{' '}
-      {differenceInHours(goldenTime, currentTime).toString().padStart(2, '0')}:
-      {(differenceInMinutes(goldenTime, currentTime) % 60)
-        .toString()
-        .padStart(2, '0')}
-    </div>
   );
 };

@@ -1,8 +1,32 @@
 // Core
 import React, { useEffect, useRef, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
 // Helpers
 import { colors } from '../constants/colors';
+
+const useStyles = createUseStyles({
+  imageContainer: (props) => ({
+    borderRadius: '0.375rem',
+
+    BgOpacity: 1,
+    backgroundColor:
+      ['#3182ce', '#38a169', '#e53e3e'][props.filter] || '#3182ce',
+    backgroundColor:
+      [
+        'rgba(49, 130, 206, var(--bg-opacity))',
+        'rgba(56, 161, 105, var(--bg-opacity))',
+        'rgba(229, 62, 62, var(--bg-opacity))',
+      ][props.filter] || 'rgba(49, 130, 206, var(--bg-opacity))',
+  }),
+  imageStyle: {
+    width: '53px',
+    height: '57px',
+    borderRadius: 9999,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+});
 
 export const Task = ({ name, index, handleClick, filter }) => {
   /**
@@ -30,16 +54,10 @@ export const Task = ({ name, index, handleClick, filter }) => {
   }, []);
 
   if (!loading && !!importedImage.current) {
+    const { imageContainer, imageStyle } = useStyles(filter);
     return (
-      <div
-        className={`rounded-md ${colors[filter] || 'bg-blue-600'}`}
-        onClick={() => handleClick(index)}
-      >
-        <img
-          src={importedImage.current}
-          alt={name}
-          className="rounded-full mx-auto h-57px w-53px"
-        />
+      <div className={imageContainer} onClick={() => handleClick(index)}>
+        <img src={importedImage.current} alt={name} className={imageStyle} />
       </div>
     );
   }

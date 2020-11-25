@@ -1,5 +1,6 @@
 // Core
 import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 // Contexts
 import { CharProvider } from '../context/CharContext';
@@ -9,37 +10,43 @@ import { CharacterList } from './CharacterList';
 import { AddChars } from './AddChars';
 import { DeleteChars } from './DeleteChars';
 
-// Hidden Items
-// import { SettingsProvider } from '../context/SettingsContext';
-// import { Settings } from './Settings';
-// import { RefreshChars } from './RefreshChars';
+const useStyles = createUseStyles({
+  viewContainer: {
+    // Horizontal Elements Divide
+    TwDivideYReverse: 0,
+    borderTopWidth: 'calc(1px * calc(1 - var(--tw-divide-y-reverse)))',
+    borderBottomWidth: 'calc(1px * var(--tw-divide-y-reverse))',
+    // Horizontal Elements Divide Color
+    TwDivideOpacity: 1,
+    borderColor: 'rgba(0, 0, 0, var(--tw-divide-opacity))',
+  },
+  buttonContainer: {
+    display: 'flex',
+    // Vertical Elements Divide
+    TwDivideXReverse: 0,
+    borderRightWidth: 'calc(1px * var(--tw-divide-x-reverse))',
+    borderLeftWidth: 'calc(1px * calc(1 - var(--tw-divide-x-reverse)))',
+    // Vertical Elements Divide Color
+    TwDivideOpacity: 1,
+    borderColor: 'rgba(0, 0, 0, var(--tw-divide-opacity))',
+  },
+});
 
-export const CharacterView = () => (
-  <>
-    <CharProvider>
-      <div className="divide-y divide-black">
-        {/*
-          Hidden for now until functionality is needed
-          <SettingsProvider>
-            <Settings />
-          </SettingsProvider>
-        */}
+export const CharacterView = () => {
+  const { viewContainer, buttonContainer } = useStyles();
 
-        <CharacterList />
-        <AddRemoveRefresh />
-      </div>
-    </CharProvider>
-  </>
-);
+  return (
+    <>
+      <CharProvider>
+        <div className={viewContainer}>
+          <CharacterList />
 
-// Mini-components
-const AddRemoveRefresh = () => (
-  <div className="flex divide-x divide-black">
-    <DeleteChars />
-    {/*
-      Hiding for now feels like an unnecessary function
-      <RefreshChars />
-    */}
-    <AddChars />
-  </div>
-);
+          <div className={buttonContainer}>
+            <DeleteChars />
+            <AddChars />
+          </div>
+        </div>
+      </CharProvider>
+    </>
+  );
+};
