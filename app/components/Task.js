@@ -2,9 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
-// Helpers
-import { colors } from '../constants/colors';
-
 const useStyles = createUseStyles({
   imageContainer: (props) => ({
     borderRadius: '0.375rem',

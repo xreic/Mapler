@@ -24,7 +24,7 @@ const useStyle = createUseStyles({
   }),
 });
 
-const Ursus = ({ isGoldenTime }) => {
+export const Ursus = ({ isGoldenTime }) => {
   const { ursusStyle } = useStyle({ isGoldenTime });
 
   // Timer Hooks
