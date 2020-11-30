@@ -1,6 +1,5 @@
 // Core
 import React, { useContext, useState } from 'react';
-import { createUseStyles } from 'react-jss';
 
 // Components
 import { Button } from '../Button';
@@ -11,14 +10,7 @@ import { CharContext } from '../context/CharContext';
 import { activateDelete } from '../../utils/getCharCode';
 import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
-const useStyle = createUseStyles({
-  iconStyle: {
-    margin: 'auto',
-  },
-});
-
 export const DeleteChars = () => {
-  const { iconStyle } = useStyle();
   const { setHideAdd, hideDeleteButton, setCharacters } = useContext(
     CharContext
   );
@@ -49,7 +41,7 @@ export const DeleteChars = () => {
     <>
       {isDeleting && (
         <FormButton action={goBack}>
-          <GrFormPreviousLink className={iconStyle} />
+          <GrFormPreviousLink className={''} />
         </FormButton>
       )}
       <Button
@@ -57,7 +49,7 @@ export const DeleteChars = () => {
           isDeleting ? handleDelete() : startDeleting();
         }}
       >
-        <GrFormSubtract className={iconStyle} />
+        <GrFormSubtract className={''} />
       </Button>
     </>
   );

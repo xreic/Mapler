@@ -7,7 +7,6 @@ import {
   LocationProvider,
   Router,
 } from '@reach/router';
-import { createUseStyles } from 'react-jss';
 
 // Components
 import { EditProvider } from './context/EditContext';
@@ -35,15 +34,7 @@ import {
 let source = createMemorySource('/main_window');
 let history = createHistory(source);
 
-const useStyles = createUseStyles({
-  noSelectWrapper: {
-    'user-select': none,
-  },
-});
-
 const App = () => {
-  const { noSelectWrapper } = useStyles();
-
   // TODO: Remove later for drag-n-move character arrangement (Future feature)
   const handleDrag = (e) => {
     e.preventDefault();
@@ -51,7 +42,7 @@ const App = () => {
 
   return (
     <LocationProvider history={history}>
-      <div className={noSelectWrapper} onDragStart={handleDrag}>
+      <div className={''} onDragStart={handleDrag}>
         <EditProvider>
           <NavBar />
 

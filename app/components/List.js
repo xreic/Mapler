@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from '@reach/router';
 import Store from 'electron-store';
 import needle from 'needle';
-import { createUseStyles } from 'react-jss';
 
 // Components
 import { Task } from './Task';
@@ -16,21 +15,9 @@ import { ACTIVE, CHARACTERS, MAPLE } from '../constants/variables';
 // Electron store
 const store = new Store({ watch: true });
 
-const useStyles = createUseStyles({
-  viewContainer: {
-    justifyItems: 'stretch',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-    gridGap: '0.5rem',
-    gap: '0.5rem',
-  },
-});
-
 export const List = ({ list }) => {
   const location = useLocation();
   const [_, main, sub] = location.pathname.split('/');
-
-  const { viewContainer } = useStyles();
 
   // View Hook
   const [isLoading, setIsLoading] = useState(true);
@@ -97,7 +84,7 @@ export const List = ({ list }) => {
   if (isLoading) return null;
 
   return (
-    <div className={viewContainer}>
+    <div className={''}>
       {list.map((item, index) => {
         /**
          * Filter Logic

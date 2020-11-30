@@ -1,7 +1,6 @@
 // Core
 import React, { useEffect, useState } from 'react';
 import { useLocation } from '@reach/router';
-import { createUseStyles } from 'react-jss';
 
 // Component
 import { Ursus } from './Ursus';
@@ -9,17 +8,6 @@ import { Ursus } from './Ursus';
 // Helpers
 import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime';
 import { MAPLE } from '../constants/variables';
-
-const useStyle = createUseStyles({
-  taskContainer: ({ shrink }) => ({
-    overflowY: 'hidden',
-    padding: '0.5rem',
-    height: shrink ? '269px' : '287px',
-    BgOpacity: 1,
-    backgroundColor: '#a0aec0',
-    backgroundColor: 'rgba(160, 174, 192, var(--bg-opacity))',
-  }),
-});
 
 export const View = ({ children }) => {
   const location = useLocation();
@@ -60,12 +48,10 @@ export const View = ({ children }) => {
     }
   }, [isGoldenTime]);
 
-  const { taskContainer } = useStyle({ shrink: sub === MAPLE && !isLoading });
-
   return (
     <>
       {sub === MAPLE && !isLoading && <Ursus isGoldenTime={isGoldenTime} />}
-      <div className={taskContainer}>{children}</div>
+      <div className={''}>{children}</div>
     </>
   );
 };

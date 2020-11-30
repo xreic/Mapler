@@ -1,6 +1,5 @@
 // Core
 import React, { useContext, useRef, useState } from 'react';
-import { createUseStyles } from 'react-jss';
 
 // Components
 import { Button } from '../Button';
@@ -17,41 +16,6 @@ import {
   GrFormAdd,
   GrErase,
 } from 'react-icons/gr';
-
-const useStyle = createUseStyles({
-  miniFormContainer: {
-    display: 'flex',
-  },
-  formContainer: {
-    display: 'flex',
-    width: '100%',
-    // Horizontal Elements Divide
-    TwDivideYReverse: 0,
-    borderTopWidth: 'calc(1px * calc(1 - var(--tw-divide-y-reverse)))',
-    borderBottomWidth: 'calc(1px * var(--tw-divide-y-reverse))',
-    // Horizontal Elements Divide Color
-    TwDivideOpacity: 1,
-    borderColor: 'rgba(0, 0, 0, var(--tw-divide-opacity))',
-  },
-  inputStyle: {
-    flex: '1 1 0%',
-    textAlign: 'center',
-    BgOpacity: 1,
-    backgroundColor: '#cbd5e0',
-    backgroundColor: 'rgba(203, 213, 224, var(--bg-opacity))',
-    '&:focus': {
-      outline: '2px solid transparent',
-      outlineOffset: 2,
-    },
-  },
-  iconStyle: {
-    margin: 'auto',
-  },
-  spinningIconStyle: {
-    margin: 'auto',
-    animation: 'spin 1s linear infinite',
-  },
-});
 
 export const AddChars = () => {
   // View Hooks
@@ -118,28 +82,20 @@ export const AddChars = () => {
 
   if (hideAddButton) return null;
 
-  const {
-    miniFormContainer,
-    formContainer,
-    inputStyle,
-    iconStyle,
-    spinningIconStyle,
-  } = useStyle();
-
   if (isAdding) {
     return (
       <>
         {/* Hacky way to make both far left and right button sizes the same */}
-        <form onSubmit={goBack} className={miniFormContainer}>
+        <form className={''} onSubmit={goBack}>
           <FormButton>
-            <GrFormPreviousLink className={iconStyle} />
+            <GrFormPreviousLink className={''} />
           </FormButton>
         </form>
 
         {/* The actual form */}
-        <form onSubmit={handleSubmit} className={formContainer}>
+        <form className={''} onSubmit={handleSubmit}>
           <input
-            className={inputStyle}
+            className={''}
             placeholder="Character Name"
             maxLength={12}
             value={charName}
@@ -150,11 +106,11 @@ export const AddChars = () => {
           ></input>
           <FormButton loading={isLoading}>
             {isLoading ? (
-              <GrFormRefresh className={spinningIconStyle} />
+              <GrFormRefresh className={''} />
             ) : charName == INVALID_CHAR ? (
-              <GrErase className={iconStyle} />
+              <GrErase className={''} />
             ) : (
-              <GrFormNextLink className={iconStyle} />
+              <GrFormNextLink className={''} />
             )}
           </FormButton>
         </form>
@@ -164,7 +120,7 @@ export const AddChars = () => {
 
   return (
     <Button action={startAdding}>
-      <GrFormAdd className={iconStyle} />
+      <GrFormAdd className={''} />
     </Button>
   );
 };

@@ -1,7 +1,6 @@
 // Core
 import React from 'react';
 import { useLocation } from '@reach/router';
-import { createUseStyles } from 'react-jss';
 
 // Components
 import { NavLink } from './NavLinks';
@@ -17,22 +16,6 @@ import {
   ARCANE,
 } from '../../constants/variables';
 
-const useStyles = createUseStyles({
-  navStyle: {
-    display: 'flex',
-    alignItems: 'stretch',
-    // Bottom Border
-    BorderOpacity: 1,
-    borderBottomWidth: 1,
-    borderColor: '#000',
-    borderColor: 'rgba(0, 0, 0, var(--border-opacity))',
-    // Horizontal Elements Divide
-    TwDivideXReverse: 0,
-    borderRightWidth: 'calc(1px * var(--tw-divide-x-reverse))',
-    borderLeftWidth: 'calc(1px * calc(1 - var(--tw-divide-x-reverse)))',
-  },
-});
-
 export const NavBar = () => {
   return (
     <>
@@ -47,8 +30,6 @@ const UpperNav = () => {
   const location = useLocation();
   const [_, main] = location.pathname.split('/');
 
-  const { navStyle } = useStyles();
-
   const activeIndex =
     [BOSSES, QUESTS].indexOf(main) !== -1 ? [BOSSES, QUESTS].indexOf(main) : 2;
 
@@ -59,9 +40,14 @@ const UpperNav = () => {
   ];
 
   return (
-    <nav className={navStyle}>
+    <nav className={''}>
       {mainPaths.map(({ path, label }, index) => (
-        <NavLink key={label} path={path} label={label} />
+        <NavLink
+          key={label}
+          path={path}
+          label={label}
+          active={index === activeIndex}
+        />
       ))}
     </nav>
   );
@@ -71,22 +57,21 @@ const LowerNav = () => {
   const location = useLocation();
   const [_, main, sub] = location.pathname.split('/');
 
-  const { navStyle } = useStyles();
-
   const subPaths = getSubPaths(main);
 
   if (subPaths) {
     const newActive = [DAILY, MAPLE].indexOf(sub) !== -1 ? 0 : 1;
 
     return (
-      <nav className={navStyle}>
-        {subPaths.map(({ path, label }, index) =>
-          index == newActive ? (
-            <SelectedNavLink key={label} label={label} />
-          ) : (
-            <NavLink key={label} path={path} label={label} />
-          )
-        )}
+      <nav className={''}>
+        {subPaths.map(({ path, label }, index) => (
+          <NavLink
+            key={label}
+            path={path}
+            label={label}
+            active={index === activeIndex}
+          />
+        ))}
         <EditButton />
       </nav>
     );
