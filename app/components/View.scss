@@ -1,0 +1,22 @@
+$bg-opacity: 1;
+
+%viewStyle-base {
+  overflow-y: scroll;
+  height: 287px;
+
+  background-color: #a0aec0;
+  background-color: rgba(160, 174, 192, $bg-opacity);
+}
+
+.viewNormalStyle {
+  @extend %viewStyle-base;
+}
+
+.viewShrunkStyle {
+  @extend %viewStyle-base;
+  height: 269px;
+}
+
+.taskContainer {
+  padding: 0.5rem;
+}

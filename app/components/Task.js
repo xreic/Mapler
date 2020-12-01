@@ -1,38 +1,40 @@
 // Core
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+
+// SCSS
+import {
+  taskIncomplete,
+  taskComplete,
+  taskHidden,
+  taskImageStyle,
+} from './Task.scss';
 
 export const Task = ({ name, index, handleClick, filter }) => {
-  /**
-   * importImage stores the dynamically imported image
-   * need useState to trigger component update once the import has finished
-   */
-  const importedImage = useRef();
-  const [loading, setLoading] = useState(false);
+  const imageLocation =
+    process.env.NODE_ENV === 'production'
+      ? `./app/images/${encodeURI(name)}.webp`
+      : `./images/${encodeURI(name)}.webp`;
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const {
-          default: namedImage,
-        } = await require(`../../resources/assets/${name}.webp`);
+  const backgroundImageStyle = {
+    backgroundImage: `url(${imageLocation})`,
+  };
 
-        importedImage.current = namedImage;
-      } catch (err) {
-        throw err;
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  return (
+    <div className={getTaskStyle(filter)} onClick={() => handleClick(index)}>
+      <div className={taskImageStyle} style={backgroundImageStyle} />
+    </div>
+  );
+};
 
-  if (!loading && !!importedImage.current) {
-    return (
-      <div className={''} onClick={() => handleClick(index)}>
-        <img className={''} src={importedImage.current} alt={name} />
-      </div>
-    );
+const getTaskStyle = (filter) => {
+  switch (filter) {
+    case 0:
+      return taskIncomplete;
+    case 1:
+      return taskComplete;
+    case 2:
+      return taskHidden;
+    default:
+      return taskIncomplete;
   }
-
-  return null;
 };

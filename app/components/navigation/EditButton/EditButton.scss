@@ -1,0 +1,24 @@
+$bg-opacity: 1;
+
+.editButtonStyle {
+  display: flex;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+
+  padding: 0;
+  border: 0;
+
+  background-color: #cbd5e0;
+  background-color: rgba(203, 213, 224, $bg-opacity);
+
+  &:focus {
+    outline: 0;
+    outline-offset: 0;
+  }
+
+  svg: {
+    width: 16px;
+    height: 16px;
+  }
+}

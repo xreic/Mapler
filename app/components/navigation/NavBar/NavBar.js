@@ -3,8 +3,8 @@ import React from 'react';
 import { useLocation } from '@reach/router';
 
 // Components
-import { NavLink } from './NavLinks';
-import { EditButton } from './EditButton';
+import { NavLink } from '../NavLinks/NavLinks.js';
+import { EditButton } from '../EditButton/EditButton.js';
 
 // Helpers
 import {
@@ -14,14 +14,17 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-} from '../../constants/variables';
+} from '../../../constants/variables.js';
+
+// SCSS
+import { navContainer } from './NavBar.scss';
 
 export const NavBar = () => {
   return (
-    <>
+    <div className={navContainer}>
       <UpperNav />
       <LowerNav />
-    </>
+    </div>
   );
 };
 
@@ -40,7 +43,7 @@ const UpperNav = () => {
   ];
 
   return (
-    <nav className={''}>
+    <nav>
       {mainPaths.map(({ path, label }, index) => (
         <NavLink
           key={label}
@@ -60,10 +63,10 @@ const LowerNav = () => {
   const subPaths = getSubPaths(main);
 
   if (subPaths) {
-    const newActive = [DAILY, MAPLE].indexOf(sub) !== -1 ? 0 : 1;
+    const activeIndex = [DAILY, MAPLE].indexOf(sub) !== -1 ? 0 : 1;
 
     return (
-      <nav className={''}>
+      <nav>
         {subPaths.map(({ path, label }, index) => (
           <NavLink
             key={label}

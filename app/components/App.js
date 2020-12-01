@@ -9,12 +9,12 @@ import {
 } from '@reach/router';
 
 // Components
-import { EditProvider } from './context/EditContext';
-import { Transition } from './Transition';
-import { NavBar } from './navigation/NavBar';
-import { CharacterView } from './character/CharacterView';
-import { View } from './View';
-import { List } from './List';
+import { EditProvider } from './context/EditContext.js';
+import { Transition } from './Transition.js';
+import { NavBar } from './navigation/NavBar/NavBar.js';
+import { CharacterView } from './character/CharacterView/CharacterView.js';
+import { View } from './View.js';
+import { List } from './List.js';
 
 // Helpers
 import {
@@ -28,7 +28,10 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-} from '../constants/variables';
+} from '../constants/variables.js';
+
+// SCSS
+import { noSelContainer } from './App.scss';
 
 // Reach Router
 let source = createMemorySource('/main_window');
@@ -42,7 +45,7 @@ const App = () => {
 
   return (
     <LocationProvider history={history}>
-      <div className={''} onDragStart={handleDrag}>
+      <div className={noSelContainer} onDragStart={handleDrag}>
         <EditProvider>
           <NavBar />
 

@@ -2,13 +2,13 @@
 import React, { useContext, useRef, useState } from 'react';
 
 // Components
-import { Button } from '../Button';
-import { FormButton } from '../FormButton';
+import { Button } from '../../Button.js';
+import { FormButton } from '../../FormButton.js';
 
 // Helpers
-import { CharContext } from '../context/CharContext';
-import { getCharCode, isDupe, setStore } from '../../utils/getCharCode';
-import { INVALID_CHAR } from '../../constants/variables';
+import { CharContext } from '../../context/CharContext.js';
+import { getCharCode, isDupe, setStore } from '../../../utils/getCharCode.js';
+import { INVALID_CHAR } from '../../../constants/variables.js';
 import {
   GrFormPreviousLink,
   GrFormNextLink,
@@ -16,6 +16,9 @@ import {
   GrFormAdd,
   GrErase,
 } from 'react-icons/gr';
+
+// SCSS
+import { addCharsStyle } from './AddChars.scss';
 
 export const AddChars = () => {
   // View Hooks
@@ -84,43 +87,39 @@ export const AddChars = () => {
 
   if (isAdding) {
     return (
-      <>
-        {/* Hacky way to make both far left and right button sizes the same */}
-        <form className={''} onSubmit={goBack}>
-          <FormButton>
-            <GrFormPreviousLink className={''} />
-          </FormButton>
-        </form>
+      <div className={addCharsStyle}>
+        <FormButton action={goBack}>
+          <GrFormPreviousLink />
+        </FormButton>
 
-        {/* The actual form */}
-        <form className={''} onSubmit={handleSubmit}>
-          <input
-            className={''}
-            placeholder="Character Name"
-            maxLength={12}
-            value={charName}
-            ref={inputRef}
-            onChange={handleChange}
-            disabled={isLoading || charName === INVALID_CHAR}
-            spellCheck={false}
-          ></input>
-          <FormButton loading={isLoading}>
-            {isLoading ? (
-              <GrFormRefresh className={''} />
-            ) : charName == INVALID_CHAR ? (
-              <GrErase className={''} />
-            ) : (
-              <GrFormNextLink className={''} />
-            )}
-          </FormButton>
-        </form>
-      </>
+        <input
+          placeholder="Character Name"
+          maxLength={12}
+          value={charName}
+          ref={inputRef}
+          onChange={handleChange}
+          disabled={isLoading || charName === INVALID_CHAR}
+          spellCheck={false}
+        ></input>
+
+        <FormButton action={handleSubmit} loading={isLoading}>
+          {isLoading ? (
+            <GrFormRefresh />
+          ) : charName == INVALID_CHAR ? (
+            <GrErase />
+          ) : (
+            <GrFormNextLink />
+          )}
+        </FormButton>
+      </div>
     );
   }
 
   return (
-    <Button action={startAdding}>
-      <GrFormAdd className={''} />
-    </Button>
+    <div className={addCharsStyle}>
+      <Button action={startAdding}>
+        <GrFormAdd />
+      </Button>
+    </div>
   );
 };

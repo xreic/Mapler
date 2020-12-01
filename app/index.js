@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// CSS
-import './app.global.css';
+// SCSS
+import './app.global.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line global-require

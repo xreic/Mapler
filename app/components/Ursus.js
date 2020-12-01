@@ -9,19 +9,24 @@ import {
 // Helpers
 import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime';
 
+// SCSS
+import { ursusNotGoldenStyle, ursusIsGoldenStyle } from './Ursus.scss';
+
 export const Ursus = ({ isGoldenTime }) => {
   // Timer Hooks
-  const [goldenTime, setGoldenTime] = useState(new Date());
+  const [goldenTime, setGoldenTime] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Hook that retrieves the next UGT
-  useEffect(async () => {
-    let nextGoldenTime;
-    do {
-      nextGoldenTime = await getGoldenTime(isGoldenTime ? 1 : 0);
-    } while (nextGoldenTime === 'Bad Response');
+  useEffect(() => {
+    (async () => {
+      let nextGoldenTime;
+      do {
+        nextGoldenTime = await getGoldenTime(isGoldenTime ? 1 : 0);
+      } while (nextGoldenTime === 'Bad Response');
 
-    setGoldenTime(nextGoldenTime);
+      setGoldenTime(nextGoldenTime);
+    })();
   }, [isGoldenTime]);
 
   /**
@@ -37,8 +42,12 @@ export const Ursus = ({ isGoldenTime }) => {
     };
   }, [isGoldenTime]);
 
+  if (goldenTime === null) {
+    return <div className={ursusNotGoldenStyle}>📞 Calling Masarayu...</div>;
+  }
+
   return (
-    <div className={''}>
+    <div className={isGoldenTime ? ursusIsGoldenStyle : ursusNotGoldenStyle}>
       Ursus Golden Time {isGoldenTime ? 'ends' : 'starts'} in:{' '}
       {differenceInHours(goldenTime, currentTime).toString().padStart(2, '0')}:
       {(differenceInMinutes(goldenTime, currentTime) % 60)

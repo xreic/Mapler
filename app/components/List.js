@@ -12,6 +12,9 @@ import { EditContext } from './context/EditContext';
 import { getNextReset, triggerReset } from '../utils/resetHelpers';
 import { ACTIVE, CHARACTERS, MAPLE } from '../constants/variables';
 
+// SCSS
+import { listStyle } from './List.scss';
+
 // Electron store
 const store = new Store({ watch: true });
 
@@ -41,14 +44,16 @@ export const List = ({ list }) => {
     };
   }, [filter]);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (sub === MAPLE) {
-      const { body } = await needle(
-        'get',
-        'https://xreic.github.io/api/event.json'
-      );
+      (async () => {
+        const { body } = await needle(
+          'get',
+          'https://xreic.github.io/api/event.json'
+        );
 
-      setIsEvent(body.isEvent);
+        setIsEvent(body.isEvent);
+      })();
     }
 
     setIsLoading(false);
@@ -84,7 +89,7 @@ export const List = ({ list }) => {
   if (isLoading) return null;
 
   return (
-    <div className={''}>
+    <div className={listStyle}>
       {list.map((item, index) => {
         /**
          * Filter Logic

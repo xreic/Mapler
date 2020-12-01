@@ -1,0 +1,31 @@
+$bg-opacity: 1;
+
+@mixin navTextStyle {
+  color: black;
+  flex: 1 1 0%;
+  text-align: center;
+}
+
+.navContainer {
+  nav {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid black;
+
+    div {
+      @include navTextStyle;
+
+      cursor: pointer;
+      background-color: rgba(254, 235, 200, $bg-opacity);
+    }
+
+    a {
+      @include navTextStyle;
+      text-decoration: none;
+    }
+
+    :nth-child(n + 2) {
+      border-left: 1px solid black;
+    }
+  }
+}

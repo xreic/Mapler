@@ -2,8 +2,11 @@
 import React, { useContext } from 'react';
 
 // Helpers
-import { EditContext } from '../context/EditContext';
+import { EditContext } from '../../context/EditContext.js';
 import { GrEdit, GrCheckmark } from 'react-icons/gr';
+
+// SCSS
+import { editButtonStyle } from './EditButton.scss';
 
 export const EditButton = () => {
   const { isEditing, setIsEditing } = useContext(EditContext);
@@ -11,8 +14,8 @@ export const EditButton = () => {
   const handleClick = () => setIsEditing(!isEditing);
 
   return (
-    <button className={''} onClick={handleClick}>
-      {isEditing ? <GrCheckmark className={''} /> : <GrEdit className={''} />}
+    <button className={editButtonStyle} onClick={handleClick}>
+      {isEditing ? <GrCheckmark /> : <GrEdit />}
     </button>
   );
 };

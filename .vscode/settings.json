@@ -33,6 +33,8 @@
     "**/vscode-extension/**",
     "**/.git/objects/**",
     ".vscode",
-    "node_modules/*"
+    "node_modules/*",
+    "./app/dist",
+    "./release"
   ]
 }

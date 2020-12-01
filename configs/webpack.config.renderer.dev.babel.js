@@ -53,7 +53,7 @@ export default merge(baseConfig, {
     ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    require.resolve('../app/index.jsx'),
+    require.resolve('../app/index.js'),
   ],
 
   output: {
@@ -191,10 +191,6 @@ export default merge(baseConfig, {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: 'url-loader',
-      },
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'file-loader',
       },
     ],
   },

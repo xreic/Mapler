@@ -1,0 +1,7 @@
+.charFuncContainer {
+  display: flex;
+
+  :nth-child(n + 2) {
+    border-left: 1px solid black;
+  }
+}
