@@ -1,6 +1,8 @@
 $bg-opacity: 1;
 
 %taskStyle-shared {
+  height: 57px;
+  text-align: center;
   border-radius: 0.375rem;
   background-color: #3182ce;
   background-color: rgba(49, 130, 206, $bg-opacity);

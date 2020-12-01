@@ -12,8 +12,8 @@ import {
 export const Task = ({ name, index, handleClick, filter }) => {
   const imageLocation =
     process.env.NODE_ENV === 'production'
-      ? `./app/images/${encodeURI(name)}.webp`
-      : `./images/${encodeURI(name)}.webp`;
+      ? `/${encodeURI(name)}.webp`
+      : `/images/${encodeURI(name)}.webp`;
 
   const backgroundImageStyle = {
     backgroundImage: `url(${imageLocation})`,
@@ -21,7 +21,11 @@ export const Task = ({ name, index, handleClick, filter }) => {
 
   return (
     <div className={getTaskStyle(filter)} onClick={() => handleClick(index)}>
-      <div className={taskImageStyle} style={backgroundImageStyle} />
+      {/* <div className={taskImageStyle} style={backgroundImageStyle} /> */}
+      <img
+        className={taskImageStyle}
+        src={`file://${__dirname}${imageLocation}`}
+      />
     </div>
   );
 };
