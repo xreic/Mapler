@@ -112,7 +112,7 @@ const createWindow = async () => {
     show: false,
     width: process.env.NODE_ENV === 'production' ? 350 : 1337,
     height: process.env.NODE_ENV === 'production' ? 367 : 1337,
-    // resizable: process.env.NODE_ENV !== 'production',
+    resizable: process.env.NODE_ENV !== 'production',
     icon: getAssetPath('icon.png'),
     webPreferences:
       (process.env.NODE_ENV === 'development' ||
@@ -134,11 +134,9 @@ const createWindow = async () => {
    *  2. Dev Tools
    *  3. Move the window to the last closed position
    */
-  // process.env.NODE_ENV === 'production'
-  //   ? mainWindow.setMenu(null)
-  //   : mainWindow.webContents.openDevTools();
-
-  mainWindow.webContents.openDevTools();
+  process.env.NODE_ENV === 'production'
+    ? mainWindow.setMenu(null)
+    : mainWindow.webContents.openDevTools();
 
   const winPosition = store.get(POSITION);
   if (winPosition) mainWindow.setPosition(winPosition[0], winPosition[1]);

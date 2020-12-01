@@ -34,7 +34,7 @@
     "**/.git/objects/**",
     ".vscode",
     "node_modules/*",
-    "./app/dist",
-    "./release"
+    "app/dist/*",
+    "release/*"
   ]
 }

@@ -5,15 +5,15 @@ import Store from 'electron-store';
 import needle from 'needle';
 
 // Components
-import { Task } from './Task';
+import { Task } from './Task.js';
 
 // Helpers
-import { EditContext } from './context/EditContext';
-import { getNextReset, triggerReset } from '../utils/resetHelpers';
-import { ACTIVE, CHARACTERS, MAPLE } from '../constants/variables';
+import { EditContext } from './context/EditContext.js';
+import { getNextReset, triggerReset } from '../utils/resetHelpers.js';
+import { ACTIVE, CHARACTERS, MAPLE } from '../constants/variables.js';
 
 // SCSS
-import { listStyle } from './List.scss';
+import { listStyle } from './styles/List.scss';
 
 // Electron store
 const store = new Store({ watch: true });

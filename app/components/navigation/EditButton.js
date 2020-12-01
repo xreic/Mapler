@@ -2,11 +2,11 @@
 import React, { useContext } from 'react';
 
 // Helpers
-import { EditContext } from '../../context/EditContext.js';
+import { EditContext } from '../context/EditContext.js';
 import { GrEdit, GrCheckmark } from 'react-icons/gr';
 
 // SCSS
-import { editButtonStyle } from './EditButton.scss';
+import { editButtonStyle } from './styles/EditButton.scss';
 
 export const EditButton = () => {
   const { isEditing, setIsEditing } = useContext(EditContext);

@@ -7,7 +7,7 @@ import {
   taskComplete,
   taskHidden,
   taskImageStyle,
-} from './Task.scss';
+} from './styles/Task.scss';
 
 export const Task = ({ name, index, handleClick, filter }) => {
   const imageLocation =

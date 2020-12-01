@@ -15,7 +15,7 @@ Download the latest release [here](https://github.com/xreic/Mapler/releases).
 ## Contact
 
 Submit all issues to https://github.com/xreic/Mapler/issues. \
-If you want to help me package/build for another operating system, go for it.
+If you have a MacOS computer and would like to package the program for me, then please connect.
 
 ## Development
 

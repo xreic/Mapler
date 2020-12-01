@@ -11,8 +11,8 @@ import {
 // Components
 import { EditProvider } from './context/EditContext.js';
 import { Transition } from './Transition.js';
-import { NavBar } from './navigation/NavBar/NavBar.js';
-import { CharacterView } from './character/CharacterView/CharacterView.js';
+import { NavBar } from './navigation/NavBar.js';
+import { CharacterView } from './character/CharacterView.js';
 import { View } from './View.js';
 import { List } from './List.js';
 
@@ -31,7 +31,7 @@ import {
 } from '../constants/variables.js';
 
 // SCSS
-import { noSelContainer } from './App.scss';
+import { noSelContainer } from './styles/App.scss';
 
 // Reach Router
 let source = createMemorySource('/main_window');

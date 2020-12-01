@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
 // Helpers
-import { CharContext } from '../../context/CharContext.js';
-import { ACTIVE, DELETING } from '../../../constants/variables.js';
+import { CharContext } from '../context/CharContext.js';
+import { ACTIVE, DELETING } from '../../constants/variables.js';
 
 // SCSS
 import {
@@ -12,7 +12,7 @@ import {
   inactiveCharStyle,
   activeCharStyle,
   deleteCharStyle,
-} from './CharacterList.scss';
+} from './styles/CharacterList.scss';
 
 // Electron Store
 const store = new Store({ watch: true });

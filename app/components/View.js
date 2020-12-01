@@ -3,14 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from '@reach/router';
 
 // Component
-import { Ursus } from './Ursus';
+import { Ursus } from './Ursus.js';
 
 // Helpers
-import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime';
-import { MAPLE } from '../constants/variables';
+import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime.js';
+import { MAPLE } from '../constants/variables.js';
 
 // SCSS
-import { taskContainer, viewNormalStyle, viewShrunkStyle } from './View.scss';
+import {
+  taskContainer,
+  viewNormalStyle,
+  viewShrunkStyle,
+} from './styles/View.scss';
 
 export const View = ({ children }) => {
   const location = useLocation();

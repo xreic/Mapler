@@ -7,10 +7,10 @@ import {
 } from 'date-fns';
 
 // Helpers
-import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime';
+import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime.js';
 
 // SCSS
-import { ursusNotGoldenStyle, ursusIsGoldenStyle } from './Ursus.scss';
+import { ursusNotGoldenStyle, ursusIsGoldenStyle } from './styles/Ursus.scss';
 
 export const Ursus = ({ isGoldenTime }) => {
   // Timer Hooks

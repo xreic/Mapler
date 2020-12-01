@@ -2,16 +2,16 @@
 import React, { useContext, useState } from 'react';
 
 // Components
-import { Button } from '../../Button.js';
-import { FormButton } from '../../FormButton.js';
+import { Button } from '../Button.js';
+import { FormButton } from '../FormButton.js';
 
 // Helpers
-import { CharContext } from '../../context/CharContext.js';
-import { activateDelete } from '../../../utils/getCharCode.js';
+import { CharContext } from '../context/CharContext.js';
+import { activateDelete } from '../../utils/getCharCode.js';
 import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
 // SCSS
-import { deleteCharStyle } from './DeleteChars.scss';
+import { deleteCharStyle } from './styles/DeleteChars.scss';
 
 export const DeleteChars = () => {
   const { setHideAdd, hideDeleteButton, setCharacters } = useContext(

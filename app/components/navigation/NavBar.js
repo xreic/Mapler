@@ -3,8 +3,8 @@ import React from 'react';
 import { useLocation } from '@reach/router';
 
 // Components
-import { NavLink } from '../NavLinks/NavLinks.js';
-import { EditButton } from '../EditButton/EditButton.js';
+import { NavLink } from './NavLinks.js';
+import { EditButton } from './EditButton.js';
 
 // Helpers
 import {
@@ -14,10 +14,10 @@ import {
   WEEKLY,
   MAPLE,
   ARCANE,
-} from '../../../constants/variables.js';
+} from '../../constants/variables.js';
 
 // SCSS
-import { navContainer } from './NavBar.scss';
+import { navContainer } from './styles/NavBar.scss';
 
 export const NavBar = () => {
   return (

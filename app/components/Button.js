@@ -2,7 +2,7 @@
 import React from 'react';
 
 // SCSS
-import { buttonStyle } from './Button.scss';
+import { buttonStyle } from './styles/Button.scss';
 
 export const Button = ({ action, loading, children }) => {
   return (

@@ -2,13 +2,13 @@
 import React, { useContext, useRef, useState } from 'react';
 
 // Components
-import { Button } from '../../Button.js';
-import { FormButton } from '../../FormButton.js';
+import { Button } from '../Button.js';
+import { FormButton } from '../FormButton.js';
 
 // Helpers
-import { CharContext } from '../../context/CharContext.js';
-import { getCharCode, isDupe, setStore } from '../../../utils/getCharCode.js';
-import { INVALID_CHAR } from '../../../constants/variables.js';
+import { CharContext } from '../context/CharContext.js';
+import { getCharCode, isDupe, setStore } from '../../utils/getCharCode.js';
+import { INVALID_CHAR } from '../../constants/variables.js';
 import {
   GrFormPreviousLink,
   GrFormNextLink,
@@ -18,7 +18,7 @@ import {
 } from 'react-icons/gr';
 
 // SCSS
-import { addCharsStyle } from './AddChars.scss';
+import { addCharsStyle } from './styles/AddChars.scss';
 
 export const AddChars = () => {
   // View Hooks
