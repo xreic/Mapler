@@ -1,6 +1,5 @@
 // Core
 import React from 'react';
-import { readdir } from 'fs';
 
 // SCSS
 import {
