@@ -1,0 +1,14 @@
+{
+  "name": "mapler",
+  "productName": "Mapler",
+  "version": "2.0.0",
+  "description": "Tracker app for mushroom game",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Eric Lau",
+    "email": "EricLauFSD@gmail.com",
+    "url": "https://github.com/xreic"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

@@ -43,12 +43,12 @@ const App = () => {
               <CharacterView path="/" default />
 
               {routes.map(({ path, sub }) => (
-                <View path={path}>
+                <View key={path} path={path}>
                   {sub.map(({ path, list, isDefault }, index) =>
                     !index ? (
-                      <List path={path} list={list} default />
+                      <List key={path} path={path} list={list} default />
                     ) : (
-                      <List path={path} list={list} />
+                      <List key={path} path={path} list={list} />
                     )
                   )}
                 </View>
