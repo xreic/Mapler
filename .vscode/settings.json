@@ -35,6 +35,7 @@
     ".vscode",
     "node_modules/*",
     "app/dist/*",
-    "release/*"
+    "release/*",
+    "resources/*"
   ]
 }

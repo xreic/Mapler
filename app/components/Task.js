@@ -1,5 +1,6 @@
 // Core
 import React from 'react';
+import { readdir } from 'fs';
 
 // SCSS
 import {
@@ -12,8 +13,8 @@ import {
 export const Task = ({ name, index, handleClick, filter }) => {
   const imageLocation =
     process.env.NODE_ENV === 'production'
-      ? `/${encodeURI(name)}.webp`
-      : `/images/${encodeURI(name)}.webp`;
+      ? `./app/images/${encodeURI(name)}.webp`
+      : `./images/${encodeURI(name)}.webp`;
 
   const backgroundImageStyle = {
     backgroundImage: `url(${imageLocation})`,
@@ -24,7 +25,8 @@ export const Task = ({ name, index, handleClick, filter }) => {
       {/* <div className={taskImageStyle} style={backgroundImageStyle} /> */}
       <img
         className={taskImageStyle}
-        src={`file://${__dirname}${imageLocation}`}
+        style={backgroundImageStyle}
+        // src={`file://${imageLocation}images/${encodeURI(name)}.webp`}
       />
     </div>
   );

@@ -17,7 +17,6 @@ import { app, BrowserWindow } from 'electron';
 import Store from 'electron-store';
 import log from 'electron-log';
 import path from 'path';
-import { readdir } from 'fs';
 
 // Helpers
 import { getTemplate, updateAllChars } from './utils/getCharCode';
@@ -27,7 +26,7 @@ import {
   splitTime,
   triggerReset,
 } from './utils/resetHelpers';
-import { CHARACTERS, POSITION, TIMER } from './constants/variables';
+import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables';
 
 // TODO: Figure out why Electron-store is saving config.js to "Electron" folder instead of "Mapler"
 // Electron store
@@ -42,17 +41,15 @@ const store = new Store();
 // }
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
-readdir(app.getPath('userData'), (err, files) => {
-  if (files.indexOf('config.json') === -1) {
-    store.set({
-      // region: 0, // Default the region to GMS
-      position: null,
-      active: 0,
-      characters: [getTemplate('DEFAULT CHARACTER', null)],
-      deleting: [0],
-    });
-  }
-});
+if (!store.get(CHARACTERS)) {
+  store.set({
+    timer: null,
+    position: null,
+    active: 0,
+    characters: [getTemplate('DEFAULT CHARACTER', null)],
+    deleting: [0],
+  });
+}
 
 let mainWindow = null;
 

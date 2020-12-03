@@ -34,6 +34,10 @@ export const AddChars = () => {
     setCharName(e.target.value);
   };
 
+  const handleEnterPress = (e) => {
+    e.key === 'Enter' && handleSubmit(e);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -98,6 +102,7 @@ export const AddChars = () => {
           value={charName}
           ref={inputRef}
           onChange={handleChange}
+          onKeyDown={handleEnterPress}
           disabled={isLoading || charName === INVALID_CHAR}
           spellCheck={false}
         ></input>
