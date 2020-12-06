@@ -19,6 +19,7 @@ import log from 'electron-log';
 import path from 'path';
 
 // Helpers
+import { createTray } from './utils/Tray';
 import { getTemplate, updateAllChars } from './utils/getCharCode';
 import {
   hasReset,
@@ -31,14 +32,6 @@ import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables';
 // TODO: Figure out why Electron-store is saving config.js to "Electron" folder instead of "Mapler"
 // Electron store
 const store = new Store();
-
-// export default class AppUpdater {
-//   constructor() {
-//     log.transports.file.level = 'info';
-//     autoUpdater.logger = log;
-//     autoUpdater.checkForUpdatesAndNotify();
-//   }
-// }
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
 if (!store.get(CHARACTERS)) {
@@ -132,7 +125,7 @@ const createWindow = async () => {
    *  3. Move the window to the last closed position
    */
   process.env.NODE_ENV === 'production'
-    ? mainWindow.setMenu(null)
+    ? mainWindow.removeMenu()
     : mainWindow.webContents.openDevTools();
 
   const winPosition = store.get(POSITION);
@@ -142,6 +135,8 @@ const createWindow = async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
+
+    createTray();
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
@@ -155,10 +150,6 @@ const createWindow = async () => {
     store.set(POSITION, mainWindow.getPosition());
     mainWindow = null;
   });
-
-  // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
-  // new AppUpdater();
 };
 
 /**
