@@ -60,7 +60,8 @@
       "app.html",
       "main.prod.js",
       "main.prod.js.map",
-      "package.json"
+      "package.json",
+      "images/"
     ],
     "dmg": {
       "contents": [
@@ -206,6 +207,7 @@
     "file-loader": "^6.2.0",
     "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
+    "ignore-loader": "^0.1.2",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^0.9.0",

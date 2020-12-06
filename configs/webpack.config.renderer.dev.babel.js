@@ -194,13 +194,7 @@ export default merge(baseConfig, {
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            publicPath: './dist/images',
-          },
-        },
+        loader: 'file-loader',
       },
     ],
   },
