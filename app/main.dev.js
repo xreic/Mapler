@@ -12,7 +12,7 @@
 // Core
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session } from 'electron';
 // import { autoUpdater } from 'electron-updater';
 import Store from 'electron-store';
 import log from 'electron-log';
@@ -109,9 +109,11 @@ const createWindow = async () => {
         process.env.E2E_BUILD === 'true') &&
       process.env.ERB_SECURE !== 'true'
         ? {
+            enableRemoteModule: true,
             nodeIntegration: true,
           }
         : {
+            enableRemoteModule: true,
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
           },
   });
@@ -145,10 +147,17 @@ const createWindow = async () => {
     }
   });
 
-  mainWindow.on('close', () => {
-    store.set(TIMER, nextResetDate());
-    store.set(POSITION, mainWindow.getPosition());
-    mainWindow = null;
+  mainWindow.on('close', async () => {
+    try {
+      await mainWindow.webContents.session.clearCache();
+    } catch (err) {
+      console.error('session - clearCache');
+      // console.error(err);
+    } finally {
+      store.set(TIMER, nextResetDate());
+      store.set(POSITION, mainWindow.getPosition());
+      mainWindow = null;
+    }
   });
 };
 

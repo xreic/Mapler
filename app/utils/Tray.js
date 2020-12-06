@@ -1,6 +1,5 @@
 import { app, Tray, Menu, shell, nativeImage } from 'electron';
 import path from 'path';
-import { readdir } from 'fs';
 
 let tray;
 
@@ -32,16 +31,39 @@ export const createContextMenu = () => {
         shell.openExternal('https://github.com/xreic/Mapler/releases');
       },
     },
-    // {
-    //   label: 'Open data folder',
-    //   click: async () => {
-    //     const list = await readdir(app.getAppPath());
-    //     console.log('Open data folder');
-    //     console.log(list);
+    {
+      label: 'Open Directories',
+      submenu: [
+        {
+          label: 'Installation',
+          click: async () => {
+            const dir = path.join(
+              app.getAppPath(),
+              process.env.NODE_ENV === 'production' && '../..'
+            );
 
-    //     await shell.showItemInFolder(path.join(app.getAppPath(), 'Mapler.exe'));
-    //   },
-    // },
+            try {
+              await shell.openPath(dir);
+            } catch (err) {
+              console.error('Open Directories - Installation');
+              // console.error(err);
+            }
+          },
+        },
+        {
+          label: 'App Data',
+          click: async () => {
+            const dir = app.getPath('userData');
+            try {
+              await shell.openPath(dir);
+            } catch (err) {
+              console.error('Open Directories - App Data');
+              // console.error(err);
+            }
+          },
+        },
+      ],
+    },
     { type: 'separator' },
     {
       label: 'Quit',

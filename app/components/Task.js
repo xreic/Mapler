@@ -11,10 +11,7 @@ import {
 } from './styles/Task.scss';
 
 export const Task = ({ name, index, handleClick, filter }) => {
-  const imageLocation =
-    process.env.NODE_ENV === 'production'
-      ? `./images/${name}.webp`
-      : `../images/${name}.webp`;
+  const imageLocation = `./images/${name}.webp`;
 
   return (
     <div className={getTaskStyle(filter)} onClick={() => handleClick(index)}>
