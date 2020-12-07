@@ -8,17 +8,17 @@ import { setContextMenu } from './Tray';
 export const releaseInfo = {
   updateAvailable: false,
   hasErrored: false,
-  status: 'Checking for update...',
+  status: 'Checking for updates...',
 };
 
 autoUpdater.on('checking-for-update', () => {
-  releaseInfo.status = 'Checking for update...';
+  releaseInfo.status = 'Checking for updates...';
   setContextMenu();
 });
 
 autoUpdater.on('update-available', () => {
   releaseInfo.updateAvailable = true;
-  releaseInfo.status = 'Update available';
+  releaseInfo.status = 'Updates available';
   setContextMenu();
 });
 
@@ -38,7 +38,7 @@ export const checkForUpdates = async () => {
   // Reset
   releaseInfo.updateAvailable = false;
   releaseInfo.hasErrored = false;
-  releaseInfo.status = 'Checking for update...';
+  releaseInfo.status = 'Checking for updates...';
   setContextMenu();
 
   try {

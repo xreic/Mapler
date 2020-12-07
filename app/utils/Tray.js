@@ -34,7 +34,10 @@ export const setContextMenu = () => {
       label: `Version ${app.getVersion()}`,
       enabled: false,
     },
-    { label: releaseInfo.status, click: releasesClick },
+    {
+      label: releaseInfo.status,
+      click: releasesClick,
+    },
     { type: 'separator' },
     {
       label: 'Open Directories',
