@@ -78,25 +78,18 @@
       ]
     },
     "win": {
-      "icon": "resources/icon.ico",
       "target": [
         "nsis",
         "msi"
       ]
     },
     "linux": {
-      "icon": "resources/icon/png",
       "target": [
         "deb",
         "rpm",
         "AppImage"
       ],
       "category": "Development"
-    },
-    "nsis": {
-      "installerIcon": "icon.ico",
-      "installerHeaderIcon": "icon.ico",
-      "deleteAppDataOnUninstall": true
     },
     "directories": {
       "buildResources": "resources",
