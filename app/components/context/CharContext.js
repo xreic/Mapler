@@ -4,7 +4,7 @@ import Store from 'electron-store';
 
 // Helpers
 import { CHARACTERS } from '../../constants/variables.js';
-import { getNextReset, triggerReset } from '../../utils/resetHelpers.js';
+import { getNextReset, triggerReset } from '../../utils/Reset.js';
 
 const store = new Store({ watch: true });
 

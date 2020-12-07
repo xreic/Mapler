@@ -1,0 +1,4 @@
+owner: xreic
+repo: mapler
+provider: github
+updaterCacheDirName: mapler-updater

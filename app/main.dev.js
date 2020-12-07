@@ -20,16 +20,16 @@ import path from 'path';
 
 // Helpers
 import { createTray } from './utils/Tray';
+import { checkForUpdates } from './utils/Updater';
 import { getTemplate, updateAllChars } from './utils/getCharCode';
 import {
   hasReset,
   nextResetDate,
   splitTime,
   triggerReset,
-} from './utils/resetHelpers';
+} from './utils/Reset.js';
 import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables';
 
-// TODO: Figure out why Electron-store is saving config.js to "Electron" folder instead of "Mapler"
 // Electron store
 const store = new Store();
 
@@ -133,12 +133,13 @@ const createWindow = async () => {
   const winPosition = store.get(POSITION);
   if (winPosition) mainWindow.setPosition(winPosition[0], winPosition[1]);
 
-  mainWindow.webContents.on('did-finish-load', () => {
+  mainWindow.webContents.on('did-finish-load', async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
 
     createTray();
+    await checkForUpdates();
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {

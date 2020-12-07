@@ -1,5 +1,9 @@
+// Core
 import { app, Tray, Menu, shell, nativeImage } from 'electron';
 import path from 'path';
+
+// Helpers
+import { releaseInfo, checkForUpdates } from './Updater';
 
 let tray;
 
@@ -18,19 +22,27 @@ export const createTray = () => {
   );
 
   tray.setToolTip('Mapler');
-  createContextMenu();
+  setContextMenu();
 };
 
-export const createContextMenu = () => {
+export const setContextMenu = () => {
   const contextMenu = Menu.buildFromTemplate([
     {
       // In development mode, this retrieves Electron's current version
       // In production mode, this will retrieve the app's current version
+      // Version ${app.getVersion()}
       label: `Version ${app.getVersion()}`,
-      click: () => {
-        shell.openExternal('https://github.com/xreic/Mapler/releases');
-      },
+      enabled: false,
     },
+    {
+      label: `${releaseInfo.status}`,
+      click: releaseInfo.updateAvailable
+        ? () => {
+            shell.openExternal('https://github.com/xreic/Mapler/releases');
+          }
+        : checkForUpdates,
+    },
+    { type: 'separator' },
     {
       label: 'Open Directories',
       submenu: [
@@ -45,7 +57,7 @@ export const createContextMenu = () => {
             try {
               await shell.openPath(dir);
             } catch (err) {
-              console.error('Open Directories - Installation');
+              // console.error('Open Directories - Installation');
               // console.error(err);
             }
           },
@@ -57,7 +69,7 @@ export const createContextMenu = () => {
             try {
               await shell.openPath(dir);
             } catch (err) {
-              console.error('Open Directories - App Data');
+              // console.error('Open Directories - App Data');
               // console.error(err);
             }
           },
