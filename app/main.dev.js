@@ -148,24 +148,18 @@ const createWindow = async () => {
   });
 
   mainWindow.on('close', async () => {
-    try {
-      await mainWindow.webContents.session.clearCache();
-    } catch (err) {
-      console.error('session - clearCache');
-      // console.error(err);
-    } finally {
-      store.set(TIMER, nextResetDate());
-      store.set(POSITION, mainWindow.getPosition());
-      mainWindow = null;
-    }
+    await mainWindow.webContents.session.clearCache();
+    mainWindow = null;
+  });
+
+  mainWindow.on('moved', () => {
+    store.set(POSITION, mainWindow.getPosition());
   });
 };
 
-/**
- * Add event listeners...
- */
-
 app.on('window-all-closed', () => {
+  store.set(TIMER, nextResetDate());
+
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
   if (process.platform !== 'darwin') {
