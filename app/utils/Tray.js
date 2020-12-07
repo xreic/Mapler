@@ -1,5 +1,6 @@
 // Core
 import { app, Tray, Menu, shell, nativeImage } from 'electron';
+import log from 'electron-log';
 import path from 'path';
 
 // Helpers
@@ -30,18 +31,10 @@ export const setContextMenu = () => {
     {
       // In development mode, this retrieves Electron's current version
       // In production mode, this will retrieve the app's current version
-      // Version ${app.getVersion()}
       label: `Version ${app.getVersion()}`,
       enabled: false,
     },
-    {
-      label: `${releaseInfo.status}`,
-      click: releaseInfo.updateAvailable
-        ? () => {
-            shell.openExternal('https://github.com/xreic/Mapler/releases');
-          }
-        : checkForUpdates,
-    },
+    { label: releaseInfo.status, click: releasesClick },
     { type: 'separator' },
     {
       label: 'Open Directories',
@@ -49,28 +42,25 @@ export const setContextMenu = () => {
         {
           label: 'Installation',
           click: async () => {
-            const dir = path.join(
-              app.getAppPath(),
-              process.env.NODE_ENV === 'production' && '../..'
-            );
-
             try {
-              await shell.openPath(dir);
+              await shell.openPath(
+                path.join(
+                  app.getAppPath(),
+                  process.env.NODE_ENV === 'production' && '../..'
+                )
+              );
             } catch (err) {
-              // console.error('Open Directories - Installation');
-              // console.error(err);
+              log.warn(err);
             }
           },
         },
         {
           label: 'App Data',
           click: async () => {
-            const dir = app.getPath('userData');
             try {
-              await shell.openPath(dir);
+              await shell.openPath(app.getPath('userData'));
             } catch (err) {
-              // console.error('Open Directories - App Data');
-              // console.error(err);
+              log.warn(err);
             }
           },
         },
@@ -86,4 +76,16 @@ export const setContextMenu = () => {
   ]);
 
   tray.setContextMenu(contextMenu);
+};
+
+const releasesClick = async () => {
+  try {
+    if (releaseInfo.updateAvailable)
+      await shell.openExternal('https://github.com/xreic/Mapler/releases');
+    else if (releaseInfo.hasErrored)
+      await shell.openPath(path.join(app.getPath('userData'), 'logs'));
+    else checkForUpdates();
+  } catch (err) {
+    log.warn(err);
+  }
 };

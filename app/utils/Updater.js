@@ -7,6 +7,7 @@ import { setContextMenu } from './Tray';
 
 export const releaseInfo = {
   updateAvailable: false,
+  hasErrored: false,
   status: 'Checking for update...',
 };
 
@@ -27,12 +28,16 @@ autoUpdater.on('update-not-available', () => {
 });
 
 autoUpdater.on('error', (e) => {
-  releaseInfo.status = e;
+  log.warn(e);
+  releaseInfo.hasErrored = true;
+  releaseInfo.status = 'Click for error logs';
   setContextMenu();
 });
 
 export const checkForUpdates = async () => {
+  // Reset
   releaseInfo.updateAvailable = false;
+  releaseInfo.hasErrored = false;
   releaseInfo.status = 'Checking for update...';
   setContextMenu();
 
