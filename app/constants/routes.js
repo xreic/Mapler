@@ -12,18 +12,8 @@ import {
 } from '../constants/variables.js';
 
 export const routes = [
-  {
-    path: BOSSES,
-    sub: [
-      { path: DAILY, list: DAILY_BOSSES },
-      { path: WEEKLY, list: WEEKLY_BOSSES },
-    ],
-  },
-  {
-    path: QUESTS,
-    sub: [
-      { path: MAPLE, list: MAPLE_WORLD_QUESTS },
-      { path: ARCANE, list: ARCANE_RIVER_QUESTS },
-    ],
-  },
+  { main: BOSSES, sub: DAILY, list: DAILY_BOSSES },
+  { main: BOSSES, sub: WEEKLY, list: WEEKLY_BOSSES },
+  { main: QUESTS, sub: MAPLE, list: MAPLE_WORLD_QUESTS },
+  { main: QUESTS, sub: ARCANE, list: ARCANE_RIVER_QUESTS },
 ];

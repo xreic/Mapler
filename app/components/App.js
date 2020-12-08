@@ -14,10 +14,11 @@ import { Transition } from './Transition.js';
 import { NavBar } from './navigation/NavBar.js';
 import { CharacterView } from './character/CharacterView.js';
 import { View } from './View.js';
-import { List } from './List.js';
+import { ViewM } from './ViewM.js';
 
 // Helpers
 import { routes } from '../constants/routes.js';
+import { MAPLE } from '../constants/variables.js';
 
 // SCSS
 import { noSelContainer } from './styles/App.scss';
@@ -42,17 +43,17 @@ const App = () => {
             <Router primary={false}>
               <CharacterView path="/" default />
 
-              {routes.map(({ path, sub }) => (
-                <View key={path} path={path}>
-                  {sub.map(({ path, list, isDefault }, index) =>
-                    !index ? (
-                      <List key={path} path={path} list={list} default />
-                    ) : (
-                      <List key={path} path={path} list={list} />
-                    )
-                  )}
-                </View>
-              ))}
+              {routes.map(({ main, sub, list }) => {
+                if (sub !== MAPLE) {
+                  // Normal container
+                  return (
+                    <View key={sub} path={`/${main}/${sub}`} list={list} />
+                  );
+                }
+
+                // Special container for Ursus and event logic
+                return <ViewM key={sub} path={`/${main}/${sub}`} list={list} />;
+              })}
             </Router>
           </Transition>
         </EditProvider>

@@ -1,10 +1,6 @@
 // Core
 import React, { useEffect, useState } from 'react';
-import {
-  differenceInHours,
-  differenceInMinutes,
-  differenceInSeconds,
-} from 'date-fns';
+import { differenceInHours, differenceInMinutes } from 'date-fns';
 
 // Helpers
 import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime.js';
@@ -36,7 +32,7 @@ export const Ursus = ({ isGoldenTime }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000);
+    }, 15000);
     return () => {
       clearInterval(interval);
     };
@@ -51,10 +47,6 @@ export const Ursus = ({ isGoldenTime }) => {
       Ursus Golden Time {isGoldenTime ? 'ends' : 'starts'} in:{' '}
       {differenceInHours(goldenTime, currentTime).toString().padStart(2, '0')}:
       {(differenceInMinutes(goldenTime, currentTime) % 60)
-        .toString()
-        .padStart(2, '0')}
-      :
-      {(differenceInSeconds(goldenTime, currentTime) % 60)
         .toString()
         .padStart(2, '0')}
     </div>
