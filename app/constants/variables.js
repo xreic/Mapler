@@ -3,42 +3,42 @@ exports.REGIONS = ['GMS', 'KMS', 'MSEA'];
 exports.DAILY_BOSSES = [
   'Balrog',
   'Zakum',
-  'Magnus',
-  'Hilla',
+  'Horntail',
   'OMNI-CLN',
-  'Papulatus',
+  'Hilla',
+  'Magnus',
+  'Pink Bean',
   'Pierre',
   'Von Bon',
   'Crimson Queen',
   'Vellum',
   'Von Leon',
-  'Horntail',
+  'Papulatus',
   'Arkarium',
-  'Pink Bean',
-  'Gollux',
   'Ranmaru',
+  'Gollux',
   'Julieta',
 ];
 
 exports.WEEKLY_BOSSES = [
   'Zakum',
-  'Magnus',
   'Hilla',
-  'Papulatus',
+  'Magnus',
+  'Pink Bean',
   'Pierre',
   'Von Bon',
   'Crimson Queen',
   'Vellum',
-  'Pink Bean',
+  'Papulatus',
   'Cygnus',
+  'Princess No',
   'Lotus',
   'Damien',
   'Lucid',
+  'Will',
   'Gloom',
   'Verus Hilla',
   'Darknell',
-  'Princess No',
-  'Will',
 ];
 
 exports.MAPLE_WORLD_QUESTS = [
@@ -47,9 +47,9 @@ exports.MAPLE_WORLD_QUESTS = [
   'Monster Park', // 3 - Daily
   'Ursus', // 4 - Daily
   'Commerci Voyages', // 5 - Daily
-  'Yu Garden', // 6 - Daily
-  'Phantom Forest', // 7 - Daily
-  'Yorozu', // 8 - Daily
+  'Yorozu', // 6 - Daily
+  'Yu Garden', // 7 - Daily
+  'Phantom Forest', // 8 - Daily
   'Legion', // 9 - Daily
   'Legion Shop', // 10 - Weekly
   'Daily Gift', // 11 - Weekly
