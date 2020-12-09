@@ -123,7 +123,7 @@ export const List = ({ list }) => {
             );
           }
 
-          if (index < 14) {
+          if (index < filter.length - 2) {
             // Implied that sub === MAPLE is true
             // Implied that isEvent is false
             return (

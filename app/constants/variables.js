@@ -37,28 +37,29 @@ exports.WEEKLY_BOSSES = [
   'Gloom',
   'Verus Hilla',
   'Darknell',
-  // 'Black Mage',
   'Princess No',
   'Will',
 ];
 
 exports.MAPLE_WORLD_QUESTS = [
-  'Meso Piggy Bank',
-  'Maple Tour',
-  'Monster Park',
-  'Ursus',
-  'Legion',
-  'Commerci Voyages',
-  'Yu Garden',
-  'Phantom Forest',
-  'Daily Gift',
-  'Guild Buff',
-  'Scrapyard',
-  'Dark World Tree',
-  'Mu Lung Dojo',
-  'Kritias',
-  'Coin',
-  'CoinBoss',
+  'Meso Piggy Bank', // 1 - Daily
+  'Maple Tour', // 2 - Daily
+  'Monster Park', // 3 - Daily
+  'Ursus', // 4 - Daily
+  'Commerci Voyages', // 5 - Daily
+  'Yu Garden', // 6 - Daily
+  'Phantom Forest', // 7 - Daily
+  'Yorozu', // 8 - Daily
+  'Legion', // 9 - Daily
+  'Legion Shop', // 10 - Weekly
+  'Daily Gift', // 11 - Weekly
+  'Guild Buff', // 12 - Weekly
+  'Scrapyard', // 13 - Weekly
+  'Dark World Tree', // 14 - Weekly
+  'Mu Lung Dojo', // 15 - Weekly
+  'Kritias', // 16 - Weekly
+  'Coin', // 17 - Daily
+  'CoinBoss', // 18 - Daily
 ];
 
 exports.ARCANE_RIVER_QUESTS = [
