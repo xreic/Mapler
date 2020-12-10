@@ -43,7 +43,7 @@ export const triggerReset = (preResetChars) => {
     } else {
       // Reset daily maple world quests
       char.quests.maple = char.quests.maple.map((value, index) =>
-        value === 1 && (index < 10 || index > 16) ? 0 : value
+        value === 1 && (index < 9 || index > 15) ? 0 : value
       );
     }
 
