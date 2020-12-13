@@ -3,8 +3,10 @@ import React, { createContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
 // Helpers
-import { CHARACTERS } from '../../constants/variables.js';
 import { getNextReset, triggerReset } from '../../utils/Reset.js';
+
+// Constants
+import { CHARACTERS } from '../../constants/variables.js';
 
 const store = new Store({ watch: true });
 

@@ -6,7 +6,7 @@ import { useLocation } from '@reach/router';
 import { NavLink } from './NavLinks.js';
 import { EditButton } from './EditButton.js';
 
-// Helpers
+// Constants
 import {
   BOSSES,
   QUESTS,

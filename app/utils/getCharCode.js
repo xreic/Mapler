@@ -4,7 +4,7 @@ import https from 'https';
 import needle from 'needle';
 import cheerio from 'cheerio';
 
-// Helpers
+// Constants
 import {
   ACTIVE,
   CHARACTERS,

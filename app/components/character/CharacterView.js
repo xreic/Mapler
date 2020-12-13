@@ -1,5 +1,7 @@
 // Core
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // Contexts
 import { CharProvider } from '../context/CharContext.js';
@@ -15,7 +17,9 @@ import { charFuncContainer } from './styles/CharacterView.scss';
 export const CharacterView = () => {
   return (
     <CharProvider>
-      <CharacterList />
+      <DndProvider backend={HTML5Backend}>
+        <CharacterList />
+      </DndProvider>
 
       <div className={charFuncContainer}>
         <DeleteChars />

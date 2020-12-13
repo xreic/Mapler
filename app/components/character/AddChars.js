@@ -4,11 +4,6 @@ import React, { useContext, useRef, useState } from 'react';
 // Components
 import { Button } from '../Button.js';
 import { FormButton } from '../FormButton.js';
-
-// Helpers
-import { CharContext } from '../context/CharContext.js';
-import { getCharCode, isDupe, setStore } from '../../utils/getCharCode.js';
-import { INVALID_CHAR } from '../../constants/variables.js';
 import {
   GrFormPreviousLink,
   GrFormNextLink,
@@ -16,6 +11,13 @@ import {
   GrFormAdd,
   GrErase,
 } from 'react-icons/gr';
+
+// Helpers
+import { CharContext } from '../context/CharContext.js';
+import { getCharCode, isDupe, setStore } from '../../utils/getCharCode.js';
+
+// Constants
+import { INVALID_CHAR } from '../../constants/variables.js';
 
 // SCSS
 import { addCharsStyle } from './styles/AddChars.scss';

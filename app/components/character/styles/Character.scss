@@ -1,35 +1,9 @@
-$bg-opacity: 1;
-
 %charStyle-shared {
   max-width: 100%;
   height: auto;
 
   border-radius: 100%;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.characterListStyle {
-  overflow-y: scroll;
-  height: 287px;
-
-  border-bottom: 1px solid black;
-  background-color: #a0aec0;
-  background-color: rgba(160, 174, 192, $bg-opacity);
-
-  div {
-    padding: 0.5rem;
-    justify-items: center;
-
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 0.25rem;
-
-    span {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-    }
-  }
 }
 
 .inactiveCharStyle {

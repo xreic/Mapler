@@ -16,7 +16,7 @@ import { CharacterView } from './character/CharacterView.js';
 import { View } from './View.js';
 import { ViewM } from './ViewM.js';
 
-// Helpers
+// Constants
 import { routes } from '../constants/routes.js';
 import { MAPLE } from '../constants/variables.js';
 
@@ -35,29 +35,27 @@ const App = () => {
 
   return (
     <LocationProvider history={history}>
-      <div className={noSelContainer} onDragStart={handleDrag}>
-        <EditProvider>
-          <NavBar />
+      {/* <div className={noSelContainer} onDragStart={handleDrag}> */}
+      <EditProvider>
+        <NavBar />
 
-          <Transition>
-            <Router primary={false}>
-              <CharacterView path="/" default />
+        <Transition>
+          <Router primary={false}>
+            <CharacterView path="/" default />
 
-              {routes.map(({ main, sub, list }) => {
-                if (sub !== MAPLE) {
-                  // Normal container
-                  return (
-                    <View key={sub} path={`/${main}/${sub}`} list={list} />
-                  );
-                }
+            {routes.map(({ main, sub, list }) => {
+              if (sub !== MAPLE) {
+                // Normal container
+                return <View key={sub} path={`/${main}/${sub}`} list={list} />;
+              }
 
-                // Special container for Ursus and event logic
-                return <ViewM key={sub} path={`/${main}/${sub}`} list={list} />;
-              })}
-            </Router>
-          </Transition>
-        </EditProvider>
-      </div>
+              // Special container for Ursus and event logic
+              return <ViewM key={sub} path={`/${main}/${sub}`} list={list} />;
+            })}
+          </Router>
+        </Transition>
+      </EditProvider>
+      {/* </div> */}
     </LocationProvider>
   );
 };

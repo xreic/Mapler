@@ -2,8 +2,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
-// Helpers
+// Components
 import { CharContext } from '../context/CharContext.js';
+import { Character } from './Character.js';
+
+// Constants
 import { ACTIVE, DELETING } from '../../constants/variables.js';
 
 // SCSS
@@ -56,7 +59,7 @@ export const CharacterList = () => {
       <div>
         {characters.map((code, index) => {
           if (code) {
-            // TODO: Converted into a function and used for "className" of img element (?)
+            // TODO: Convert into a function and used for "className" of img element (?)
             const charStyle = hideAddButton
               ? deleting[index]
                 ? deleteCharStyle
@@ -66,13 +69,12 @@ export const CharacterList = () => {
               : inactiveCharStyle;
 
             return (
-              <img
-                className={charStyle}
+              <Character
                 key={code}
-                src={`http://msavatar1.nexon.net/Character/${code}.png`}
-                onClick={() => {
-                  hideAddButton ? multiSelect(index) : handleClick(index);
-                }}
+                code={code}
+                index={index}
+                style={charStyle}
+                handler={hideAddButton ? multiSelect : handleClick}
               />
             );
           }

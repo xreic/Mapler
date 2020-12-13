@@ -1,3 +1,4 @@
+// Constants
 import {
   BOSSES,
   QUESTS,

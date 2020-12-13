@@ -10,6 +10,8 @@ import { Task } from './Task.js';
 // Helpers
 import { EditContext } from './context/EditContext.js';
 import { getNextReset, triggerReset } from '../utils/Reset.js';
+
+// Constants
 import { ACTIVE, CHARACTERS, MAPLE } from '../constants/variables.js';
 
 // SCSS

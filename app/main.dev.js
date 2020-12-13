@@ -19,29 +19,26 @@ import log from 'electron-log';
 import path from 'path';
 
 // Helpers
-import { createTray } from './utils/Tray';
-import { checkForUpdates } from './utils/Updater';
-import { getTemplate, updateAllChars } from './utils/getCharCode';
+import { createTray } from './utils/Tray.js';
+import { checkForUpdates } from './utils/Updater.js';
+import { getTemplate, updateAllChars } from './utils/getCharCode.js';
 import {
   hasReset,
   nextResetDate,
   splitTime,
   triggerReset,
 } from './utils/Reset.js';
-import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables';
+
+// Constants
+import { defaultStore } from './constants/storeDefault.js';
+import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables.js';
 
 // Electron store
 const store = new Store();
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
 if (!store.get(CHARACTERS)) {
-  store.set({
-    timer: null,
-    position: null,
-    active: 0,
-    characters: [getTemplate('DEFAULT CHARACTER', null)],
-    deleting: [0],
-  });
+  store.set(defaultStore);
 }
 
 let mainWindow = null;
