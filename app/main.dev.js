@@ -13,7 +13,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { app, BrowserWindow, session } from 'electron';
-// import { autoUpdater } from 'electron-updater';
 import Store from 'electron-store';
 import log from 'electron-log';
 import path from 'path';

@@ -4,6 +4,7 @@ import { useLocation } from '@reach/router';
 
 // Components
 import { NavLink } from './NavLinks.js';
+import { ResetButton } from './ResetButton.js';
 import { EditButton } from './EditButton.js';
 
 // Constants
@@ -71,6 +72,7 @@ const LowerNav = () => {
 
     return (
       <nav>
+        {process.env.NODE_ENV !== 'production' && <ResetButton />}
         {subPaths.map(({ path, label }, index) => (
           <NavLink
             key={label}

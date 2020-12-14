@@ -8,11 +8,17 @@ import needle from 'needle';
 import { Task } from './Task.js';
 
 // Helpers
-import { EditContext } from './context/EditContext.js';
-import { getNextReset, triggerReset } from '../utils/Reset.js';
+import { EditContext } from '../context/EditContext.js';
+import { getNextReset, triggerReset } from '../../utils/Reset.js';
 
 // Constants
-import { ACTIVE, CHARACTERS, MAPLE, ORDER } from '../constants/variables.js';
+import {
+  ACTIVE,
+  CHARACTERS,
+  EVENT,
+  MAPLE,
+  ORDER,
+} from '../../constants/variables.js';
 
 // SCSS
 import { listStyle } from './styles/List.scss';
@@ -20,9 +26,13 @@ import { listStyle } from './styles/List.scss';
 // Electron store
 const store = new Store({ watch: true });
 
-export const List = () => {
+export const ListM = () => {
   const location = useLocation();
   const [_, main, sub] = location.pathname.split('/');
+
+  // View Hook
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEvent, setIsEvent] = useState(false);
 
   // Hooks P1
   const { isEditing } = useContext(EditContext);
@@ -58,6 +68,16 @@ export const List = () => {
   }, [list]);
 
   useEffect(() => {
+    (async () => {
+      const { body } = await needle(
+        'get',
+        'https://xreic.github.io/api/event.json'
+      );
+
+      setIsEvent(body.isEvent);
+    })();
+
+    setIsLoading(false);
     const timer = setTimeout(() => {
       const chars = store.get(CHARACTERS);
       const resetChars = triggerReset(chars);
@@ -68,7 +88,7 @@ export const List = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [filter]);
 
   // Handlers
   const handleClick = (index) => {
@@ -87,21 +107,55 @@ export const List = () => {
     store.set(CHARACTERS, allChars);
   };
 
+  if (isLoading) return null;
+
   return (
     <div className={listStyle}>
-      {list.map((item, index) => {
+      {list.map(({ name, type }, index) => {
         if (filter[index] !== 2 || isEditing) {
-          return (
-            <Task
-              key={item}
-              name={item}
-              index={index}
-              handleClick={handleClick}
-              filter={filter[index]}
-            />
-          );
+          if (isEvent) {
+            return (
+              <Task
+                key={name}
+                name={name}
+                index={index}
+                handleClick={handleClick}
+                filter={filter[index]}
+              />
+            );
+          } else if (type !== EVENT) {
+            return (
+              <Task
+                key={name}
+                name={name}
+                index={index}
+                handleClick={handleClick}
+                filter={filter[index]}
+              />
+            );
+          }
         }
       })}
     </div>
   );
 };
+
+/**
+ * Filter Logic
+ *  1. If either item is supposed to be:
+ *    A. If hidden (filter[index] => 2)
+ *        DON'T return currently mapped Task to be rendered
+ *
+ *    B. If NOT hidden or editing mode is ON, then render:
+ *      1. If view is NOT currently under the "Maple World" tab
+ *           Return tasks (daily bosses, weekly bosses, and arcane river dailies) normally
+ *
+ *      2. Else if there is an event currently running
+ *          (Implies current under "Maple World" tab)
+ *          Return all task
+ *
+ *      3. Else if there is NOT an event currently running
+ *          (Implies current under "Maple World" tab)
+ *          Return all tasks that are NOT event related
+ *
+ */

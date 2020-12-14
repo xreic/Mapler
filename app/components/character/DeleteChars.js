@@ -2,8 +2,8 @@
 import React, { useContext, useState } from 'react';
 
 // Components
-import { Button } from '../Button.js';
-import { FormButton } from '../FormButton.js';
+import { Button } from '../views/Button.js';
+import { FormButton } from '../views/FormButton.js';
 
 // Helpers
 import { CharContext } from '../context/CharContext.js';

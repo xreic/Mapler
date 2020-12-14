@@ -7,10 +7,10 @@ import Store from 'electron-store';
 import path from 'path';
 
 // Context
-import { EditContext } from './context/EditContext.js';
+import { EditContext } from '../context/EditContext.js';
 
 // Helper
-import { ORDER } from '../constants/variables';
+import { ORDER } from '../../constants/variables.js';
 
 // SCSS
 import {

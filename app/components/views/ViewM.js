@@ -6,7 +6,7 @@ import { ListM } from './ListM.js';
 import { Ursus } from './Ursus.js';
 
 // Helpers
-import { ursusGoldenTime, getGoldenTime } from '../utils/ursusGoldenTime.js';
+import { ursusGoldenTime, getGoldenTime } from '../../utils/ursusGoldenTime.js';
 
 // SCSS
 import {

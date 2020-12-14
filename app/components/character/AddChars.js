@@ -2,8 +2,8 @@
 import React, { useContext, useRef, useState } from 'react';
 
 // Components
-import { Button } from '../Button.js';
-import { FormButton } from '../FormButton.js';
+import { Button } from '../views/Button.js';
+import { FormButton } from '../views/FormButton.js';
 import {
   GrFormPreviousLink,
   GrFormNextLink,

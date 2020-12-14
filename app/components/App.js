@@ -12,11 +12,11 @@ import {
 
 // Components
 import { EditProvider } from './context/EditContext.js';
-import { Transition } from './Transition.js';
 import { NavBar } from './navigation/NavBar.js';
 import { CharacterView } from './character/CharacterView.js';
-import { View } from './View.js';
-import { ViewM } from './ViewM.js';
+import { Transition } from './views/Transition.js';
+import { View } from './views/View.js';
+import { ViewM } from './views/ViewM.js';
 
 // Constants
 import { routes } from '../constants/routes.js';
