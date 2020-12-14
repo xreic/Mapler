@@ -20,8 +20,12 @@ import {
 import { navContainer } from './styles/NavBar.scss';
 
 export const NavBar = () => {
+  const handleDrag = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <div className={navContainer}>
+    <div className={navContainer} onDragStart={handleDrag}>
       <UpperNav />
       <LowerNav />
     </div>

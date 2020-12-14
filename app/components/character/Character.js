@@ -9,11 +9,11 @@ import { ACTIVE, CHARACTERS } from '../../constants/variables';
 
 export const Character = ({ style, code, index, handler }) => {
   const [{ isDragging }, drag, preview] = useDrag({
-    item: { type: 'character', id: index },
+    item: { type: 'character', index },
     end: (item, monitor) => {
       if (!monitor.didDrop()) return;
 
-      const sourceIndex = item.id;
+      const sourceIndex = item.index;
       const targetIndex = monitor.getDropResult().target;
 
       rearrangeChars(sourceIndex, targetIndex);

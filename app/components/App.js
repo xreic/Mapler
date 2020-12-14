@@ -27,15 +27,9 @@ import { noSelContainer } from './styles/App.scss';
 let source = createMemorySource('/main_window');
 let history = createHistory(source);
 
-const App = () => {
-  // TODO: Remove later for drag-n-move character arrangement (Future feature)
-  const handleDrag = (e) => {
-    e.preventDefault();
-  };
-
-  return (
-    <LocationProvider history={history}>
-      {/* <div className={noSelContainer} onDragStart={handleDrag}> */}
+const App = () => (
+  <LocationProvider history={history}>
+    <div className={noSelContainer}>
       <EditProvider>
         <NavBar />
 
@@ -55,9 +49,8 @@ const App = () => {
           </Router>
         </Transition>
       </EditProvider>
-      {/* </div> */}
-    </LocationProvider>
-  );
-};
+    </div>
+  </LocationProvider>
+);
 
 export default hot(App);
