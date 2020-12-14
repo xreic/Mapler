@@ -11,10 +11,10 @@ import {
   viewShrunkStyle,
 } from './styles/View.scss';
 
-export const View = ({ list }) => (
+export const View = () => (
   <div className={viewNormalStyle}>
     <div className={taskContainer}>
-      <List list={list} />
+      <List />
     </div>
   </div>
 );

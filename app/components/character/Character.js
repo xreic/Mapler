@@ -1,26 +1,22 @@
 // Core
 import React from 'react';
 import { DragPreviewImage, useDrag, useDrop } from 'react-dnd';
-import Store from 'electron-store';
 import update from 'immutability-helper';
+import Store from 'electron-store';
 
 // Constants
-import { ACTIVE, CHARACTERS } from '../../constants/variables';
+import { ACTIVE, CHARACTERS } from '../../constants/variables.js';
 
 export const Character = ({ style, code, index, handler }) => {
-  const [{ isDragging }, drag, preview] = useDrag({
+  // React DnD
+  const [_drag, drag, preview] = useDrag({
     item: { type: 'character', index },
-    end: (item, monitor) => {
+    end: ({ index: sourceIndex }, monitor) => {
       if (!monitor.didDrop()) return;
 
-      const sourceIndex = item.index;
       const targetIndex = monitor.getDropResult().target;
-
       rearrangeChars(sourceIndex, targetIndex);
     },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
   });
 
   const [_drop, drop] = useDrop({
@@ -49,18 +45,23 @@ export const Character = ({ style, code, index, handler }) => {
 const rearrangeChars = (sourceIndex, targetIndex) => {
   // Electron Store
   const store = new Store();
+  const characters = store.get(CHARACTERS);
 
-  const chars = store.get(CHARACTERS);
-  const movingChar = chars[sourceIndex];
+  const movingChar = characters[sourceIndex];
+  const rearranged = update(characters, {
+    $splice: [
+      [sourceIndex, 1],
+      [targetIndex, 0, movingChar],
+    ],
+  });
 
-  store.set(
-    CHARACTERS,
-    update(chars, {
-      $splice: [
-        [sourceIndex, 1],
-        [targetIndex, 0, movingChar],
-      ],
-    })
-  );
-  store.set(ACTIVE, targetIndex);
+  store.set(CHARACTERS, rearranged);
+
+  if (store.get(ACTIVE) !== sourceIndex) {
+    const charNames = rearranged.map((char) => char.name);
+    const newIndex = charNames.indexOf(characters[store.get(ACTIVE)].name);
+    store.set(ACTIVE, newIndex);
+  } else {
+    store.set(ACTIVE, targetIndex);
+  }
 };

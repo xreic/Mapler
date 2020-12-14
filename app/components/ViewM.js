@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 // Component
-import { List } from './List.js';
+import { ListM } from './ListM.js';
 import { Ursus } from './Ursus.js';
 
 // Helpers
@@ -16,7 +16,7 @@ import {
 } from './styles/View.scss';
 
 // Special snowflake view for Ursus
-export const ViewM = ({ list }) => {
+export const ViewM = () => {
   // View Hooks
   const [isGoldenTime, setIsGoldenTime] = useState(false);
 
@@ -53,7 +53,7 @@ export const ViewM = ({ list }) => {
       <Ursus isGoldenTime={isGoldenTime} />
       <div className={viewShrunkStyle}>
         <div className={taskContainer}>
-          <List list={list} />
+          <ListM />
         </div>
       </div>
     </>

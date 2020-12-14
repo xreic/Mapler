@@ -1,6 +1,8 @@
 // Core
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import {
   createMemorySource,
   createHistory,
@@ -34,19 +36,21 @@ const App = () => (
         <NavBar />
 
         <Transition>
-          <Router primary={false}>
-            <CharacterView path="/" default />
+          <DndProvider backend={HTML5Backend}>
+            <Router primary={false}>
+              <CharacterView path="/" default />
 
-            {routes.map(({ main, sub, list }) => {
-              if (sub !== MAPLE) {
-                // Normal container
-                return <View key={sub} path={`/${main}/${sub}`} list={list} />;
-              }
+              {routes.map(({ main, sub }) => {
+                if (sub !== MAPLE) {
+                  // Normal container
+                  return <View key={sub} path={`/${main}/${sub}`} />;
+                }
 
-              // Special container for Ursus and event logic
-              return <ViewM key={sub} path={`/${main}/${sub}`} list={list} />;
-            })}
-          </Router>
+                // Special container for Ursus and event logic
+                return <ViewM key={sub} path={`/${main}/${sub}`} />;
+              })}
+            </Router>
+          </DndProvider>
         </Transition>
       </EditProvider>
     </div>

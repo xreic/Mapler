@@ -1,5 +1,3 @@
-exports.REGIONS = ['GMS', 'KMS', 'MSEA'];
-
 exports.DAILY_BOSSES = [
   'Balrog',
   'Zakum',
@@ -42,24 +40,24 @@ exports.WEEKLY_BOSSES = [
 ];
 
 exports.MAPLE_WORLD_QUESTS = [
-  'Meso Piggy Bank', // 1 - Daily
-  'Maple Tour', // 2 - Daily
-  'Monster Park', // 3 - Daily
-  'Ursus', // 4 - Daily
-  'Commerci Voyages', // 5 - Daily
-  'Yorozu', // 6 - Daily
-  'Yu Garden', // 7 - Daily
-  'Phantom Forest', // 8 - Daily
-  'Legion', // 9 - Daily
-  'Legion Shop', // 10 - Weekly
-  'Daily Gift', // 11 - Weekly
-  'Guild Buff', // 12 - Weekly
-  'Scrapyard', // 13 - Weekly
-  'Dark World Tree', // 14 - Weekly
-  'Mu Lung Dojo', // 15 - Weekly
-  'Kritias', // 16 - Weekly
-  'Coin', // 17 - Daily
-  'CoinBoss', // 18 - Daily
+  { name: 'Meso Piggy Bank', type: 'daily' },
+  { name: 'Maple Tour', type: 'daily' },
+  { name: 'Monster Park', type: 'daily' },
+  { name: 'Ursus', type: 'daily' },
+  { name: 'Commerci Voyages', type: 'daily' },
+  { name: 'Yorozu', type: 'daily' },
+  { name: 'Yu Garden', type: 'daily' },
+  { name: 'Phantom Forest', type: 'daily' },
+  { name: 'Legion', type: 'daily' },
+  { name: 'Legion Shop', type: 'weekly' },
+  { name: 'Daily Gift', type: 'weekly' },
+  { name: 'Guild Buff', type: 'weekly' },
+  { name: 'Scrapyard', type: 'weekly' },
+  { name: 'Dark World Tree', type: 'weekly' },
+  { name: 'Mu Lung Dojo', type: 'weekly' },
+  { name: 'Kritias', type: 'weekly' },
+  { name: 'Coin', type: 'event' },
+  { name: 'CoinBoss', type: 'event' },
 ];
 
 exports.ARCANE_RIVER_QUESTS = [
@@ -77,11 +75,13 @@ exports.DAILY = 'daily';
 exports.WEEKLY = 'weekly';
 exports.MAPLE = 'maple';
 exports.ARCANE = 'arcane';
+exports.EVENT = 'event';
 
 exports.REGION = 'region';
 exports.ACTIVE = 'active';
 exports.CHARACTERS = 'characters';
 exports.DELETING = 'deleting';
+exports.ORDER = 'order';
 
 exports.TIMER = 'timer';
 exports.POSITION = 'position';

@@ -19,10 +19,7 @@ export const defaultStore = {
       weekly: WEEKLY_BOSSES,
     },
     quests: {
-      maple: MAPLE_WORLD_QUESTS.map((quest, index) => ({
-        name: quest,
-        type: index > 15 ? 'event' : index > 8 ? 'weekly' : 'daily',
-      })),
+      maple: MAPLE_WORLD_QUESTS,
       arcane: ARCANE_RIVER_QUESTS,
     },
   },
