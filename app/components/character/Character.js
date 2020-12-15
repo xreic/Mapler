@@ -1,11 +1,12 @@
 // Core
 import React from 'react';
 import { DragPreviewImage, useDrag, useDrop } from 'react-dnd';
-import update from 'immutability-helper';
-import Store from 'electron-store';
 
 // Constants
 import { ACTIVE, CHARACTERS } from '../../constants/variables.js';
+
+// Helper
+import { rearrangeChars } from '../../utils/Rearrange.js';
 
 export const Character = ({ style, code, index, handler }) => {
   // React DnD
@@ -40,28 +41,4 @@ export const Character = ({ style, code, index, handler }) => {
       </span>
     </>
   );
-};
-
-const rearrangeChars = (sourceIndex, targetIndex) => {
-  // Electron Store
-  const store = new Store();
-  const characters = store.get(CHARACTERS);
-
-  const movingChar = characters[sourceIndex];
-  const rearranged = update(characters, {
-    $splice: [
-      [sourceIndex, 1],
-      [targetIndex, 0, movingChar],
-    ],
-  });
-
-  store.set(CHARACTERS, rearranged);
-
-  if (store.get(ACTIVE) !== sourceIndex) {
-    const charNames = rearranged.map((char) => char.name);
-    const newIndex = charNames.indexOf(characters[store.get(ACTIVE)].name);
-    store.set(ACTIVE, newIndex);
-  } else {
-    store.set(ACTIVE, targetIndex);
-  }
 };

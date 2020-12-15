@@ -1,15 +1,14 @@
 // Core
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useLocation } from '@reach/router';
-import update from 'immutability-helper';
-import Store from 'electron-store';
 import path from 'path';
 
 // Context
 import { EditContext } from '../context/EditContext.js';
 
-// Helper
+// Helper + Constants
+import { rearrangeTasks } from '../../utils/Rearrange.js';
 import { ORDER } from '../../constants/variables.js';
 
 // SCSS
@@ -39,13 +38,6 @@ export const Task = ({ name, index, handleClick, filter }) => {
     drop: () => ({ target: index }),
   });
 
-  // Context
-  const { isEditing } = useContext(EditContext);
-
-  const handleDrag = (e) => {
-    !isEditing && e.preventDefault();
-  };
-
   const imageLocation = `./images/${name}.png`;
 
   return (
@@ -55,13 +47,8 @@ export const Task = ({ name, index, handleClick, filter }) => {
           ref={drag}
           className={getTaskStyle(filter)}
           onClick={() => handleClick(index)}
-          onDragStart={handleDrag}
         >
-          <img
-            className={taskImageStyle}
-            src={imageLocation}
-            onDragStart={handleDrag}
-          />
+          <img ref={drag} className={taskImageStyle} src={imageLocation} />
         </div>
       </span>
     </>
@@ -79,23 +66,4 @@ const getTaskStyle = (filter) => {
     default:
       return taskIncomplete;
   }
-};
-
-const rearrangeTasks = (sourceIndex, targetIndex, location) => {
-  // Reach Router
-  const [_, main, sub] = location.pathname.split('/');
-
-  // Electron Store
-  const store = new Store();
-  const taskList = store.get(ORDER);
-  const movingTask = taskList[main][sub][sourceIndex];
-
-  taskList[main][sub] = update(taskList[main][sub], {
-    $splice: [
-      [sourceIndex, 1],
-      [targetIndex, 0, movingTask],
-    ],
-  });
-
-  store.set(ORDER, taskList);
 };
