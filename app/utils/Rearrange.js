@@ -3,7 +3,7 @@ import Store from 'electron-store';
 import update from 'immutability-helper';
 
 // Constants
-import { ACTIVE, CHARACTERS, ORDER } from '../constants/variables.js';
+import { ACTIVE, CHARACTERS } from '../constants/variables.js';
 
 export const rearrangeChars = (sourceIndex, targetIndex) => {
   const store = new Store();
@@ -38,15 +38,31 @@ export const rearrangeTasks = (sourceIndex, targetIndex, location) => {
   const store = new Store();
 
   // List of all bosses and quests
-  const taskList = store.get(ORDER);
-  const draggedTask = taskList[main][sub][sourceIndex];
+  let taskList = store.get(`${main}-${sub}`);
+  const draggedTask = taskList[sourceIndex];
 
-  taskList[main][sub] = update(taskList[main][sub], {
+  taskList = update(taskList, {
     $splice: [
       [sourceIndex, 1],
       [targetIndex, 0, draggedTask],
     ],
   });
 
-  store.set(ORDER, taskList);
+  // Update all characters
+  const charList = [];
+  for (let char of store.get(CHARACTERS)) {
+    const task = char[main][sub][sourceIndex];
+    char[main][sub] = update(char[main][sub], {
+      $splice: [
+        [sourceIndex, 1],
+        [targetIndex, 0, task],
+      ],
+    });
+
+    charList.push(char);
+  }
+
+  // Set the config
+  store.set(`${main}-${sub}`, taskList);
+  store.set(CHARACTERS, charList);
 };

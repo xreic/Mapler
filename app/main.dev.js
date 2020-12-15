@@ -29,15 +29,17 @@ import {
 } from './utils/Reset.js';
 
 // Constants
-import { defaultStore } from './constants/storeDefault.js';
+import { defaultStore, validateConfig } from './utils/storeDefault.js';
 import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables.js';
 
 // Electron store
 const store = new Store();
 
 // Create default preferences on "first time start" (when config.json doesn't exist)
-if (!store.get(CHARACTERS)) {
+if (store.get(ACTIVE) === null || store.get(ACTIVE) === undefined) {
   store.set(defaultStore);
+} else {
+  validateConfig();
 }
 
 let mainWindow = null;

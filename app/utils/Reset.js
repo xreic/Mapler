@@ -2,7 +2,7 @@
 import Store from 'electron-store';
 
 // Constants
-import { TIMER, QUESTS, MAPLE, WEEKLY, ORDER } from '../constants/variables';
+import { TIMER, QUESTS, MAPLE, WEEKLY } from '../constants/variables.js';
 
 export const splitTime = (date) => ({
   year: date.getUTCFullYear(),
@@ -23,8 +23,8 @@ export const getNextReset = () => {
 export const triggerReset = (preResetChars) => {
   const store = new Store();
   const mapleQuestTypes = store
-    .get(ORDER)
-    [QUESTS][MAPLE].map(({ type }) => type);
+    .get(`${QUESTS}-${MAPLE}`)
+    .map(({ type }) => type);
 
   const resetChars = [];
   const dayOfWeek = new Date().getUTCDay();

@@ -7,9 +7,8 @@ import path from 'path';
 // Context
 import { EditContext } from '../context/EditContext.js';
 
-// Helper + Constants
+// Helper
 import { rearrangeTasks } from '../../utils/Rearrange.js';
-import { ORDER } from '../../constants/variables.js';
 
 // SCSS
 import {

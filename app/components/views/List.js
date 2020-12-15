@@ -12,7 +12,7 @@ import { EditContext } from '../context/EditContext.js';
 import { getNextReset, triggerReset } from '../../utils/Reset.js';
 
 // Constants
-import { ACTIVE, CHARACTERS, MAPLE, ORDER } from '../../constants/variables.js';
+import { ACTIVE, CHARACTERS, MAPLE } from '../../constants/variables.js';
 
 // SCSS
 import { listStyle } from './styles/List.scss';
@@ -34,7 +34,7 @@ export const List = () => {
   );
 
   // List of tasks to render
-  const [list, setList] = useState(store.get(ORDER)[main][sub]);
+  const [list, setList] = useState(store.get(`${main}-${sub}`));
 
   // Hooks P2
   useEffect(() => {
@@ -48,8 +48,8 @@ export const List = () => {
   }, [filter]);
 
   useEffect(() => {
-    const unsubOrder = store.onDidChange(ORDER, (taskList, _) => {
-      setList(taskList[main][sub]);
+    const unsubOrder = store.onDidChange(`${main}-${sub}`, (taskList, _) => {
+      setList(taskList);
     });
 
     return () => {

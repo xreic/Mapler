@@ -81,7 +81,6 @@ exports.REGION = 'region';
 exports.ACTIVE = 'active';
 exports.CHARACTERS = 'characters';
 exports.DELETING = 'deleting';
-exports.ORDER = 'order';
 
 exports.TIMER = 'timer';
 exports.POSITION = 'position';
