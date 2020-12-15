@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useLocation } from '@reach/router';
 import path from 'path';
@@ -20,6 +20,7 @@ import {
 
 export const Task = ({ name, index, handleClick, filter }) => {
   const location = useLocation();
+  const { isEditing } = useContext(EditContext);
 
   // React DnD
   const [_drag, drag] = useDrag({
@@ -37,6 +38,10 @@ export const Task = ({ name, index, handleClick, filter }) => {
     drop: () => ({ target: index }),
   });
 
+  const handleDrag = (e) => {
+    !isEditing && e.preventDefault();
+  };
+
   const imageLocation = `./images/${name}.png`;
 
   return (
@@ -46,8 +51,14 @@ export const Task = ({ name, index, handleClick, filter }) => {
           ref={drag}
           className={getTaskStyle(filter)}
           onClick={() => handleClick(index)}
+          onDragStart={handleDrag}
         >
-          <img ref={drag} className={taskImageStyle} src={imageLocation} />
+          <img
+            ref={drag}
+            className={taskImageStyle}
+            src={imageLocation}
+            onDragStart={handleDrag}
+          />
         </div>
       </span>
     </>
