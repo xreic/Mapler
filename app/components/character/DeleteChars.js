@@ -1,14 +1,14 @@
 // Core
 import React, { useContext, useState } from 'react';
+import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
-// Components
+// Contexts + Components
+import { CharContext } from '../context/CharContext.js';
 import { Button } from '../views/Button.js';
 import { FormButton } from '../views/FormButton.js';
 
 // Helpers
-import { CharContext } from '../context/CharContext.js';
 import { activateDelete } from '../../utils/getCharCode.js';
-import { GrFormSubtract, GrFormPreviousLink } from 'react-icons/gr';
 
 // SCSS
 import { deleteCharStyle } from './styles/DeleteChars.scss';

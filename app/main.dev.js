@@ -12,25 +12,19 @@
 // Core
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { app, BrowserWindow, session } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import Store from 'electron-store';
-import log from 'electron-log';
 import path from 'path';
 
 // Helpers
 import { createTray } from './utils/Tray.js';
 import { checkForUpdates } from './utils/Updater.js';
-import { getTemplate, updateAllChars } from './utils/getCharCode.js';
-import {
-  hasReset,
-  nextResetDate,
-  splitTime,
-  triggerReset,
-} from './utils/Reset.js';
+import { updateAllChars } from './utils/getCharCode.js';
+import { hasReset, nextResetDate, triggerReset } from './utils/Reset.js';
 
 // Constants
 import { defaultStore, validateConfig } from './utils/storeDefault.js';
-import { CHARACTERS, POSITION, TIMER, ACTIVE } from './constants/variables.js';
+import { POSITION, TIMER, ACTIVE } from './constants/variables.js';
 
 // Electron store
 const store = new Store();
@@ -47,9 +41,7 @@ let mainWindow = null;
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
-}
-
-if (
+} else if (
   process.env.NODE_ENV === 'development' ||
   process.env.DEBUG_PROD === 'true'
 ) {
@@ -85,17 +77,6 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
-  /**
-   * Start-up checks
-   *  1. Check for updates for each character's image code
-   *  2. Reset bosses and quests when reset has passed
-   */
-  await updateAllChars();
-  if (hasReset()) {
-    const chars = store.get(CHARACTERS);
-    store.set(CHARACTERS, triggerReset(chars));
-  }
-
   mainWindow = new BrowserWindow({
     show: false,
     width: process.env.NODE_ENV === 'production' ? 350 : 1337,
@@ -119,7 +100,7 @@ const createWindow = async () => {
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   /**
-   * Hide, show, set, etc
+   * Window setting
    *  1. Menu bar
    *  2. Dev Tools
    *  3. Move the window to the last closed position
@@ -131,6 +112,16 @@ const createWindow = async () => {
   const winPosition = store.get(POSITION);
   if (winPosition) mainWindow.setPosition(winPosition[0], winPosition[1]);
 
+  /**
+   * Character and task checks
+   *  1. Reset bosses and quests when reset has passed
+   *  2. Check for updates for each character's image code
+   *  3. Check if user's current config.json is up-to-date
+   */
+  if (hasReset()) triggerReset();
+  await updateAllChars();
+
+  // Event handlers for program window
   mainWindow.webContents.on('did-finish-load', async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');

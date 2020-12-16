@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { differenceInHours, differenceInMinutes } from 'date-fns';
 
 // Helpers
-import { ursusGoldenTime, getGoldenTime } from '../../utils/ursusGoldenTime.js';
+import { getGoldenTime } from '../../utils/ursusGoldenTime.js';
 
 // SCSS
 import { ursusNotGoldenStyle, ursusIsGoldenStyle } from './styles/Ursus.scss';

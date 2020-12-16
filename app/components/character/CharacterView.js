@@ -1,10 +1,8 @@
 // Core
 import React from 'react';
 
-// Contexts
+// Contexts + Components
 import { CharProvider } from '../context/CharContext.js';
-
-// Components
 import { CharacterList } from './CharacterList.js';
 import { AddChars } from './AddChars.js';
 import { DeleteChars } from './DeleteChars.js';

@@ -2,7 +2,6 @@
 import React, { useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useLocation } from '@reach/router';
-import path from 'path';
 
 // Context
 import { EditContext } from '../context/EditContext.js';

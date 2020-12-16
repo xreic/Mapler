@@ -2,10 +2,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
-// Helpers
+// Helpers + Constants
 import { getNextReset, triggerReset } from '../../utils/Reset.js';
-
-// Constants
 import { CHARACTERS } from '../../constants/variables.js';
 
 const store = new Store({ watch: true });
@@ -33,8 +31,7 @@ export const CharProvider = ({ children }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const chars = store.get(CHARACTERS);
-      store.set(CHARACTERS, triggerReset(chars));
+      triggerReset();
     }, getNextReset() + 1);
 
     return () => {

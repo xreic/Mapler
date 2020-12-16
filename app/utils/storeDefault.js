@@ -6,12 +6,6 @@ import { getTemplate } from './getCharCode.js';
 
 // Constants
 import {
-  BOSSES,
-  QUESTS,
-  DAILY,
-  WEEKLY,
-  MAPLE,
-  ARCANE,
   DAILY_BOSSES,
   WEEKLY_BOSSES,
   ARCANE_RIVER_QUESTS,

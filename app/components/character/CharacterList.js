@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Store from 'electron-store';
 
-// Components
+// Contexts + Components
 import { CharContext } from '../context/CharContext.js';
 import { Character } from './Character.js';
 

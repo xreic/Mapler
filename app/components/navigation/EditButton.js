@@ -1,9 +1,9 @@
 // Core
 import React, { useContext } from 'react';
+import { GrEdit, GrCheckmark } from 'react-icons/gr';
 
 // Helpers
 import { EditContext } from '../context/EditContext.js';
-import { GrEdit, GrCheckmark } from 'react-icons/gr';
 
 // SCSS
 import { editButtonStyle } from './styles/EditButton.scss';

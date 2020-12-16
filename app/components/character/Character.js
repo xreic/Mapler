@@ -2,9 +2,6 @@
 import React from 'react';
 import { DragPreviewImage, useDrag, useDrop } from 'react-dnd';
 
-// Constants
-import { ACTIVE, CHARACTERS } from '../../constants/variables.js';
-
 // Helper
 import { rearrangeChars } from '../../utils/Rearrange.js';
 

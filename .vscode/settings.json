@@ -8,7 +8,7 @@
     ".eslintignore": "ignore"
   },
 
-  "javascript.validate.enable": false,
+  "javascript.validate.enable": true,
   "javascript.format.enable": false,
   "typescript.format.enable": false,
 

@@ -2,17 +2,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from '@reach/router';
 import Store from 'electron-store';
-import needle from 'needle';
 
-// Components
+// Contexts + Components
+import { EditContext } from '../context/EditContext.js';
 import { Task } from './Task.js';
 
-// Helpers
-import { EditContext } from '../context/EditContext.js';
+// Helpers + Constants
 import { getNextReset, triggerReset } from '../../utils/Reset.js';
-
-// Constants
-import { ACTIVE, CHARACTERS, MAPLE } from '../../constants/variables.js';
+import { ACTIVE, CHARACTERS } from '../../constants/variables.js';
 
 // SCSS
 import { listStyle } from './styles/List.scss';
@@ -59,10 +56,7 @@ export const List = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const chars = store.get(CHARACTERS);
-      const resetChars = triggerReset(chars);
-      store.set(CHARACTERS, resetChars);
-      setFilter(resetChars[store.get(ACTIVE)][main][sub]);
+      triggerReset();
     }, getNextReset() + 1);
 
     return () => {

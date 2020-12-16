@@ -1,9 +1,5 @@
 // Core
 import React, { useContext, useRef, useState } from 'react';
-
-// Components
-import { Button } from '../views/Button.js';
-import { FormButton } from '../views/FormButton.js';
 import {
   GrFormPreviousLink,
   GrFormNextLink,
@@ -12,11 +8,13 @@ import {
   GrErase,
 } from 'react-icons/gr';
 
-// Helpers
+// Contexts + Components
 import { CharContext } from '../context/CharContext.js';
-import { getCharCode, isDupe, setStore } from '../../utils/getCharCode.js';
+import { Button } from '../views/Button.js';
+import { FormButton } from '../views/FormButton.js';
 
-// Constants
+// Helpers + Constants
+import { getCharCode, isDupe, setStore } from '../../utils/getCharCode.js';
 import { INVALID_CHAR } from '../../constants/variables.js';
 
 // SCSS

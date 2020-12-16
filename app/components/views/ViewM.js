@@ -9,11 +9,7 @@ import { Ursus } from './Ursus.js';
 import { ursusGoldenTime, getGoldenTime } from '../../utils/ursusGoldenTime.js';
 
 // SCSS
-import {
-  taskContainer,
-  viewNormalStyle,
-  viewShrunkStyle,
-} from './styles/View.scss';
+import { taskContainer, viewShrunkStyle } from './styles/View.scss';
 
 // Special snowflake view for Ursus
 export const ViewM = () => {

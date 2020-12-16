@@ -30,6 +30,7 @@ exports.WEEKLY_BOSSES = [
   'Papulatus',
   'Cygnus',
   'Princess No',
+  'Akechi',
   'Lotus',
   'Damien',
   'Lucid',

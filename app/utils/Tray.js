@@ -4,7 +4,8 @@ import log from 'electron-log';
 import path from 'path';
 
 // Helpers
-import { releaseInfo, checkForUpdates } from './Updater';
+import { triggerReset } from '../utils/Reset.js';
+import { releaseInfo, checkForUpdates } from './Updater.js';
 
 let tray;
 
@@ -35,9 +36,13 @@ export const setContextMenu = () => {
       enabled: false,
     },
     {
-      label: releaseInfo.status,
+      label:
+        process.env.NODE_ENV === 'production' ? releaseInfo.status : 'Dev Mode',
       click: releasesClick,
+      enabled: process.env.NODE_ENV === 'production',
     },
+    { type: 'separator' },
+    { label: 'Reset', click: triggerReset },
     { type: 'separator' },
     {
       label: 'Open Directories',

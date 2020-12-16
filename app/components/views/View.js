@@ -5,11 +5,7 @@ import React from 'react';
 import { List } from './List.js';
 
 // SCSS
-import {
-  taskContainer,
-  viewNormalStyle,
-  viewShrunkStyle,
-} from './styles/View.scss';
+import { taskContainer, viewNormalStyle } from './styles/View.scss';
 
 export const View = () => (
   <div className={viewNormalStyle}>
