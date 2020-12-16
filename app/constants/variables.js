@@ -51,7 +51,7 @@ exports.MAPLE_WORLD_QUESTS = [
   { name: 'Phantom Forest', type: 'daily' },
   { name: 'Legion', type: 'daily' },
   { name: 'Legion Shop', type: 'weekly' },
-  { name: 'Daily Gift', type: 'weekly' },
+  { name: 'Daily Gift', type: 'daily' },
   { name: 'Guild Buff', type: 'weekly' },
   { name: 'Scrapyard', type: 'weekly' },
   { name: 'Dark World Tree', type: 'weekly' },

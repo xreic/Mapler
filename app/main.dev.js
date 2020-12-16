@@ -23,7 +23,7 @@ import { updateAllChars } from './utils/getCharCode.js';
 import { hasReset, nextResetDate, triggerReset } from './utils/Reset.js';
 
 // Constants
-import { defaultStore, validateConfig } from './utils/storeDefault.js';
+import { defaultStore, validateConfig } from './utils/LocalStore.js';
 import { POSITION, TIMER, ACTIVE } from './constants/variables.js';
 
 // Electron store
@@ -115,8 +115,8 @@ const createWindow = async () => {
   /**
    * Character and task checks
    *  1. Reset bosses and quests when reset has passed
-   *  2. Check for updates for each character's image code
-   *  3. Check if user's current config.json is up-to-date
+   *  2. Check if user's current config.json is up-to-date
+   *  3. Check for updates for each character's image code
    */
   if (hasReset()) triggerReset();
   await updateAllChars();

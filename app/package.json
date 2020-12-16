@@ -1,7 +1,7 @@
 {
   "name": "mapler",
   "productName": "Mapler",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Tracker app for mushroom game",
   "main": "./main.prod.js",
   "author": {

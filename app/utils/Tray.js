@@ -4,8 +4,9 @@ import log from 'electron-log';
 import path from 'path';
 
 // Helpers
-import { triggerReset } from '../utils/Reset.js';
 import { releaseInfo, checkForUpdates } from './Updater.js';
+import { triggerReset } from '../utils/Reset.js';
+import { updateConfig } from '../utils/LocalStore.js';
 
 let tray;
 
@@ -28,53 +29,14 @@ export const createTray = () => {
 };
 
 export const setContextMenu = () => {
+  let devCM = [];
+  if (process.env.NODE_ENV !== 'production')
+    devCM = [{ label: 'Reset', click: triggerReset }, { type: 'separator' }];
+
   const contextMenu = Menu.buildFromTemplate([
-    {
-      // In development mode, this retrieves Electron's current version
-      // In production mode, this will retrieve the app's current version
-      label: `Version ${app.getVersion()}`,
-      enabled: false,
-    },
-    {
-      label:
-        process.env.NODE_ENV === 'production' ? releaseInfo.status : 'Dev Mode',
-      click: releasesClick,
-      enabled: process.env.NODE_ENV === 'production',
-    },
-    { type: 'separator' },
-    { label: 'Reset', click: triggerReset },
-    { type: 'separator' },
-    {
-      label: 'Open Directories',
-      submenu: [
-        {
-          label: 'Installation',
-          click: async () => {
-            try {
-              await shell.openPath(
-                path.join(
-                  app.getAppPath(),
-                  process.env.NODE_ENV === 'production' && '../..'
-                )
-              );
-            } catch (err) {
-              log.warn(err);
-            }
-          },
-        },
-        {
-          label: 'App Data',
-          click: async () => {
-            try {
-              await shell.openPath(app.getPath('userData'));
-            } catch (err) {
-              log.warn(err);
-            }
-          },
-        },
-      ],
-    },
-    { type: 'separator' },
+    ...verSection,
+    ...dirSection,
+    ...devCM,
     {
       label: 'Quit',
       click: () => {
@@ -85,6 +47,59 @@ export const setContextMenu = () => {
 
   tray.setContextMenu(contextMenu);
 };
+
+// Version section of the tray's context menu
+const verSection = [
+  {
+    // In development mode, this retrieves Electron's current version
+    // In production mode, this will retrieve the app's current version
+    label: `Version ${app.getVersion()}`,
+    enabled: false,
+  },
+  {
+    label:
+      process.env.NODE_ENV === 'production' ? releaseInfo.status : 'Dev Mode',
+    click: releasesClick,
+    enabled: process.env.NODE_ENV === 'production',
+  },
+  { label: 'Update Config', click: updateConfig },
+  { type: 'separator' },
+];
+
+// Directories section of the tray's context menu
+const dirSection = [
+  {
+    label: 'Open Directories',
+    submenu: [
+      {
+        label: 'Installation',
+        click: async () => {
+          try {
+            await shell.openPath(
+              path.join(
+                app.getAppPath(),
+                process.env.NODE_ENV === 'production' && '../..'
+              )
+            );
+          } catch (err) {
+            log.warn(err);
+          }
+        },
+      },
+      {
+        label: 'App Data',
+        click: async () => {
+          try {
+            await shell.openPath(app.getPath('userData'));
+          } catch (err) {
+            log.warn(err);
+          }
+        },
+      },
+    ],
+  },
+  { type: 'separator' },
+];
 
 const releasesClick = async () => {
   try {
