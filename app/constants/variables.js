@@ -49,6 +49,7 @@ exports.MAPLE_WORLD_QUESTS = [
   { name: 'Yorozu', type: 'daily' },
   { name: 'Yu Garden', type: 'daily' },
   { name: 'Phantom Forest', type: 'daily' },
+  { name: 'Union', type: 'daily' },
   { name: 'Legion', type: 'daily' },
   { name: 'Legion Shop', type: 'weekly' },
   { name: 'Daily Gift', type: 'daily' },
