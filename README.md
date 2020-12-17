@@ -39,4 +39,4 @@ If you have a MacOS computer and would like to package the program for me, then 
 ### Requirements
 
 - Node.js
-- NPM
+- Yarn or NPM
