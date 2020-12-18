@@ -44,4 +44,4 @@ If you have a MacOS computer and would like to package the program for me, then 
 ## Reflections
 
 This project is pretty much finished. \
-I started this project, because I didn't like how the other Maplestory trackers looked. I'm happy with how this program turned out and I am most likely can develop another tracker program but web-based instead of a desktop program (having to re-install the program manually is annoying and I don't want to pay to code sign this for over-the-air updates) so keep an eye out for when I start that. It'll most likely be using the same stack and be utilizing Google Firebase.
+I started this project, because I didn't like how the other Maplestory trackers looked. I'm happy with how this program turned out and I am most likely going to develop another tracker program but web-based instead of a desktop program (having to re-install the program manually is annoying and I don't want to pay to code sign this for over-the-air updates) so keep an eye out for when I start that. It'll most likely be using the same stack and be utilizing Google Firebase.
